@@ -1,0 +1,13 @@
+.cardRow,
+.btnRow {
+    margin: auto;
+}
+
+.cardRow {
+    display: block;
+    padding: 5px;
+}
+
+.btnRow {
+    padding: 5px;
+}

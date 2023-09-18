@@ -1,9 +1,9 @@
 // since this data file contains an array of flashcards,
-// import the tsx file that holds the interface that defines what a flashcard is
-// this way TS can recognize what Card is and what fields it has
-import { Card } from '../components/Card.tsx'
+// import the tsx file that holds the interface that defines what a flashcard is (CardInfo.tsx)
+// this way TS can recognize what CardInfo is and what fields it has
+import { CardInfo } from '../components/CardInfo'
 
-const cardData: Card[] = [
+const cardData: CardInfo[] = [
     {
         id: 1,
         side1: "to be",
