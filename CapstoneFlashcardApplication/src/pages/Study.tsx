@@ -4,6 +4,9 @@ import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import cardData from '../data/cardData'
 import Draw from "../components/DrawCard";
+// import Deck from "../components/Deck";
+// import { createBrowserRouter, createRoutesFromElements, Link, Outlet, BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import Root from "./Root";
 
 import './Study.css'
 
