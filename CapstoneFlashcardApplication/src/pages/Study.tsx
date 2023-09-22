@@ -4,9 +4,11 @@ import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import cardData from '../data/cardData'
 import Draw from "../components/DrawCard";
+
 import Correct from "../components/Correct";
 import Wrong from "../components/Wrong";
 import Result from "../components/Result";
+
 import './Study.css'
 
 const Study = () => {

@@ -1,0 +1,9 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* in the nav bar (router), target all a tags */
+.navBar a {
+    font-size: xx-large;
+}
