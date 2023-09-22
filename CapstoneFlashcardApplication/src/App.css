@@ -1,0 +1,9 @@
+body 
+{
+    background-image: url('./Images/Ripple background.jpg'); /* Adjust the path to any image you want */
+    background-size: cover; /* Adjust as needed to control how the image covers the background */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-attachment: fixed; /* Keep the background fixed, if desired */
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
+  }
