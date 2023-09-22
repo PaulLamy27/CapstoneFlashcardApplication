@@ -7,9 +7,7 @@ interface props {
 
 const Draw = ({ onClick }: props) => {
     return (
-        <div className='buttonContainer'>
             <button className='button' onClick={onClick}>Draw Card</button>
-        </div>
     )
 }
 
