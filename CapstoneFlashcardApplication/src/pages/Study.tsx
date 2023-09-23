@@ -37,8 +37,7 @@ const Study = () => {
 
     const [correctLists, setCorrectLists] = useState(Array(0).fill(null));
 
-    const correctCards = (currentCard) => {
-
+    const correctCards = (currentCard: CardInfo) => {
 
         const nextlist = correctLists.slice();
         nextlist.push(currentCard.side1);
@@ -50,7 +49,7 @@ const Study = () => {
 
     const [wrongLists, setWrongLists] = useState(Array(0).fill(null));
 
-    const wrongCards = (currentCard) => {
+    const wrongCards = (currentCard: CardInfo) => {
 
 
         const nextlist = correctLists.slice();
