@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
+
+.mainDeckContainer {
+    height: 100vh;
+}
+
+.deckName {
+    font-family: Martel-Sans, Rubik;
+    display: block;
+    /* left: 50%; */
+}
+
+.cardContainer {
+    display: block;
+    width: 66.25rem;
+    height: 8.125rem;
+}

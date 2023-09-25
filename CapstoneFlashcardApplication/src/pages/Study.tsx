@@ -13,9 +13,6 @@ import './Study.css'
 
 const Study = () => {
 
-    // trygint to see if the component even mounts lol
-    // console.log("BRUH is this even being called?!?!?!?")
-
     // cardData.forEach((card) => {
     //     console.log(card)
     // })

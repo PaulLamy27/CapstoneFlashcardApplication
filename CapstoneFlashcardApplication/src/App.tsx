@@ -2,7 +2,7 @@
 // import the components we will use for this project.
 import Study from './pages/Study'
 import Root from './pages/Root'
-import Deck from './components/Deck'
+import Deck from './pages/Deck'
 
 import './App.css'
 // This page will use Routing.
