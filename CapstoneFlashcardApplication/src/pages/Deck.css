@@ -10,8 +10,16 @@
     /* left: 50%; */
 }
 
-.cardContainer {
+.cardListItem {
+    cursor: pointer;
+    font-family: Martel-Sans, Rubik;
+    background-color: #D7D7D7;
+    color: black;
     display: block;
     width: 66.25rem;
     height: 8.125rem;
+}
+
+.side {
+    
 }
