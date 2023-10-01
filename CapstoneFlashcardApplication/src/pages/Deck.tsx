@@ -16,11 +16,6 @@ const Deck = () => {
     const [backSide, setbackSide] = useState('');
     const [pronounced, setPronounced] = useState('');
 
-    // TODO:
-    // CARD LIST ELEMENT, SEPARATE FROM STATE VARIABLE THAT NEEDS TO BE UPDATED
-    // HOW TO STORE CARDDATA?!
-    // UPDATECARDLIST FUNCTION/HOOK???? 
-
 
     // test if the cardData saves
     // console.log(cards);
