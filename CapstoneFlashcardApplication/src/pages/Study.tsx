@@ -59,7 +59,7 @@ const Study = () => {
         // console.log("correctList AFTER: ", correctList);
 
         // setCardsList(cardsList.splice(currentCardIndex, 1));
-        setCardsList((cardsList) => 
+        setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
         )
 
@@ -81,7 +81,7 @@ const Study = () => {
         setDeckSize(deckSize - 1);
         let currentCardIndex = cardsList.indexOf(currentCard);
         setWrongList([...wrongList, currentCard]);
-        setCardsList((cardsList) => 
+        setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
         )
         updateCard();
@@ -108,20 +108,20 @@ const Study = () => {
                 </div> */}
 
                 {deckSize === 0 && (
-                    <DisplayResults right={correctList} wrong={wrongList}/>
-                )
-                
-                }
+                    <DisplayResults right={correctList} wrong={wrongList} />
+                )}
 
-                <div className="cardRow">
-                    <Card card={currentCard} />
-                </div>
-                
-                <div className="buttonRow">
-                    <Draw onClick={updateCard} />
-                    < Correct onClick={() => handleCorrectCards(currentCard)} />
-                    < Wrong onClick={() => handleWrongCards(currentCard)} />
-                </div>
+                {deckSize > 0 && (
+                    <>
+                        <div className="cardRow">
+                            <Card card={currentCard} />
+                        </div>
+                        <div className="buttonRow">
+                            < Correct onClick={() => handleCorrectCards(currentCard)} />
+                            < Wrong onClick={() => handleWrongCards(currentCard)} />
+                        </div>
+                    </>
+                )}
             </div>
         </>
     )
