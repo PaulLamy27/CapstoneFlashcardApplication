@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
@@ -9,7 +8,7 @@ import DisplayResults from "../components/DisplayResults";
 import Correct from "../components/Correct";
 import Wrong from "../components/Wrong";
 import Result from "../components/Result";
-
+import TryAgain from "../components/TryAgain";
 import './Study.css'
 
 const Study = () => {
@@ -24,7 +23,8 @@ const Study = () => {
     const [currentCard, setCurrentCard] = useState(getRandomCard(cardData));
     const [correctList, setCorrectList] = useState(Array(0).fill(null));
     const [wrongList, setWrongList] = useState(Array(0).fill(null));
-    const [deckSize, setDeckSize] = useState(cardData.length)
+    const [deckSize, setDeckSize] = useState(cardData.length);
+    const [flag, setFlag] = useState("Y");
 
     // console.log("cardsList upon page render: ", cardsList);
 
@@ -34,7 +34,7 @@ const Study = () => {
         setCurrentCard(newCard);
         // update the card that is on the screen
     }
-
+    
 
     const handleCorrectCards = (currentCard: CardInfo) => {
         // console.log("correctLists Before slice: ", correctLists);
@@ -59,7 +59,7 @@ const Study = () => {
         // console.log("correctList AFTER: ", correctList);
 
         // setCardsList(cardsList.splice(currentCardIndex, 1));
-        setCardsList((cardsList) => 
+        setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
         )
 
@@ -81,7 +81,7 @@ const Study = () => {
         setDeckSize(deckSize - 1);
         let currentCardIndex = cardsList.indexOf(currentCard);
         setWrongList([...wrongList, currentCard]);
-        setCardsList((cardsList) => 
+        setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
         )
         updateCard();
@@ -89,7 +89,19 @@ const Study = () => {
 
     }
 
-
+    const handleTryAgain = (wrongList: CardInfo[]) => {
+        
+        // setCardsList(wrongList);
+        // setCurrentCard(wrongList[0]);
+        // console.log(cardsList);
+        setDeckSize(wrongList.length);
+        setCardsList(wrongList);
+        
+        console.log(cardsList);
+        updateCard();
+        console.log("wrongList: ", wrongList);
+        setWrongList([]);
+    }
 
     // the state of currentCard is set to false on first render.
     // if this is the case, then the page is just now being rendered.
@@ -108,20 +120,30 @@ const Study = () => {
                 </div> */}
 
                 {deckSize === 0 && (
-                    <DisplayResults right={correctList} wrong={wrongList}/>
-                )
-                
-                }
-
-                <div className="cardRow">
-                    <Card card={currentCard} />
-                </div>
-                
-                <div className="buttonRow">
-                    <Draw onClick={updateCard} />
-                    < Correct onClick={() => handleCorrectCards(currentCard)} />
-                    < Wrong onClick={() => handleWrongCards(currentCard)} />
-                </div>
+                    <><DisplayResults right={correctList} wrong={wrongList} flag = {flag}/><>
+                        
+                    </></>  
+                )}
+                {deckSize === 0 && wrongList.length > 0 && (
+                    
+                        <div className="buttonRow">
+                            <TryAgain onClick={() => handleTryAgain(wrongList)} />
+                           
+                        </div>
+                     
+                )}
+                {deckSize > 0 && (
+                    <>
+                        <div className="cardRow">
+                            <Card card={currentCard} />
+                        </div>
+                        <div className="buttonRow">
+                            < Correct onClick={() => handleCorrectCards(currentCard)} />
+                            < Wrong onClick={() => handleWrongCards(currentCard)} />
+                            
+                        </div>
+                    </>
+                )}
             </div>
         </>
     )
