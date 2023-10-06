@@ -16,7 +16,7 @@ const Footer = () => {
     <div className='min-h-screen flex flex-col justify-center items-center text-center text-gray-300 py-16 px-4'>
         <div>
         <h1 className='text-3xl font-bold text-[#00df9a] m-4'>CARDMENTOR.</h1>
-        <p className='py-4'>We geatly appreciate your interest in our app and would gladly accept feedback. Our GitHub repository and contact information is below.</p>
+        <p className='py-4'>We greatly appreciate your interest in our app and would gladly accept feedback. Our GitHub repository and contact information is below.</p>
         <div className='flex justify-center items-center my-6'>
             <a href={githubProfileUrl} target="_blank" rel="noopener noreferrer">
               <FaGithubSquare size={30} />
