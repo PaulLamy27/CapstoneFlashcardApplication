@@ -3,8 +3,8 @@
 import Study from './pages/Study'
 import Root from './pages/Root'
 import Deck from './components/Deck'
-
 import './App.css'
+
 // This page will use Routing.
 // this means that the page will have 'links' to other components,
 // and clicking those links will redirect you to that page, which is also a component.

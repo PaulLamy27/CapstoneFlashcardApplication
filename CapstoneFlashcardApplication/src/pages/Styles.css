@@ -1,0 +1,35 @@
+/* styles.css */
+.custom-link {
+    color: whitesmoke;
+    background-color: gray;
+    border-radius: 20%;
+    text-decoration: none; /* Can add underline here */
+    padding: 8px 16px;
+    margin-right: 10px;
+    font-weight: bold;
+    /* Add other styles as needed */
+  }
+  
+  .custom-link:hover {
+    color: whitesmoke; /* Change color on hover */
+    background-color: gray;
+    border-radius: 20%;
+    text-decoration: none;
+  }
+
+
+  /* Apply styles to the navigation bar (optional) */
+  nav {
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style active link differently */
+  .custom-link.active {
+    color: green;
+    text-decoration: none;
+    /* Add other active link styles */
+  }
+  
