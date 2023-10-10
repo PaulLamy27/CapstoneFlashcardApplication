@@ -26,20 +26,19 @@ const Navbar = () => {
         </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
-        {!nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
       <div
         className={
-          !nav
+          nav
             ? "fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-600 bg-[#13163b] ease-in-out duration-500"
             : "fixed left-[-100%]"
         }
       >
-        <Link to="/" className="text-3xl font-bold text-[#00df9a] m-4">
-          CARDMENTOR.
-        </Link>
-
         <ul className="uppercase p-4">
+          <Link to="/" className="text-3xl font-bold text-[#00df9a] m-4">
+            CARDMENTOR.
+          </Link>
           <li className="p-4 border-b border-gray-600">
             <Link to="/">Home</Link>
           </li>
