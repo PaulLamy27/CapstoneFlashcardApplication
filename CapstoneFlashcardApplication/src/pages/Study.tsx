@@ -4,7 +4,6 @@ import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import cardData from '../data/cardData'
 import Draw from "../components/DrawCard";
-import DisplayResults from "../components/DisplayResults";
 
 import Correct from "../components/Correct";
 import Wrong from "../components/Wrong";
@@ -14,19 +13,17 @@ import './Study.css'
 
 const Study = () => {
 
-    // why is it taking out of the array?
+    // cardData.forEach((card) => {
+    //     console.log(card)
+    // })
+
     const getRandomCard = (cardData: CardInfo[]) => {
         let card = cardData[Math.floor(Math.random() * cardData.length)];
         return card;
     }
 
-    const [cardsList, setCardsList] = useState(cardData);
+    // 
     const [currentCard, setCurrentCard] = useState(getRandomCard(cardData));
-    const [correctList, setCorrectList] = useState(Array(0).fill(null));
-    const [wrongList, setWrongList] = useState(Array(0).fill(null));
-    const [deckSize, setDeckSize] = useState(cardData.length)
-
-    // console.log("cardsList upon page render: ", cardsList);
 
     const updateCard = () => {
         console.log("New Card!!")
@@ -35,57 +32,28 @@ const Study = () => {
         // update the card that is on the screen
     }
 
+    const [correctLists, setCorrectLists] = useState(Array(0).fill(null));
 
-    const handleCorrectCards = (currentCard: CardInfo) => {
-        // console.log("correctLists Before slice: ", correctLists);
-        // const nextlist = correctLists.slice();
-        // console.log("correctLists After slice: ", correctLists);
+    const correctCards = (currentCard: CardInfo) => {
 
-        // console.log("Inside of handleCorrectCards");
-        // console.log("deckSize before decerement: ", deckSize);
-
-        // console.log("cardsList before splice: ", cardsList);
-
-        // should this be a function?
-        setDeckSize(deckSize - 1);
-        // console.log("deckSize after decerement: ", deckSize);
-
-        // function that removes the passed in card from the cardList, thus changing the state
-        let currentCardIndex = cardsList.indexOf(currentCard);
-        // console.log(currentCardIndex);
-
-        // console.log("correctList BEFORE: ", correctList);
-        setCorrectList([...correctList, currentCard]);
-        // console.log("correctList AFTER: ", correctList);
-
-        // setCardsList(cardsList.splice(currentCardIndex, 1));
-        setCardsList((cardsList) =>
-            cardsList.filter((card) => card !== currentCard)
-        )
-
-        // console.log("cardsList after splice: ", cardsList);
-
-        updateCard();
+        const nextlist = correctLists.slice();
+        nextlist.push(currentCard.side1);
+        console.log({ nextlist });
+        setCorrectLists(nextlist);
         // Collect correct data
-        console.log("correctList: ", correctList);
 
     }
 
-    const handleWrongCards = (currentCard: CardInfo) => {
-        // const nextlist = correctList.slice();
-        // nextlist.push(currentCard.side1);
-        // console.log({ nextlist });
-        // setWrongList(nextlist);
-        // Collect wrong data
+    const [wrongLists, setWrongLists] = useState(Array(0).fill(null));
 
-        setDeckSize(deckSize - 1);
-        let currentCardIndex = cardsList.indexOf(currentCard);
-        setWrongList([...wrongList, currentCard]);
-        setCardsList((cardsList) =>
-            cardsList.filter((card) => card !== currentCard)
-        )
-        updateCard();
-        console.log("wrongList: ", wrongList);
+    const wrongCards = (currentCard: CardInfo) => {
+
+
+        const nextlist = correctLists.slice();
+        nextlist.push(currentCard.side1);
+        console.log({ nextlist });
+        setWrongLists(nextlist);
+        // Collect wrong data
 
     }
 
@@ -102,28 +70,29 @@ const Study = () => {
     return (
         <>
             <div className="App">
-
+                <div className="cardRow">
+                    <Card card={currentCard} />
+                </div>
+                <div className="buttonRow">
+                    <Draw onClick={updateCard} />
+                    < Correct onClick={() => correctCards(currentCard)} />
+                    < Wrong onClick={() => wrongCards(currentCard)} />
+                </div>
+                {/* return (
+                <ul>
+                    {collectLists.map(item => {
+                        return <h3>{item}</h3>;
+                    })}
+                </ul>
+                ); */}
                 {/* <div>
-                    <DisplayResults rightArray={}/>
-                </div> */}
-
-                {deckSize === 0 && (
-                    <DisplayResults right={correctList} wrong={wrongList} />
-                )}
-
-                {deckSize > 0 && (
-                    <>
-                        <div className="cardRow">
-                            <Card card={currentCard} />
-                        </div>
-                        <div className="buttonRow">
-                            < Correct onClick={() => handleCorrectCards(currentCard)} />
-                            < Wrong onClick={() => handleWrongCards(currentCard)} />
-                        </div>
-                    </>
-                )}
+                 < Result value = { collectLists } />
+                 </div> */}
             </div>
+
         </>
+
+
     )
 }
 
