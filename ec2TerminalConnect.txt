@@ -1,0 +1,3 @@
+ssh -i C:\Users\16033\Capstone\CapstoneFlashcardApplication\CS413.pem ec2-user@ec2-35-175-209-71.compute-1.amazonaws.com
+
+mysql -h database-1.cgnpxwbm4f1r.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
