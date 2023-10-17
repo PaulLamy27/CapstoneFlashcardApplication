@@ -24,6 +24,11 @@ const Navbar = () => {
         <li className="p-4">
           <Link to="/study">Study</Link>
         </li>
+        <li>
+          <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
+            <Link to="/login">Login</Link>
+          </button>
+        </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -45,8 +50,13 @@ const Navbar = () => {
           <li className="p-4 border-b border-gray-600">
             <Link to="/deck">Deck</Link>
           </li>
-          <li className="p-4">
+          <li className="p-4 border-b border-gray-600">
             <Link to="/study">Study</Link>
+          </li>
+          <li>
+            <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+              <Link to="/login">Login</Link>
+            </button>
           </li>
         </ul>
       </div>
