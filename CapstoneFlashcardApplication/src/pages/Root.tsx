@@ -1,24 +1,20 @@
-
 // root is what will be rendered on first load
-import { Link, Outlet, BrowserRouter as Router } from "react-router-dom"
-import './Root.css/'
+//import './Root.css/'
+import Navbar from "./Navbar"
+import Hero from "./Hero"
+import Dashboard from "./Dashboard"
+import Compatibility from "./Compatibility"
+import Footer from "./Footer"
 
 const Root = () => {
     return (
         <>
-            <div className="navBar">
-                <Link to="/">
-                    Home
-                </Link>
-                <Link to="/deck">
-                    Deck
-                </Link>
-                <Link to="/study">
-                    Study
-                </Link>
-            </div>
             <div>
-                <Outlet />
+                <Navbar />
+                <Hero />
+                <Dashboard />
+                <Compatibility />
+                <Footer />
             </div>
         </>
     )
