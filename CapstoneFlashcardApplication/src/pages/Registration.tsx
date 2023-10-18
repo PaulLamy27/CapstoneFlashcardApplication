@@ -6,7 +6,7 @@ const Registration = () => {
       <div className="flex flex-col justify-center">
         <form className="border border-gray-600 max-w-[400px] w-full mx-auto sm:mx-10 p-4">
           <h2 className="text-4xl font-bold text-center py-6 text-[#00df9a]">
-            REGISTRATION.
+            REGISTRATION
           </h2>
           <div className="grid gap-5 md:grid-cols-2">
           <div className="flex flex-col py-2">
@@ -14,7 +14,7 @@ const Registration = () => {
             <input className="border p-2 text-black" type="firstname" />
           </div>
           <div className="flex flex-col py-2">
-            <label>Lastname</label>
+            <label>Last Name</label>
             <input className="border p-2 text-black" type="lastname" />
           </div></div>
           <div className="flex flex-col py-2">
@@ -39,7 +39,7 @@ const Registration = () => {
           <div className="flex justify-between">
             <p className="flex items-center">
               <input className="mr-1" type="checkbox" />
-              I accept the Term Of Use & Privacy Policy
+              I accept the Terms Of Use & Privacy Policy
             </p>
           </div>
         </form>

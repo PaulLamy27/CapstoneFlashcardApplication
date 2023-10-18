@@ -39,7 +39,7 @@ function App() {
             </Layout>
           }
         />
-         <Route
+        <Route
           path="/registration"
           element={
             <Layout>
