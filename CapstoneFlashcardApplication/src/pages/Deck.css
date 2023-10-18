@@ -10,7 +10,7 @@
 }
 
 .contentContainer {
-    margin-left: 13%;
+    margin: auto;
 }
 
 .side1,
@@ -28,6 +28,7 @@
 
 .mainDeckContainer {
     height: 100vh;
+    margin: auto;
 }
 
 .deckName {
