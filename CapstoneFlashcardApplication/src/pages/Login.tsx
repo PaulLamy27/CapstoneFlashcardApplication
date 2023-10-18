@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Outlet, BrowserRouter as Router } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -24,7 +25,9 @@ const Login = () => {
               <input className="mr-1" type="checkbox" />
               Remember me
             </p>
-            <p>Create an account</p>
+            <p> 
+              <Link to="/registration">create an account</Link>
+            </p>
           </div>
         </form>
       </div>

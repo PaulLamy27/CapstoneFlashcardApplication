@@ -8,6 +8,7 @@ import Study from "./pages/Study";
 import Deck from "./pages/Deck";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";
+import Registration from "./pages/Registration";
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
           element={
             <Layout>
               <Login />
+            </Layout>
+          }
+        />
+         <Route
+          path="/registration"
+          element={
+            <Layout>
+              <Registration />
             </Layout>
           }
         />
