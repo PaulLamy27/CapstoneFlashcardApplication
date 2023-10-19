@@ -88,7 +88,7 @@ const Navbar = () => {
       </div>
       <FaAngleUp
         size={40}
-        className={showScrollToTop ? "fixed bottom-4 right-4" : "hidden"}
+        className={showScrollToTop ? "fixed bottom-4 right-4 text-[#00df9a]" : "hidden"}
         onClick={scrollToTop}
       />
     </div>
