@@ -26,7 +26,9 @@ const Deck = () => {
     // In this case, it 'maps' it with a TSX element
     let cardList = cards.map(card =>
         <>
-            <div key={card.id} className='bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center'>
+            <div key={card.id} className=
+            'bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center cursor-pointer hover:bg-opacity-75 hover:text-opacity-75 transition duration-255 ease-in-out'
+            onClick={() => {console.log(card.id, card.side1, card.side2, card.pronunciation)}}>
                 <h1>{card.side1}</h1>
                 <h2>{card.side2}</h2>
                 <h2>{card.pronunciation}</h2>
@@ -34,22 +36,26 @@ const Deck = () => {
         </>
     )
 
+    const addCardButtonClick = () => {
+
+    }
+
     return (
         <>
-            <div className="flex items-center justify-center w-800 text-white">
+            <div className="flex items-center justify-center w-800 text-black">
                 <div className="flex flex-col justify-center p-10 m-10">
-                    <h1>Name of Deck</h1>
+                    <div className='font-sans text-white font-semibold text-3xl'>Chinese Test Deck</div>
                     <div className="w-full mx-auto">
-                        <input value={frontSide}
+                        <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center hover'
                             onChange={e => setFrontSide(e.target.value)} />
-                        <input value={backSide}
+                        <input value={backSide} placeholder='Back of Card' className='ml-4 rounded-lg text-center'
                             onChange={e => setbackSide(e.target.value)} />
-                        <input value={pronounced}
+                        <input value={pronounced} placeholder='Pronunciation (Optional)' className='ml-4 rounded-lg text-center'
                             onChange={e => setPronounced(e.target.value)} />
                         <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => {
                             setCards([
-                                ...cards,
-                                {id: nextId++, side1: frontSide,  side2: backSide, pronunciation: pronounced}
+                                {id: nextId++, side1: frontSide,  side2: backSide, pronunciation: pronounced},
+                                ...cards
                             ]);
                         }}>CLICK TO ADD CARD</button>
                     </div>
