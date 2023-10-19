@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet, BrowserRouter as Router } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { FaAngleUp } from "react-icons/fa";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        // Show the scroll-to-top button when the user scrolls down more than a certain threshold (adjust as needed)
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-white">
@@ -60,6 +86,11 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+      <FaAngleUp
+        size={40}
+        className={showScrollToTop ? "fixed bottom-4 right-4" : "hidden"}
+        onClick={scrollToTop}
+      />
     </div>
   );
 };
