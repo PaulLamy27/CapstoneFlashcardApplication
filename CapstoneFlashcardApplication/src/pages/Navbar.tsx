@@ -21,7 +21,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
-        // Show the scroll-to-top button when the user scrolls down more than a certain threshold (adjust as needed)
+        // Show the scroll-to-top button when the user scrolls past a certain threshold (adjust as needed)
         setShowScrollToTop(true);
       } else {
         setShowScrollToTop(false);
@@ -88,7 +88,9 @@ const Navbar = () => {
       </div>
       <FaAngleUp
         size={40}
-        className={showScrollToTop ? "fixed bottom-4 right-4 text-[#00df9a]" : "hidden"}
+        className={
+          showScrollToTop ? "fixed bottom-4 right-4 text-[#00df9a]" : "hidden"
+        }
         onClick={scrollToTop}
       />
     </div>
