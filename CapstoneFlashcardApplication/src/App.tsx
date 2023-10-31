@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // im
 import Root from "./pages/Root";
 import Study from "./pages/Study";
 import Deck from "./pages/Deck";
+import YourDecks from "./pages/YourDecks";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Registration from "./pages/Registration";
@@ -19,7 +20,7 @@ function App() {
           path="/deck"
           element={
             <Layout>
-              <Deck />
+              <YourDecks />
             </Layout>
           }
         />
