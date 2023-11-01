@@ -3,6 +3,7 @@
 // and clicking those links will redirect you to that page, which is also a component.
 // Therefore, import the following; these are the functions from react-router that will be used
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // import the components we will use for this project.
+import './App.css';
 import Root from "./pages/Root";
 import Study from "./pages/Study";
 import Deck from "./pages/Deck";

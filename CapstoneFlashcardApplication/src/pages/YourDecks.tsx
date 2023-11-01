@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import DeckInterface from '../components/DeckInterface';
-// fa-solid fa-plus
+import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
 
 const YourDecks = () => {
 
     const [deckList, setDeckList] = useState([]);
+    const [showAddCardComponent, setShowAddCardComponent] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/deck/1')
             .then((res) => {
                 console.log(res.data);
-                // setDeckList(res.data.forE(deck => deck.title));
-                // res.data.forEach((deck as DeckInterface) => {
-
-                // });
-                // console.log(res);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
                 setDeckList(titles);
                 console.log(titles);
@@ -27,26 +23,35 @@ const YourDecks = () => {
             });
     }, []);
 
+    const toggleAddCardComponent = () => {
+        setShowAddCardComponent(!showAddCardComponent);
+    }
+
     return (
         <>
             <div className='flex items-center justify-center w-800 font-sans text-white font-semibold text-3xl'>Your Decks</div>
 
-            <div className="mx-8 grid grid-cols-3 p-5">
+            <div className="h-screen mx-8 grid grid-cols-3 p-5">
                 {deckList.map((deck, index) => (
-                    <ul className='flex items-center w-8/12 h-32 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
+                    // <p>"bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center cursor-pointer hover:bg-slate-100 hover:bg-opacity-75 hover:text-opacity-75 transition duration-300 ease-in-out"</p>
+                    <ul className='flex items-center w-8/12 h-32 bg-gray-50 rounded-lg text-black font-medium text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
                         <p className='ml-5'>{deck}</p>
                     </ul>
                 ))}
+                <div className=''>
+                    {showAddCardComponent && <AddCard onClose={toggleAddCardComponent}/>}
+                </div>
             </div>
 
 
-            <div className='fixed bottom-6 right-6 '>
+            <div className='fixed bottom-6 right-6' onClick={() => setShowAddCardComponent(true)}>
                 <div className='flex items-center justify-center w-28 h-28 bg-green-700 rounded-full cursor-pointer'>
                     <h1 className='text-7xl'>
                         +
                     </h1>
                 </div>
             </div>
+
 
         </>
     )

@@ -34,7 +34,7 @@ const Study = () => {
         setCurrentCard(newCard);
         // update the card that is on the screen
     }
-    
+
 
     const handleCorrectCards = (currentCard: CardInfo) => {
         // console.log("correctLists Before slice: ", correctLists);
@@ -90,13 +90,13 @@ const Study = () => {
     }
 
     const handleTryAgain = (wrongList: CardInfo[]) => {
-        
+
         // setCardsList(wrongList);
         // setCurrentCard(wrongList[0]);
         // console.log(cardsList);
         setDeckSize(wrongList.length);
         setCardsList(wrongList);
-        
+
         console.log(cardsList);
         updateCard();
         console.log("wrongList: ", wrongList);
@@ -120,17 +120,17 @@ const Study = () => {
                 </div> */}
 
                 {deckSize === 0 && (
-                    <><DisplayResults right={correctList} wrong={wrongList} flag = {flag}/><>
-                        
-                    </></>  
+                    <><DisplayResults right={correctList} wrong={wrongList} flag={flag} /><>
+
+                    </></>
                 )}
                 {deckSize === 0 && wrongList.length > 0 && (
-                    
-                        <div className="buttonRow">
-                            <TryAgain onClick={() => handleTryAgain(wrongList)} />
-                           
-                        </div>
-                     
+
+                    <div className="buttonRow">
+                        <TryAgain onClick={() => handleTryAgain(wrongList)} />
+
+                    </div>
+
                 )}
                 {deckSize > 0 && (
                     <>
@@ -140,7 +140,7 @@ const Study = () => {
                         <div className="buttonRow">
                             < Correct onClick={() => handleCorrectCards(currentCard)} />
                             < Wrong onClick={() => handleWrongCards(currentCard)} />
-                            
+
                         </div>
                     </>
                 )}
