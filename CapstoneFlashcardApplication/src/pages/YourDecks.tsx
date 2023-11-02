@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Deck from './Deck';
 import DeckInterface from '../components/DeckInterface';
 import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
@@ -6,6 +8,7 @@ import axios from 'axios'
 
 const YourDecks = () => {
 
+    const navigate = useNavigate();
     const [deckList, setDeckList] = useState([]);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
 
@@ -27,6 +30,10 @@ const YourDecks = () => {
         setShowAddCardComponent(!showAddCardComponent);
     }
 
+    const redirectToDeck = () => {
+        navigate("/deck");
+    }
+
     return (
         <>
             <div className='flex items-center justify-center w-800 font-sans text-white font-semibold text-3xl'>Your Decks</div>
@@ -34,7 +41,9 @@ const YourDecks = () => {
             <div className="h-screen mx-8 grid grid-cols-3 p-5">
                 {deckList.map((deck, index) => (
                     // <p>"bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center cursor-pointer hover:bg-slate-100 hover:bg-opacity-75 hover:text-opacity-75 transition duration-300 ease-in-out"</p>
-                    <ul className='flex items-center w-8/12 h-32 bg-gray-50 rounded-lg text-black font-medium text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
+                    <ul className='flex items-center w-8/12 h-32 bg-gray-50 rounded-lg text-black font-medium text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' 
+                        onClick={redirectToDeck}
+                        key={index}>
                         <p className='ml-5'>{deck}</p>
                     </ul>
                 ))}

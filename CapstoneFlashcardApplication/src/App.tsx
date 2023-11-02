@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Root />} />
         <Route
-          path="/deck"
+          path="/your-decks"
           element={
             <Layout>
               <YourDecks />

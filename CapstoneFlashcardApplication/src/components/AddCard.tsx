@@ -14,7 +14,7 @@ const AddCard = ({ onClose }) => {
         console.log("sending a request to make a new deck with the name ", deckName);
 
         if (deckName !== '') {
-            axios.post(`http://localhost:5000/api/deck/1/${deckName}`)
+            axios.post(`http://localhost:5000f/api/deck/1/${deckName}`)
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
