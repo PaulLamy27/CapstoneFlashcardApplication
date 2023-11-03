@@ -2,7 +2,7 @@ import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
-const Registration = () => {
+const Registration = () => { 
 
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const Registration = () => {
     axios.get(url)
       .then((res: { data: any; }) => {
         console.log(res.data);
-        navigate("/study")
+        navigate("/login")
       })
       .catch((error: any) => {
         console.log("The following error occured in axios.get: ", error);
