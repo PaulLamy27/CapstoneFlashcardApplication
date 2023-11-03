@@ -29,7 +29,7 @@ const AddCard = ({ onClose }) => {
 
     return (
         <>
-            <div className='absolute top-20 flex flex-col items-center justify-center w-6/12 inset-x-1/4 h-screen bg-amber-800'>
+            <div className='absolute top-20 flex flex-col items-center justify-center w-6/12 inset-x-1/4 h-screen bg-[#1f2f79]'>
                 <TiTimes
                     style={{ position: 'absolute', right: 0, top: 0, width: '100px', height: '100px', cursor: 'pointer' }}
                     onClick={onClose} />
