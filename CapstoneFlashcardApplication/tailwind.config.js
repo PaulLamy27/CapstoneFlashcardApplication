@@ -3,8 +3,18 @@ export default {
   content: ["./index.html",
   "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
-    extend: {},
+    'fontFamily': {
+      'sans': ['Martel Sans', 'Rubik', 'sans-serif'],
+    },
+    extend: {
+      fontSize: {
+        '3xl': '3rem'
+      }
+    },
   },
   plugins: [],
+  variants: {
+    
+  }
 }
 

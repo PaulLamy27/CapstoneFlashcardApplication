@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet, BrowserRouter as Router } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { FaAngleUp } from "react-icons/fa";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        // Show the scroll-to-top button when the user scrolls past a certain threshold (adjust as needed)
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-white">
@@ -19,10 +45,15 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/deck">Deck</Link>
+          <Link to="/your-decks">Decks</Link>
         </li>
         <li className="p-4">
           <Link to="/study">Study</Link>
+        </li>
+        <li>
+          <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
+            <Link to="/login">Login</Link>
+          </button>
         </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
@@ -43,13 +74,25 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
-            <Link to="/deck">Deck</Link>
+            <Link to="/your-decks">Decks</Link>
           </li>
-          <li className="p-4">
+          <li className="p-4 border-b border-gray-600">
             <Link to="/study">Study</Link>
+          </li>
+          <li>
+            <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+              <Link to="/login">Login</Link>
+            </button>
           </li>
         </ul>
       </div>
+      <FaAngleUp
+        size={40}
+        className={
+          showScrollToTop ? "fixed bottom-4 right-4 text-[#00df9a]" : "hidden"
+        }
+        onClick={scrollToTop}
+      />
     </div>
   );
 };
