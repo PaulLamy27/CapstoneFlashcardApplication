@@ -10,7 +10,6 @@ const Root = () => {
     return (
         <>
             <div>
-                <Navbar />
                 <Hero />
                 <Dashboard />
                 <Compatibility />

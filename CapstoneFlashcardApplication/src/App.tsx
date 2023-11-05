@@ -16,50 +16,33 @@ import Navbar from "./pages/Navbar";
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Root />} />
-        {/* <Route path="/your-decks" element={
-          <Layout>
-            <YourDecks />
-            <Routes>
-              <Route path="/deck" element={<Deck />} />
-            </Routes>
-          </Layout>
-        }
-        /> */}
-        <Route path="/your-decks" element={<Layout>  <YourDecks /> </Layout>}>
+        <Route path="/your-decks" element={<YourDecks />}>
+              {/* <Route path="/deck" element={<Deck />} /> */}
         </Route>
+        {/* <Route path="/your-decks" element={<YourDecks />}> </Route> */}
         <Route
           path="/study"
-          element={
-            <Layout>
-              <Study />
-            </Layout>
-          }
+          element={<Study />}
         />
         <Route
           path="/login"
           element={
-            <Layout>
-              <Login />
-            </Layout>
+            <Login />
           }
         />
         <Route
           path="/registration"
           element={
-            <Layout>
-              <Registration />
-            </Layout>
+            <Registration />
           }
         />
         <Route
           path="/your-decks/:deckId"
           element={
-            <Layout>
-              <Deck />
-            </Layout>
+            <Deck />
           }
         />
       </Routes>

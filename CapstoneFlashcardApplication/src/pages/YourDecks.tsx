@@ -44,7 +44,7 @@ const YourDecks = () => {
                     // <p>"bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center cursor-pointer hover:bg-slate-100 hover:bg-opacity-75 hover:text-opacity-75 transition duration-300 ease-in-out"</p>
                     // <div key={index} >
                     //     <Link to={`/your-decks/deck/${index}`}>
-                    //         <ul className='flex items-center w-8/12 h-32 bg-gray-50 rounded-lg text-black font-medium text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'
+                    //         <ul className='flex items-center w-8/12 h-32 m-3 bg-gray-50 rounded-lg text-black font-medium text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'
                     //         // onClick={redirectToDeck}
                     //         >
                     //             <p className='ml-5'>{deck}</p>
