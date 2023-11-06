@@ -19,7 +19,7 @@ const Deck = () => {
     const [pronounced, setPronounced] = useState('');
 
     useEffect(() => {
-        axios.get('https://localhost:5173/api/deck/1')
+        axios.get('https://localhost:5000/api/deck/1')
             .then((res) => {
                 // const cardList = res.data;
                 res = res.data;
