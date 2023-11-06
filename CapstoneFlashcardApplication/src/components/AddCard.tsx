@@ -14,6 +14,7 @@ const AddCard = ({ onClose }) => {
         console.log("sending a request to make a new deck with the name ", deckName);
 
         if (deckName !== '') {
+            // this userid of 1 should not be hardcoded in; login/logout should keep track of the user
             axios.post(`http://localhost:5000f/api/deck/1/${deckName}`)
                 .then((res) => {
                     const response = res.data;

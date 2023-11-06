@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Route, Routes } from 'react-router-dom';
 import Deck from './Deck';
 import DeckInterface from '../components/DeckInterface';
 import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
-import { Navigate, Route, Routes, useNavigate, } from 'react-router';
-import Deck from './Deck';
-import { Link } from 'react-router-dom';
-
 const YourDecks = () => {
 
     const navigate = useNavigate();
@@ -34,18 +30,13 @@ const YourDecks = () => {
         setShowAddCardComponent(!showAddCardComponent);
     }
 
-    const redirectToDeck = () => {
-        console.log("redirectToDeck activivated!");
-        navigate(`/your-decks/deck/`);
-    }
-
     return (
         <>
             <div className='flex items-center justify-center w-800 font-sans text-white font-semibold text-3xl'>Your Decks</div>
 
             <div className="h-screen mx-8 grid grid-cols-3 p-5">
                 {deckList.map((deck, index) => (
-                    <Link to={'your-decks/deck'} key={index}>
+                    <Link to={`/your-decks/${deck}`} key={index}>
                         <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'
                             onClick={() => navigate('/deck')}>
                             <p className='ml-5'>{deck}</p>
@@ -67,7 +58,7 @@ const YourDecks = () => {
             </div>
 
             <Routes>
-                <Route path='/deck' element={<Deck />} />
+                <Route path="/your-decks/*" element={<YourDecks />} />
             </Routes>
         </>
     )

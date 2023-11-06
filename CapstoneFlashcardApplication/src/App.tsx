@@ -38,7 +38,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/registration" element={<Registration />}/>
 
-        <Route path="/your-decks/deck" element={<Deck />} />
+        <Route path="/your-decks/:deckName" element={<Deck />} />
       </Routes>
     </BrowserRouter>
   );

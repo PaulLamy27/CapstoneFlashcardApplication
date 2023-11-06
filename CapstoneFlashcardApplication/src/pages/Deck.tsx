@@ -6,8 +6,11 @@ import axios from 'axios';
 // import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 const Deck = () => {
+
+    const {deckName} = useParams();
 
     // const [cards, setCards] = useState(cardData);
     const [cardList, setCardList] = useState<CardInfo[]>([]);
@@ -60,7 +63,7 @@ const Deck = () => {
         <>
             <div className="flex items-center justify-center w-800 text-black">
                 <div className="flex flex-col justify-center p-10 m-10">
-                    <div className='font-sans text-white font-semibold text-3xl'>Chinese Test Deck</div>
+                    <div className='font-sans text-white font-semibold text-3xl'>{deckName}</div>
                     <div className="w-full mx-auto">
                         <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center bg-gray-700 hover'
                             onChange={e => setFrontSide(e.target.value)} />
