@@ -10,7 +10,7 @@ const Root = () => {
     return (
         <>
             <div>
-                <Navbar />
+                {/* <Navbar /> */}
                 <Hero />
                 <Dashboard />
                 <Compatibility />

@@ -3,8 +3,13 @@ import DeckInterface from '../components/DeckInterface';
 // fa-solid fa-plus
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
+import { Navigate, Route, Routes, useNavigate, } from 'react-router';
+import Deck from './Deck';
+import { Link } from 'react-router-dom';
 
 const YourDecks = () => {
+
+    const navigate = useNavigate();
 
     const [deckList, setDeckList] = useState([]);
 
@@ -33,9 +38,12 @@ const YourDecks = () => {
 
             <div className="mx-8 grid grid-cols-3 p-5">
                 {deckList.map((deck, index) => (
-                    <ul className='flex items-center w-8/12 h-32 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
-                        <p className='ml-5'>{deck}</p>
-                    </ul>
+                    <Link to={'your-decks/deck'} key={index}>
+                        <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'
+                            onClick={() => navigate('/deck')}>
+                            <p className='ml-5'>{deck}</p>
+                        </ul>
+                    </Link>
                 ))}
             </div>
 
@@ -48,6 +56,9 @@ const YourDecks = () => {
                 </div>
             </div>
 
+            <Routes>
+                <Route path='/deck' element={<Deck />} />
+            </Routes>
         </>
     )
 }
