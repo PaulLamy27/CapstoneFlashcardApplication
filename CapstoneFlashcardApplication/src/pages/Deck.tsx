@@ -96,9 +96,9 @@ const Deck = () => {
                         {cardList.map((card, index) => (
                             <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5'
                                 key={index}>
-                                    <p className='font-size-[1.5rem] p-0 text-black'>{card.side1}</p>
-                                    <p className='font-size-[1.5rem] p-0 text-black'>{card.side2}</p>
-                                    <p className='font-size-[1.5rem] p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                    <p className='text-xl p-0 text-black'>{card.side1}</p>
+                                    <p className='text-xl p-0 text-black'>{card.side2}</p>
+                                    <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
                             </li>
                         ))}
                     </div>
