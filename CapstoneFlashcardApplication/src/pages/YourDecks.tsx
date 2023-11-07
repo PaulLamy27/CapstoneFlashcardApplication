@@ -5,6 +5,8 @@ import DeckInterface from '../components/DeckInterface';
 import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
+
+
 const YourDecks = () => {
 
     const navigate = useNavigate();
@@ -13,7 +15,7 @@ const YourDecks = () => {
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/deck/1')
+        axios.get('http://localhost:5000/api/deck/user/1')
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
@@ -35,11 +37,11 @@ const YourDecks = () => {
             <div className='flex items-center justify-center w-800 font-sans text-white font-semibold text-3xl'>Your Decks</div>
 
             <div className="h-screen mx-8 grid grid-cols-3 p-5">
-                {deckList.map((deck, index) => (
-                    <Link to={`/your-decks/${deck}`} key={index}>
-                        <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'
-                            onClick={() => navigate('/deck')}>
-                            <p className='ml-5'>{deck}</p>
+                {deckList.map((deckName, index) => (
+                    // link to is the URL that leads to that page
+                    <Link to={`/your-decks/${deckName}`} key={index}>
+                        <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'>
+                            <p className='ml-5'>{deckName}</p>
                         </ul>
                     </Link>
                 ))}
