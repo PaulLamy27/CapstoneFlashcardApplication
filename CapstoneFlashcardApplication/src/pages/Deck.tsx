@@ -16,6 +16,7 @@ const Deck = () => {
     // const [cards, setCards] = useState(cardData);
     const [cardList, setCardList] = useState<CardInfo[]>([]);
     const [loading, setLoading] = useState(true);
+    const [cardListId, setCardListId] = useState(cardList.length);
 
     console.log("cardList: ", cardList);
 
@@ -27,28 +28,11 @@ const Deck = () => {
 
     useEffect(() => {
         async function populateCardList() {
-            // await axios.get(`http://localhost:5000/api/deck/${deckName}`)
-            //     .then((res) => {
-            //         // const cardList = res.data;
-            //         res = res.data;
-            //         console.log("insdie of axios.get with the following res: ", res);
-            //         setCardList(res.data);
-            //         setLoading(false);
-            //         // cardList.forEach((card) => {
-            //         //     console.log(card);
-            //         // })
-            //     })
-            //     .catch((error) => {
-            //         // Handle any errors
-            //         console.error('Error fetching data:', error);
-            //         console.error("Since there was an error, here is the value of deckName: ", deckName);
-            //         setCardList([]);
-            //         setLoading(false);
-            //     });
             try {
                 const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
                 const data = await response.data;
                 setCardList(data);
+                setCardListId(cardList.length++);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
