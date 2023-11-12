@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Registration from "./pages/Registration";
 import Navbar from "./pages/Navbar";
+import ChooseDeck from "./pages/ChooseDeck";
 
 
 
@@ -34,11 +35,12 @@ function App() {
         <Route path="/home" element={<Navigate to='/'/>} />
         <Route path="/your-decks/*" element={<YourDecks />} />
         {/* <Route path="/deck" element={<Deck />} /> */}
-        <Route path="/study" element={<Study />}/>
+        <Route path="/study" element={<ChooseDeck />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/registration" element={<Registration />}/>
 
         <Route path="/your-decks/:deckName" element={<Deck />} />
+        <Route path="/study/:deckName" element={<Study />} />
       </Routes>
     </BrowserRouter>
   );
