@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, createBrowserRouter, createRoutesFromElem
 import Root from "./pages/Root";
 import Study from "./pages/Study";
 import YourDecks from "./pages/YourDecks";
+import Deck from "./pages/Deck";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Registration from "./pages/Registration";

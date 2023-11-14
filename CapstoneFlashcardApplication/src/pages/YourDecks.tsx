@@ -6,7 +6,6 @@ import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
 
-
 const YourDecks = () => {
 
     const navigate = useNavigate();
@@ -15,7 +14,7 @@ const YourDecks = () => {
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/deck/user/1')
+        axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
