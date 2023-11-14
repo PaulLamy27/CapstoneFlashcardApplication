@@ -15,14 +15,14 @@ const AddCard = ({ onClose }) => {
 
         if (deckName !== '') {
             // this userid of 1 should not be hardcoded in; login/logout should keep track of the user
-            axios.post(`http://localhost:5000f/api/deck/1/${deckName}`)
+            axios.post(`http://localhost:5000/api/deck/new/${deckName}`, {}, { withCredentials: true })
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
                 })
                 .catch((error) => {
                     console.log('the following error occured when trying to post a new deck', error);
-                })
+                });
         }
 
         onClose();
