@@ -26,6 +26,21 @@ const Deck = () => {
     const [backSide, setbackSide] = useState('');
     const [pronounced, setPronounced] = useState('');
 
+    const addCard = () => {
+        console.log("sending a request to make a new deck with the name ", deckName);
+        if (deckName !== '') {
+            // this userid of 1 should not be hardcoded in; login/logout should keep track of the user
+            axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
+                .then((res) => {
+                    const response = res.data;
+                    console.log("success: ", response);
+                })
+                .catch((error) => {
+                    console.log('the following error occured when trying to post a new card', error);
+                });
+        }
+    }
+
     useEffect(() => {
         async function populateCardList() {
             try {
@@ -58,12 +73,8 @@ const Deck = () => {
                             onChange={e => setbackSide(e.target.value)} />
                         <input value={pronounced} placeholder='Pronunciation (Optional)' className='ml-4 rounded-lg text-center bg-gray-700'
                             onChange={e => setPronounced(e.target.value)} />
-                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => {
-                            // setCards([
-                            //     { id: nextId++, side1: frontSide, side2: backSide, pronunciation: pronounced },
-                            //     ...cards
-                            // ]);
-                        }}>CLICK TO ADD CARD</button>
+                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => addCard()}>
+                            CLICK TO ADD CARD</button>
                     </div>
                     {/* (isLoading ? (
                     <h1>Currently loading...</h1>
