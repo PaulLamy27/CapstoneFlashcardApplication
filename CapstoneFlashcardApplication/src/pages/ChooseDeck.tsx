@@ -7,7 +7,7 @@ const ChooseDeck = () => {
     const [deckList, setDeckList] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/deck/user/1')
+        axios.get('http://localhost:5000/api/deck/user/', {withCredentials: true})
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
