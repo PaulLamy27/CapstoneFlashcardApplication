@@ -55,7 +55,8 @@ const Deck = () => {
         }
 
         populateCardList();
-    }, [deckName])
+
+    }, [cardList])
 
     return (
         <>
