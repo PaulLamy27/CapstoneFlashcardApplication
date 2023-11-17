@@ -1,9 +1,5 @@
-// cardData is imported to utilize the items in the array
-import cardData from '../data/cardData'
-import Card from '../components/Card';
 import { CardInfo } from '../components/CardInfo';
 import axios from 'axios';
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -13,23 +9,27 @@ const Deck = () => {
     const { deckName } = useParams();
     console.log(deckName);
 
-    // const [cards, setCards] = useState(cardData);
     const [cardList, setCardList] = useState<CardInfo[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [cardListId, setCardListId] = useState(cardList.length);
 
     console.log("cardList: ", cardList);
-
-    let nextId = 21;
 
     const [frontSide, setFrontSide] = useState('');
     const [backSide, setbackSide] = useState('');
     const [pronounced, setPronounced] = useState('');
 
+    const [q, setQ] = useState("");
+
+    const search = (items: CardInfo[]) => {
+        return items.filter((item: CardInfo) => {
+                return (item.side1.toLowerCase().indexOf(q.toLowerCase()) > -1) ||
+                (item.side2.toLowerCase().indexOf(q.toLowerCase()) > -1) ||
+                (item.pronunciation == undefined ? false : (item.pronunciation.indexOf(q.toLowerCase()) > -1))
+        });
+    }
+
     const addCard = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
-            // this userid of 1 should not be hardcoded in; login/logout should keep track of the user
             axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
                 .then((res) => {
                     const response = res.data;
@@ -47,18 +47,14 @@ const Deck = () => {
                 const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
                 const data = await response.data;
                 setCardList(data);
-                setCardListId(cardList.length++);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 console.error("Since there was an error, here is the value of deckName: ", deckName);
                 setCardList([]);
-                setLoading(false);
             }
         }
 
         populateCardList();
-
     }, [deckName])
 
     return (
@@ -76,6 +72,10 @@ const Deck = () => {
                         <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => addCard()}>
                             CLICK TO ADD CARD</button>
                     </div>
+                    <div className="w-full mx-auto">
+                        <input value={q} placeholder='Search' className='ml-4 rounded-lg text-center bg-gray-700 hover'
+                            onChange={e => setQ(e.target.value)} />
+                    </div>
                     {/* (isLoading ? (
                     <h1>Currently loading...</h1>
                     ) : (<div className="grid grid-cols-3 p-5">
@@ -88,7 +88,7 @@ const Deck = () => {
                         ))}
                     </div>)) */}
                     <div className="grid grid-cols-3 p-5">
-                        {cardList.map((card, index) => (
+                        {search(cardList).map((card, index) => (
                             <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5'
                                 key={index}>
                                     <p className='text-xl p-0 text-black'>{card.side1}</p>
