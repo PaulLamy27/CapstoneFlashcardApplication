@@ -5,6 +5,7 @@
 import { BrowserRouter, Routes, Route, createBrowserRouter, createRoutesFromElements, Navigate } from "react-router-dom"; // import the components we will use for this project.
 import Root from "./pages/Root";
 import Study from "./pages/Study";
+import Deck from "./pages/Deck";
 import YourDecks from "./pages/YourDecks";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";

@@ -1,5 +1,5 @@
 import React from 'react'
-import laptop from '../assets/laptop.png'
+import laptop from '../assets/CardMentor Deck Screen.png'
 
 const Dashboard = () => {
   return (
@@ -10,7 +10,6 @@ const Dashboard = () => {
                 <p className='text-[#00df9a] font-bold'>DECK MANAGEMENT DASHBOARD</p>
                 <h1 className='md:text-4xl sm:text-3xl text-2xl font-bold py-2'>Manage Flashcard Decks Centrally</h1>
                 <p>With CardMentor, you can easily create and manage as many card decks as you please. Simply go to the deck page and create a deck. From there, you can add as many cards to it as you need and change what appears on either side of them.</p>
-                <button className='bg-[#13163b] text-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3'>Get Started</button>
             </div>
         </div>
     </div>

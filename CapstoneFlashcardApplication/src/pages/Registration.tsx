@@ -15,7 +15,7 @@ const Registration = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = `http://localhost:5000/api/registration/create?firstname=${firstName}&lastname=${lastName}&email=${email}&username=${username}&password=${password}`
-    axios.get(url)
+    axios.post(url)
       .then((res: { data: any; }) => {
         console.log(res.data);
         navigate("/login")
