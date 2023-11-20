@@ -25,8 +25,8 @@ const Study = () => {
         side1: "",
         side2: ""
     });
-    const [correctList, setCorrectList] = useState(Array(0).fill(null));
-    const [wrongList, setWrongList] = useState(Array(0).fill(null));
+    const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
+    const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [flag, setFlag] = useState("Y");
 
     // dependecy array that is passed in as a param is empty, which means this will only run on first render
@@ -61,7 +61,7 @@ const Study = () => {
     const getRandomCard = () => {
         let card = cardsList[Math.floor(Math.random() * cardsList.length)];
         console.log("getRandomCard ran and here is card: ", card);
-        console.log("typeof card: ", typeof(card));
+        console.log("typeof card: ", typeof (card));
         return card;
     }
 
@@ -162,9 +162,12 @@ const Study = () => {
         <>
             <div className="App">
 
-                {/* <div>
-                    <DisplayResults rightArray={}/>
-                </div> */}
+                {deckSize === 0 && (
+                    <div>
+                        <DisplayResults right={correctList} wrong={wrongList} />
+                    </div>
+
+                )}
 
                 {deckSize > 0 && (
                     <>
