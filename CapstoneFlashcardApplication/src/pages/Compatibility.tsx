@@ -1,4 +1,3 @@
-import React from 'react'
 import phone from '../assets/CardMentor Small Screen.png'
 
 const Compatibility = () => {

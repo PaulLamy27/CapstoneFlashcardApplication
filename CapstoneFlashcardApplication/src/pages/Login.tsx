@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet, BrowserRouter as Router, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Login = () => {

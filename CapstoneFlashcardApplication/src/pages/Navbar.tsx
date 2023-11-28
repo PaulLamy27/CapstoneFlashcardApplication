@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, Outlet, BrowserRouter as Router } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
 

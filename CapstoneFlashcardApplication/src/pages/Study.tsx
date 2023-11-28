@@ -27,7 +27,7 @@ const Study = () => {
     });
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
-    const [flag, setFlag] = useState("Y");
+    // const [flag, setFlag] = useState("Y");
 
     // dependecy array that is passed in as a param is empty, which means this will only run on first render
     useEffect(() => {
@@ -53,7 +53,7 @@ const Study = () => {
 
     useEffect(() => {
         console.log("Updated cardsList: ", cardsList);
-        setDeckSize(prevDeckSize => cardsList.length);
+        setDeckSize(cardsList.length);
         setCurrentCard(getRandomCard);
     }, [cardsList, deckSize]);
 
@@ -98,7 +98,7 @@ const Study = () => {
         // console.log("deckSize after decerement: ", deckSize);
 
         // function that removes the passed in card from the cardList, thus changing the state
-        let currentCardIndex = cardsList.indexOf(currentCard);
+        //let currentCardIndex = cardsList.indexOf(currentCard);
         // console.log(currentCardIndex);
 
         // console.log("correctList BEFORE: ", correctList);
@@ -126,7 +126,7 @@ const Study = () => {
         // Collect wrong data
 
         setDeckSize(deckSize - 1);
-        let currentCardIndex = cardsList.indexOf(currentCard);
+        //let currentCardIndex = cardsList.indexOf(currentCard);
         setWrongList([...wrongList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
@@ -136,19 +136,19 @@ const Study = () => {
 
     }
 
-    const handleTryAgain = (wrongList: CardInfo[]) => {
+    // const handleTryAgain = (wrongList: CardInfo[]) => {
 
-        // setCardsList(wrongList);
-        // setCurrentCard(wrongList[0]);
-        // console.log(cardsList);
-        setDeckSize(wrongList.length);
-        setCardsList(wrongList);
+    //     // setCardsList(wrongList);
+    //     // setCurrentCard(wrongList[0]);
+    //     // console.log(cardsList);
+    //     setDeckSize(wrongList.length);
+    //     setCardsList(wrongList);
 
-        console.log(cardsList);
-        updateCard();
-        console.log("wrongList: ", wrongList);
-        setWrongList([]);
-    }
+    //     console.log(cardsList);
+    //     updateCard();
+    //     console.log("wrongList: ", wrongList);
+    //     setWrongList([]);
+    // }
 
     // the state of currentCard is set to false on first render.
     // if this is the case, then the page is just now being rendered.
@@ -165,8 +165,9 @@ const Study = () => {
                 {deckSize === 0 && (
                     <div>
                         <DisplayResults right={correctList} wrong={wrongList} />
+                        {/* <TryAgain onClick={handleTryAgain(wrongList)}/> */}
+                        <TryAgain />
                     </div>
-
                 )}
 
                 {deckSize > 0 && (

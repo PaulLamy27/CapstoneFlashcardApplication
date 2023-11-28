@@ -1,4 +1,3 @@
-import React from 'react'
 import laptop from '../assets/CardMentor Deck Screen.png'
 
 const Dashboard = () => {

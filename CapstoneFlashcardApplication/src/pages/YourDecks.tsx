@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, Link, Route, Routes } from 'react-router-dom';
-import Deck from './Deck';
-import DeckInterface from '../components/DeckInterface';
+import { useEffect, useState } from 'react'
+// import { useNavigate, Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+// import Deck from './Deck';
+// import DeckInterface from '../components/DeckInterface';
 import AddCard from '../components/AddCard';
 // import NLSVG from '../assets/nl-svg.svg'
 import axios from 'axios'
 
 const YourDecks = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [deckList, setDeckList] = useState([]);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
