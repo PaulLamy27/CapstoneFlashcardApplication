@@ -7,11 +7,11 @@ import './TryAgain.css'
 // }
 
 // const TryAgain = ({ onClick }: props) => {
+// <button className='flex items-center justify-center text-[#13163b] bg-[#00df9a] h-10 w-[120px] rounded-md font-medium mx-auto border-b-gray-600 my-5' onClick={onClick}>Try again</button>
 const TryAgain = () => {
     return (
-
-        // <button className='flex items-center justify-center text-[#13163b] bg-[#00df9a] h-10 w-[120px] rounded-md font-medium mx-auto border-b-gray-600 my-5' onClick={onClick}>Try again</button>
-
+        <>
+        </>
     )
 }
 
