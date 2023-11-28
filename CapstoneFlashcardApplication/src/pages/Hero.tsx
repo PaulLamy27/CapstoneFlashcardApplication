@@ -29,6 +29,7 @@ const Hero = () => {
   const handleDelete = () => {
     axios.get('http://localhost:5000/logout')
     .then(res => {
+      res = res.data;
       location.reload();
     }).catch(err => console.log(err));
   }
