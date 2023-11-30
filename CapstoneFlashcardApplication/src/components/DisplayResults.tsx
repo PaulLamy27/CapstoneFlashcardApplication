@@ -1,8 +1,4 @@
-import React from 'react'
-import Card from './Card'
 import { CardInfo } from './CardInfo';
-
-import './DisplayResults.css'
 
 interface Props {
     right: CardInfo[];
