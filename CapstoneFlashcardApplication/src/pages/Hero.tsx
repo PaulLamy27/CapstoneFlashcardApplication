@@ -11,7 +11,6 @@ const Hero = () => {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    // fix this
     axios.get('http://localhost:5000')
     .then(res => {
       if(res.data.Status === "Success") {

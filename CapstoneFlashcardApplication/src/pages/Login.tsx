@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Login = () => {
   const [values, setValues] = useState({
-    email: '',
+    username: '',
     password: ''
   })
   const navigate = useNavigate()
@@ -15,6 +15,7 @@ const Login = () => {
     .then(res => {
       if(res.data.Status === "Success") {
         navigate('/')
+        location.reload();
       }
       else {
         alert(res.data.Error);
@@ -31,8 +32,8 @@ const Login = () => {
             LOGIN
           </h2>
           <div className="flex flex-col py-2">
-            <label htmlFor="email">Email</label>
-            <input className="border p-2 text-black" type="email" placeholder="Enter Email" name="email" onChange={e => setValues({...values, email: e.target.value})}/>
+            <label htmlFor="username">Username</label>
+            <input className="border p-2 text-black" type="username" placeholder="Enter Username" name="username" onChange={e => setValues({...values, username: e.target.value})}/>
           </div>
           <div className="flex flex-col py-2">
             <label htmlFor="password">Password</label>

@@ -14,9 +14,18 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = `http://localhost:5000/api/registration/create?firstname=${firstName}&lastname=${lastName}&email=${email}&username=${username}&password=${password}`
-    axios.post(url, {withCredentials: true})
-      .then((res: { data: any; }) => {
+    const registrationData = {
+      firstname: firstName,
+      lastname: lastName,
+      email: email,
+      username: username,
+      password: password,
+    };
+
+    const url = "http://localhost:5000/api/registration/create";
+
+    axios.post(url, registrationData, { withCredentials: true })
+      .then((res) => {
         console.log(res.data);
         navigate("/login")
       })
