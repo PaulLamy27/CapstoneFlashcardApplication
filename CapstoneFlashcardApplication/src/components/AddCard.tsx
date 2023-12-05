@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { TiTimes } from 'react-icons/ti'
+import { MdCancel } from 'react-icons/md'
 
 const AddCard = ({ onClose }) => {
 
@@ -28,18 +28,14 @@ const AddCard = ({ onClose }) => {
     }
 
     return (
-        <>
-            <div className='absolute top-20 flex flex-col items-center justify-center w-6/12 inset-x-1/4 h-screen bg-white'>
-                <TiTimes
-                    style={{ position: 'absolute', right: 0, top: 0, width: '100px', height: '100px', cursor: 'pointer' }}
-                    onClick={onClose} />
-                <div className='relative flex flex-col items-center justify-center'>
-                    <h1 className='mb-10 font-semibold text-3xl'>Make A New Deck</h1>
-                    <input id='' className='mb-10 w-full' type='text' value={deckName} placeholder='New Deck Name' onChange={handleInputChange} />
-                    <button className='w-1/2 mt-3 bg-green-700 border' onClick={handleSubmit}>SUBMIT</button>
-                </div>
-            </div>
-        </>
+    <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[400px] flex w-full h-[500px] mx-auto items-center justify-center bg-white'>
+        <div className='flex flex-col items-center justify-center'>
+            <MdCancel className='absolute top-4 right-4 w-12 h-12 cursor-pointer' onClick={onClose} />
+            <h1 className='mb-10 font-semibold sm:text-4xl text-xl'>Make A New Deck</h1>
+            <input id='' className='mb-10 w-full border border-black' type='text' value={deckName} placeholder='New Deck Name' onChange={handleInputChange} />
+            <button className='w-[80px] h-[30px] bg-[#00df9a] rounded-md font-medium' onClick={handleSubmit}>SUBMIT</button>
+        </div>
+    </div>
     )
 }
 

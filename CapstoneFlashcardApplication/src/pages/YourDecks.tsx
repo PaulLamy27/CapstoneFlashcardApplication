@@ -51,7 +51,7 @@ const YourDecks = () => {
 
 
             <div className='fixed bottom-4 left-4' onClick={() => setShowAddCardComponent(true)}>
-                <div className='flex items-center justify-center w-12 h-12 text-[#00df9a] bg-[#13163b] rounded-full cursor-pointer'>
+                <div className='flex items-center justify-center w-12 h-12 text-[#00df9a] bg-transparent rounded-full cursor-pointer'>
                     <h1 className='text-7xl'>
                         +
                     </h1>
