@@ -156,7 +156,7 @@ const Study = () => {
         // setCurrentCard(wrongList[0]);
         // console.log(cardsList);
         setDeckSize(wrongList.length);
-        if (deckSize === 0) {
+        if (wrongList.length === 0) {
             setIsStudyComplete(true);
         }
         setCardsList(wrongList);
@@ -186,7 +186,7 @@ const Study = () => {
                     </div>
                 )}
 
-                {isStudyComplete && wrongList.length === 0 && (
+                {isStudyComplete && (
                     <>
                         <div className="mt-10 flex items-center justify-center">
                             <h1 className="text-5xl text-lime-500 font-bold">
