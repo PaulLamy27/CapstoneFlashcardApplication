@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import DisplayResults from "../components/DisplayResults";
@@ -12,6 +13,7 @@ import { useParams } from 'react-router';
 import axios from "axios";
 
 import './Study.css'
+import YourDecks from "./YourDecks";
 
 const Study = () => {
 
@@ -27,9 +29,8 @@ const Study = () => {
     });
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
-    const [flag, setFlag] = useState("Y");
+    const [isStudyComplete, setIsStudyComplete] = useState(false);
 
-    // dependecy array that is passed in as a param is empty, which means this will only run on first render
     useEffect(() => {
         async function populateCardList() {
             try {
@@ -53,31 +54,44 @@ const Study = () => {
 
     useEffect(() => {
         console.log("Updated cardsList: ", cardsList);
-        setDeckSize(prevDeckSize => cardsList.length);
-        setCurrentCard(getRandomCard);
-    }, [cardsList, deckSize]);
+        let prevDeckSize = cardsList.length;
+        setDeckSize((prevDeckSize) => {
+            const newDeckSize = cardsList.length;
+            console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
+            return newDeckSize;
+        });
+        if (deckSize > 0) { setCurrentCard(getRandomCard); }
+    }, [cardsList]);
 
-    // why is it taking out of the array?
     const getRandomCard = () => {
-        let card = cardsList[Math.floor(Math.random() * cardsList.length)];
+        let result = Math.floor(Math.random() * cardsList.length);
+        console.log("getRandomCard; result: ", result);
+        let card = cardsList[result];
         console.log("getRandomCard ran and here is card: ", card);
         console.log("typeof card: ", typeof (card));
         return card;
     }
 
-    // useEffect(() => {
-    //     let card = cardsList[Math.floor(Math.random() * cardsList.length)];
-    //     console.log("getRandomCard ran and here is card: ", card);
-    //     setCurrentCard(card);
-    // }, []);
-
-    // later, set this to empty and then getRandomCard(cardsList) as a useEffect
-
-    // console.log("cardsList upon page render: ", cardsList);
+    const getRandomCardTryAgain = () => {
+        let result = Math.floor(Math.random() * wrongList.length);
+        console.log("getRandomCardTryAgain; result: ", result);
+        let card = wrongList[result];
+        console.log("getRandomCard ran and here is card: ", card);
+        console.log("typeof card: ", typeof (card));
+        return card;
+    }
 
     const updateCard = () => {
         console.log("New Card!!")
         let newCard = getRandomCard();
+        console.log("newCard: ", newCard);
+        setCurrentCard(newCard);
+        // update the card that is on the screen
+    }
+
+    const updateCardTryAgain = () => {
+        console.log("New Card!!")
+        let newCard = getRandomCardTryAgain();
         console.log("newCard: ", newCard);
         setCurrentCard(newCard);
         // update the card that is on the screen
@@ -142,10 +156,13 @@ const Study = () => {
         // setCurrentCard(wrongList[0]);
         // console.log(cardsList);
         setDeckSize(wrongList.length);
+        if (deckSize === 0) {
+            setIsStudyComplete(true);
+        }
         setCardsList(wrongList);
 
-        console.log(cardsList);
-        updateCard();
+        console.log("handleTryAgain; cardsList: ", cardsList);
+        updateCardTryAgain();
         console.log("wrongList: ", wrongList);
         setWrongList([]);
     }
@@ -162,11 +179,26 @@ const Study = () => {
         <>
             <div className="App">
 
-                {deckSize === 0 && (
+                {!isStudyComplete && deckSize === 0 && (
                     <div>
                         <DisplayResults right={correctList} wrong={wrongList} />
+                        <TryAgain onClick={() => handleTryAgain(wrongList)} />
                     </div>
+                )}
 
+                {isStudyComplete && wrongList.length === 0 && (
+                    <>
+                        <div className="mt-10 flex items-center justify-center">
+                            <h1 className="text-5xl text-lime-500 font-bold">
+                                WELL DONE! 😄
+                            </h1>
+                        </div>
+                        <Link to={'/your-decks'} className="flex items-center justify-center">
+                            <button className="text-2xl rounded font-medium border-none w-48 h-20 block mx-auto my-5 text-center no-underline text-green-600 bg-green-200 hover:bg-green-300 focus:outline-none focus:bg-green-300 shadow-md">
+                                Go Back
+                            </button>
+                        </Link>
+                    </>
                 )}
 
                 {deckSize > 0 && (
