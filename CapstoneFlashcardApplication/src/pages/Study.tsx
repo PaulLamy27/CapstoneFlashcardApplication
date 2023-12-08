@@ -186,14 +186,14 @@ const Study = () => {
                     </div>
                 )}
 
-                {isStudyComplete && (
+                {isStudyComplete && deckSize === 0 && wrongList.length === 0  && (
                     <>
                         <div className="mt-10 flex items-center justify-center">
                             <h1 className="text-5xl text-lime-500 font-bold">
                                 WELL DONE! 😄
                             </h1>
                         </div>
-                        <Link to={'/your-decks'} className="flex items-center justify-center">
+                        <Link to={'/study'} className="flex items-center justify-center">
                             <button className="text-2xl rounded font-medium border-none w-48 h-20 block mx-auto my-5 text-center no-underline text-green-600 bg-green-200 hover:bg-green-300 focus:outline-none focus:bg-green-300 shadow-md">
                                 Go Back
                             </button>
