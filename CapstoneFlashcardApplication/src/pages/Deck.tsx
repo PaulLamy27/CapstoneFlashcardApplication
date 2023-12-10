@@ -21,7 +21,7 @@ const Deck = () => {
 
     const search = (items: CardInfo[]) => {
         return items.filter((item: CardInfo) => {
-                return (item.side1.toLowerCase().indexOf(q.toLowerCase()) > -1) ||
+            return (item.side1.toLowerCase().indexOf(q.toLowerCase()) > -1) ||
                 (item.side2.toLowerCase().indexOf(q.toLowerCase()) > -1) ||
                 (item.pronunciation == undefined ? false : (item.pronunciation.indexOf(q.toLowerCase()) > -1))
         });
@@ -30,14 +30,25 @@ const Deck = () => {
     const addCard = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
-            axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
-                .then((res) => {
-                    const response = res.data;
-                    console.log("success: ", response);
-                })
-                .catch((error) => {
-                    console.log('the following error occured when trying to post a new card', error);
-                });
+            if (pronounced) {
+                axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
+                    .then((res) => {
+                        const response = res.data;
+                        console.log("success: ", response);
+                    })
+                    .catch((error) => {
+                        console.log('the following error occured when trying to post a new card', error);
+                    });
+            } else {
+                axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true })
+                    .then((res) => {
+                        const response = res.data;
+                        console.log("success: ", response);
+                    })
+                    .catch((error) => {
+                        console.log('the following error occured when trying to post a new card', error);
+                    });
+            }
         }
     }
 
@@ -56,7 +67,7 @@ const Deck = () => {
 
         populateCardList();
 
-    }, [cardList])
+    }, [])
 
     return (
         <>
@@ -92,9 +103,9 @@ const Deck = () => {
                         {search(cardList).map((card, index) => (
                             <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5'
                                 key={index}>
-                                    <p className='text-xl p-0 text-black'>{card.side1}</p>
-                                    <p className='text-xl p-0 text-black'>{card.side2}</p>
-                                    <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                <p className='text-xl p-0 text-black'>{card.side1}</p>
+                                <p className='text-xl p-0 text-black'>{card.side2}</p>
+                                <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
                             </li>
                         ))}
                     </div>
@@ -131,4 +142,3 @@ const Deck = () => {
 }
 
 export default Deck
-
