@@ -27,6 +27,11 @@ const Deck = () => {
         });
     }
 
+    const updateList = () => {
+        addCard();
+        populateCardList();
+    }
+
     const addCard = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
@@ -52,22 +57,23 @@ const Deck = () => {
         }
     }
 
-    useEffect(() => {
-        async function populateCardList() {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
-                const data = await response.data;
-                setCardList(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                console.error("Since there was an error, here is the value of deckName: ", deckName);
-                setCardList([]);
-            }
+    const populateCardList = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
+            const data = await response.data;
+            setCardList(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            console.error("Since there was an error, here is the value of deckName: ", deckName);
+            setCardList([]);
         }
+    }
+
+    useEffect(() => {
 
         populateCardList();
 
-    }, [])
+    }, [deckName]);
 
     return (
         <>
@@ -81,7 +87,7 @@ const Deck = () => {
                             onChange={e => setbackSide(e.target.value)} />
                         <input value={pronounced} placeholder='Pronunciation (Optional)' className='ml-4 rounded-lg text-center bg-gray-700'
                             onChange={e => setPronounced(e.target.value)} />
-                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => addCard()}>
+                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateList()}>
                             CLICK TO ADD CARD</button>
                     </div>
                     <div className="w-full mx-auto">
