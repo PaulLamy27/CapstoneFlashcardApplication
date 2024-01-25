@@ -36,18 +36,13 @@ const Deck = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
             if (pronounced) {
-                axios.post(`http://localhost:5000/api/deck/${encodeURIComponent(deckName)}/card`, {
-                    side1: frontSide,
-                    side2: backSide,
-                    pronunciation: pronounced,
-                    priority: 1
-                }, { withCredentials: true })
+                axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
                     .then((res) => {
                         const response = res.data;
                         console.log("success: ", response);
                     })
                     .catch((error) => {
-                        console.log('(with pronounced) the following error occured when trying to post a new card', error);
+                        console.log('the following error occured when trying to post a new card', error);
                     });
             } else {
                 axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true })
@@ -56,7 +51,7 @@ const Deck = () => {
                         console.log("success: ", response);
                     })
                     .catch((error) => {
-                        console.log('(withou pronounced) the following error occured when trying to post a new card', error);
+                        console.log('the following error occured when trying to post a new card', error);
                     });
             }
         }
