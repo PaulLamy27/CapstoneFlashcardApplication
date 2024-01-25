@@ -27,32 +27,45 @@ const Deck = () => {
         });
     }
 
-    const updateList = () => {
-        addCard();
+    const updateList = async () => {
+        await addCard();
         populateCardList();
     }
 
-    const addCard = () => {
+    const addCard = async () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
-            if (pronounced) {
-                axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
-                    .then((res) => {
-                        const response = res.data;
-                        console.log("success: ", response);
-                    })
-                    .catch((error) => {
-                        console.log('the following error occured when trying to post a new card', error);
-                    });
-            } else {
-                axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true })
-                    .then((res) => {
-                        const response = res.data;
-                        console.log("success: ", response);
-                    })
-                    .catch((error) => {
-                        console.log('the following error occured when trying to post a new card', error);
-                    });
+            // if (pronounced) {
+            //     axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
+            //         .then((res) => {
+            //             const response = res.data;
+            //             console.log("success: ", response);
+
+            //         })
+            //         .catch((error) => {
+            //             console.log('the following error occured when trying to post a new card', error);
+            //         });
+            // } else {
+            //     axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true })
+            //         .then((res) => {
+            //             const response = res.data;
+            //             console.log("success: ", response);
+
+            //         })
+            //         .catch((error) => {
+            //             console.log('the following error occured when trying to post a new card', error);
+            //         });
+            // }
+            try {
+                if (pronounced) {
+                    await axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true });
+                } else {
+                    await axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true });
+                }
+
+                console.log("success");
+            } catch (error) {
+                console.log('the following error occurred when trying to post a new card', error);
             }
         }
     }
