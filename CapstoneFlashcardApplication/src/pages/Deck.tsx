@@ -30,6 +30,9 @@ const Deck = () => {
     const updateList = async () => {
         await addCard();
         populateCardList();
+        setFrontSide('');
+        setbackSide('');
+        setPronounced('');
     }
 
     const addCard = async () => {
@@ -83,9 +86,7 @@ const Deck = () => {
     }
 
     useEffect(() => {
-
         populateCardList();
-
     }, [deckName]);
 
     return (
