@@ -1,8 +1,9 @@
 import { CardInfo } from '../components/CardInfo';
 import axios from 'axios';
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { MdDelete } from 'react-icons/md'
+import ConfirmationDialog from '../components/ConfirmationDialog';
 
 const Deck = () => {
 
@@ -18,6 +19,8 @@ const Deck = () => {
     const [pronounced, setPronounced] = useState('');
 
     const [q, setQ] = useState("");
+
+    const [showConfirmationIndex, setShowConfirmationIndex] = useState<number | null>(null);
 
     const search = (items: CardInfo[]) => {
         return items.filter((item: CardInfo) => {
@@ -73,6 +76,36 @@ const Deck = () => {
         }
     }
 
+    const deleteCard = (side1, side2, pronunciation) => {
+        try {
+            axios.delete(`http://localhost:5000/api/deck/${encodeURIComponent(deckName)}/card`, {
+                params: {
+                    side1: side1,
+                    side2: side2,
+                    pronunciation: pronunciation,
+                    priority: 1
+                }
+            })
+            .then((res) => {
+                const response = res.data;
+                console.log("success: ", response);
+                // After successful deletion, update the card list
+                populateCardList();
+            })
+            .catch((error) => {
+                console.log('The following error occurred when trying to delete a card', error);
+            });
+        } catch (error) {
+            console.log("Error occurred during card deletion: ", error);
+        }
+        console.log("Card deleted");
+        setShowConfirmationIndex(null);
+    }
+    
+    const openConfirmationDialog = (index: number) => {
+        setShowConfirmationIndex(index);
+    };
+
     const populateCardList = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
@@ -121,11 +154,24 @@ const Deck = () => {
                     </div>)) */}
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
-                            <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5'
-                                key={index}>
+                            <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
+                                {
+                                showConfirmationIndex == index ?
+                                ( 
+                                <ConfirmationDialog
+                                message="Are you sure you want to delete this card?"
+                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
+                                onCancel={() => setShowConfirmationIndex(null)}/>
+                                )
+                                :
+                                (
+                                <>
+                                <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
                                 <p className='text-xl p-0 text-black'>{card.side1}</p>
                                 <p className='text-xl p-0 text-black'>{card.side2}</p>
                                 <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                </>
+                                )}
                             </li>
                         ))}
                     </div>
