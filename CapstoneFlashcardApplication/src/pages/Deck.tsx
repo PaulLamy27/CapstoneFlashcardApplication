@@ -8,15 +8,16 @@ import ConfirmationDialog from '../components/ConfirmationDialog';
 const Deck = () => {
 
     const { deckName } = useParams();
-    console.log(deckName);
-
     const [cardList, setCardList] = useState<CardInfo[]>([]);
-
-    console.log("cardList: ", cardList);
 
     const [frontSide, setFrontSide] = useState('');
     const [backSide, setbackSide] = useState('');
     const [pronounced, setPronounced] = useState('');
+
+    const [frontSideUpdate, setFrontSideUpdate] = useState('');
+    const [backSideUpdate, setBackSideUpdate] = useState('');
+    const [pronouncedUpdate, setPronouncedUpdate] = useState('');
+    const [showUpdateBox, setShowUpdateBox] = useState<number | null>(null);
 
     const [q, setQ] = useState("");
 
@@ -41,27 +42,6 @@ const Deck = () => {
     const addCard = async () => {
         console.log("sending a request to make a new deck with the name ", deckName);
         if (deckName !== '') {
-            // if (pronounced) {
-            //     axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true })
-            //         .then((res) => {
-            //             const response = res.data;
-            //             console.log("success: ", response);
-
-            //         })
-            //         .catch((error) => {
-            //             console.log('the following error occured when trying to post a new card', error);
-            //         });
-            // } else {
-            //     axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true })
-            //         .then((res) => {
-            //             const response = res.data;
-            //             console.log("success: ", response);
-
-            //         })
-            //         .catch((error) => {
-            //             console.log('the following error occured when trying to post a new card', error);
-            //         });
-            // }
             try {
                 if (pronounced) {
                     await axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true });
@@ -86,24 +66,55 @@ const Deck = () => {
                     priority: 1
                 }
             })
-            .then((res) => {
-                const response = res.data;
-                console.log("success: ", response);
-                // After successful deletion, update the card list
-                populateCardList();
-            })
-            .catch((error) => {
-                console.log('The following error occurred when trying to delete a card', error);
-            });
+                .then((res) => {
+                    const response = res.data;
+                    console.log("success: ", response);
+                    // After successful deletion, update the card list
+                    populateCardList();
+                })
+                .catch((error) => {
+                    console.log('The following error occurred when trying to delete a card', error);
+                });
         } catch (error) {
             console.log("Error occurred during card deletion: ", error);
         }
         console.log("Card deleted");
         setShowConfirmationIndex(null);
     }
-    
+
     const openConfirmationDialog = (index: number) => {
         setShowConfirmationIndex(index);
+    };
+
+    const updateCard = (id: number, side1, side2) => {
+        let newSide1 = frontSideUpdate == ''? side1 : frontSideUpdate
+        let newSide2 = backSideUpdate == ''? side2 : backSideUpdate
+        try {
+            axios.post(`http://localhost:5000/api/deck/card/${id}`, {
+                side1: newSide1,
+                side2: newSide2,
+                pronunciation: pronouncedUpdate
+            })
+                .then((res) => {
+                    const response = res.data;
+                    console.log("success: ", response);
+                    populateCardList();
+                    console.log("Card updated");
+                })
+                .catch((error) => {
+                    console.log('The following error occurred when trying to update a card', error);
+                });
+        } catch (error) {
+            console.log("Error occurred during card update: ", error);
+        }
+        setShowUpdateBox(null);
+    }
+
+    const openEditBox = (index: number) => {
+        setBackSideUpdate('')
+        setFrontSideUpdate('')
+        setPronouncedUpdate('')
+        setShowUpdateBox(index);
     };
 
     const populateCardList = async () => {
@@ -141,37 +152,43 @@ const Deck = () => {
                         <input value={q} placeholder='Search' className='ml-4 rounded-lg text-center bg-gray-700 hover'
                             onChange={e => setQ(e.target.value)} />
                     </div>
-                    {/* (isLoading ? (
-                    <h1>Currently loading...</h1>
-                    ) : (<div className="grid grid-cols-3 p-5">
-                        {cardList.map((card, index) => (
-                            <li key={index}>
-                                <p>{card.side1}</p>
-                                <p>{card.side2}</p>
-                                <p>{card.pronunciation}</p>
-                            </li>
-                        ))}
-                    </div>)) */}
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
                             <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
                                 {
-                                showConfirmationIndex == index ?
-                                ( 
-                                <ConfirmationDialog
-                                message="Are you sure you want to delete this card?"
-                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
-                                onCancel={() => setShowConfirmationIndex(null)}/>
-                                )
-                                :
-                                (
-                                <>
-                                <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
-                                <p className='text-xl p-0 text-black'>{card.side1}</p>
-                                <p className='text-xl p-0 text-black'>{card.side2}</p>
-                                <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
-                                </>
-                                )}
+                                    showConfirmationIndex == index ?
+                                        (
+                                            <ConfirmationDialog
+                                                message="Are you sure you want to delete this card?"
+                                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
+                                                onCancel={() => setShowConfirmationIndex(null)} />
+                                        )
+                                        :
+                                        (
+                                            showUpdateBox == index ?
+                                                (<>
+                                                    <input value={frontSideUpdate} placeholder={card.side1} className='m-2 rounded-lg text-center bg-gray-100 hover'
+                                                        onChange={e => setFrontSideUpdate(e.target.value)} />
+                                                    <input value={backSideUpdate} placeholder={card.side2} className='m-1 rounded-lg text-center bg-gray-100 hover'
+                                                        onChange={e => setBackSideUpdate(e.target.value)} />
+                                                    <input value={pronouncedUpdate} placeholder={card.pronunciation} className='m-2 rounded-lg text-center bg-gray-100 hover'
+                                                        onChange={e => setPronouncedUpdate(e.target.value)} />
+                                                    <div className="block">
+                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
+                                                            Update</button>
+                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-[#13163b] font-medium" onClick={() => openEditBox(null)}>
+                                                            Cancel</button></div>
+                                                </>
+                                                ) : (
+                                                    <>
+                                                        <button className="border rounded-lg mx-2 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => openEditBox(index)}>
+                                                            Edit</button>
+                                                        <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400 inline-block' onClick={() => openConfirmationDialog(index)} />
+                                                        <p className='mt-5 text-xl p-0 text-black'>{card.side1}</p>
+                                                        <p className='text-xl p-0 text-black'>{card.side2}</p>
+                                                        <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                                    </>
+                                                ))}
                             </li>
                         ))}
                     </div>
@@ -179,32 +196,6 @@ const Deck = () => {
             </div>
         </>
     )
-
-    // useEffect(() => {
-
-    // }, [deckName]);
-
-    // test if the cardData saves
-    // console.log(cards);
-
-    // element/div that will become part of TSX 
-    // iterate through the array;
-    // map is a commonly used JS/TS array function
-    // that takes each entry in the array and does something with it.
-    // In this case, it 'maps' it with a TSX element
-    // let cardList = cards.map(card =>
-    //     <>
-    //         <div key={card.id} className=
-    //         'bg-gray-50 m-5 p-5 w-60 h-50 rounded-lg text-black text-center cursor-pointer hover:bg-opacity-75 hover:text-opacity-75 transition duration-255 ease-in-out'
-    //         onClick={() => {console.log(card.id, card.side1, card.side2, card.pronunciation)}}>
-    //             <h1>{card.side1}</h1>
-    //             <h2>{card.side2}</h2>
-    //             <h2>{card.pronunciation}</h2>
-    //         </div>
-    //     </>
-    // )
-
-
 }
 
 export default Deck
