@@ -2,10 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Link, Outlet, BrowserRouter as Router } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
+import axios from "axios";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const [message, setMessage] = useState('')
+  const [name, setName] = useState('')
+
+  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    axios.get('http://localhost:5000')
+    .then(res => {
+      if(res.data.Status === "Success") {
+        setAuth(true)
+        setName(res.data.name)
+        console.log("Username:", name);
+      }
+      else {
+        setAuth(false)
+        setMessage(res.data.Error)
+      }
+    })
+    .catch(err => console.log(err));
+  }, [])
 
   const handleNav = () => {
     setNav(!nav);
@@ -45,15 +66,30 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="p-4">
-          <Link to="/your-decks">Decks</Link>
+          {
+            auth ?
+            <Link to="/your-decks">Decks</Link>
+            :
+            <Link to="/login">Decks</Link>
+          }
         </li>
         <li className="p-4">
-          <Link to="/study">Study</Link>
+          {
+            auth ?
+            <Link to="/study">Study</Link>
+            :
+            <Link to="/login">Study</Link>
+          }
         </li>
         <li>
-          <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
+          {
+            auth ?
+            null
+            :
+            <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
             <Link to="/login">Login</Link>
           </button>
+          }
         </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
@@ -74,15 +110,30 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
+          {
+            auth ?
             <Link to="/your-decks">Decks</Link>
+            :
+            <Link to="/login">Decks</Link>
+          }
           </li>
           <li className="p-4 border-b border-gray-600">
+          {
+            auth ?
             <Link to="/study">Study</Link>
+            :
+            <Link to="/login">Study</Link>
+          }
           </li>
           <li>
-            <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+            {
+              auth ?
+              null
+              :
+              <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
               <Link to="/login">Login</Link>
             </button>
+            }
           </li>
         </ul>
       </div>

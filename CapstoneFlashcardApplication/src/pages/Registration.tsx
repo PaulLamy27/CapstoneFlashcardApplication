@@ -1,6 +1,39 @@
-import React from "react";
+import { useState} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
-const Registration = () => {
+const Registration = () => { 
+
+  const navigate = useNavigate();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const registrationData = {
+      firstname: firstName,
+      lastname: lastName,
+      email: email,
+      username: username,
+      password: password,
+    };
+
+    const url = "http://localhost:5000/api/registration/create";
+
+    axios.post(url, registrationData, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        navigate("/login")
+      })
+      .catch((error: any) => {
+        console.log("The following error occured in axios.get: ", error);
+      });
+  };
+
   return (
     <div className="flex items-center justify-center h-screen w-full text-white">
       <div className="flex flex-col justify-center">
@@ -9,31 +42,31 @@ const Registration = () => {
             REGISTRATION
           </h2>
           <div className="grid gap-5 md:grid-cols-2">
-          <div className="flex flex-col py-2">
-            <label>First Name</label>
-            <input className="border p-2 text-black" type="firstname" />
-          </div>
-          <div className="flex flex-col py-2">
-            <label>Last Name</label>
-            <input className="border p-2 text-black" type="lastname" />
-          </div></div>
+            <div className="flex flex-col py-2">
+              <label>First Name</label>
+              <input className="border p-2 text-black" type="text" onChange={(e) => setFirstName(e.target.value)} />
+            </div>
+            <div className="flex flex-col py-2">
+              <label>Last Name</label>
+              <input className="border p-2 text-black" type="text" onChange={(e) => setLastName(e.target.value)} />
+            </div></div>
           <div className="flex flex-col py-2">
             <label>Email</label>
-            <input className="border p-2 text-black" type="email" />
+            <input className="border p-2 text-black" type="text" onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="flex flex-col py-2">
             <label>Username</label>
-            <input className="border p-2 text-black" type="username" />
+            <input className="border p-2 text-black" type="text" onChange={(e) => setUserName(e.target.value)} />
           </div>
           <div className="flex flex-col py-2">
             <label>Password</label>
-            <input className="border p-2 text-black" type="password" />
+            <input className="border p-2 text-black" type="password" onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="flex flex-col py-2">
             <label>Confirm Password</label>
             <input className="border p-2 text-black" type="password" />
           </div>
-          <button className="border w-full my-5 py-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium">
+          <button className="border w-full my-5 py-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={handleSubmit}>
             Register Now
           </button>
           <div className="flex justify-between">
