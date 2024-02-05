@@ -13,7 +13,7 @@ import { useParams } from 'react-router';
 import axios from "axios";
 
 import './Study.css'
-import YourDecks from "./YourDecks";
+//import YourDecks from "./YourDecks";
 
 const Study = () => {
 
@@ -54,8 +54,8 @@ const Study = () => {
 
     useEffect(() => {
         console.log("Updated cardsList: ", cardsList);
-        let prevDeckSize = cardsList.length;
-        setDeckSize((prevDeckSize) => {
+        //let prevDeckSize = cardsList.length;
+        setDeckSize(() => {
             const newDeckSize = cardsList.length;
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
@@ -112,7 +112,7 @@ const Study = () => {
         // console.log("deckSize after decerement: ", deckSize);
 
         // function that removes the passed in card from the cardList, thus changing the state
-        let currentCardIndex = cardsList.indexOf(currentCard);
+        //let currentCardIndex = cardsList.indexOf(currentCard);
         // console.log(currentCardIndex);
 
         // console.log("correctList BEFORE: ", correctList);
@@ -140,7 +140,7 @@ const Study = () => {
         // Collect wrong data
 
         setDeckSize(deckSize - 1);
-        let currentCardIndex = cardsList.indexOf(currentCard);
+        //let currentCardIndex = cardsList.indexOf(currentCard);
         setWrongList([...wrongList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)

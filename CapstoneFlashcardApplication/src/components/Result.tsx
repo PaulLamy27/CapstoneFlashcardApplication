@@ -1,9 +1,9 @@
 // import React from 'react'
 import './Result.css'
 
-interface props {
-    onClick: () => void
-}
+//interface props {
+   // onClick: () => void
+//}
 
 const Result = ({collectLists }) => {
 

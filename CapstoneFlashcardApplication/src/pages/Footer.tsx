@@ -1,10 +1,10 @@
-import React from 'react'
+//import React from 'react'
 import {
-FaDribbbleSquare,
-FaFacebookSquare,
+//FaDribbbleSquare,
+//FaFacebookSquare,
 FaGithubSquare,
-FaInstagram,
-FaTwitterSquare,
+//FaInstagram,
+//FaTwitterSquare,
 } from 'react-icons/fa'
 
 const Footer = () => {
