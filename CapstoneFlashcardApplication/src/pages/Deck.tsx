@@ -154,7 +154,7 @@ const Deck = () => {
                     </div>)) */}
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
-                            <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
+                            <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
                                 {
                                 showConfirmationIndex == index ?
                                 ( 
@@ -166,7 +166,7 @@ const Deck = () => {
                                 :
                                 (
                                 <>
-                                <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
+                                <MdDelete className='absolute top-0 right-0 hidden group-hover:block w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
                                 <p className='text-xl p-0 text-black'>{card.side1}</p>
                                 <p className='text-xl p-0 text-black'>{card.side2}</p>
                                 <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
