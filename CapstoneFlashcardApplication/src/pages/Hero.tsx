@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 
@@ -27,6 +27,7 @@ const Hero = () => {
   const handleDelete = () => {
     axios.get('http://localhost:5000/logout')
     .then(res => {
+      console.log("res: ", res);
       location.reload();
     }).catch(err => console.log(err));
   }

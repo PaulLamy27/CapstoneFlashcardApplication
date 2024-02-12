@@ -2,13 +2,13 @@
 // this means that the page will have 'links' to other components,
 // and clicking those links will redirect you to that page, which is also a component.
 // Therefore, import the following; these are the functions from react-router that will be used
-import { BrowserRouter, Routes, Route, createBrowserRouter, createRoutesFromElements, Navigate } from "react-router-dom"; // import the components we will use for this project.
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"; // import the components we will use for this project.
 import Root from "./pages/Root";
 import Study from "./pages/Study";
 import Deck from "./pages/Deck";
 import YourDecks from "./pages/YourDecks";
 import Login from "./pages/Login";
-import Layout from "./pages/Layout";
+//import Layout from "./pages/Layout";
 import Registration from "./pages/Registration";
 import Navbar from "./pages/Navbar";
 import ChooseDeck from "./pages/ChooseDeck";
