@@ -17,8 +17,8 @@ const Navbar = () => {
     .then(res => {
       if(res.data.Status === "Success") {
         setAuth(true)
-        setName(res.data.name)
-        console.log("Username:", name);
+        setName(res.data.username)
+        console.log("Username:", res.data.username);
       }
       else {
         setAuth(false)
@@ -92,6 +92,16 @@ const Navbar = () => {
           </button>
           }
         </li>
+        <li>
+          {
+            auth ?
+            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+            <Link to="/profile">{name}</Link>
+            </button>
+            :
+            null            
+          }
+        </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -136,6 +146,16 @@ const Navbar = () => {
             </button>
             }
           </li>
+          <li>
+          {
+            auth ?
+            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+            <Link to="/profile">{name}</Link>
+            </button>
+            :
+            null            
+          }
+        </li>
         </ul>
       </div>
       <FaAngleUp

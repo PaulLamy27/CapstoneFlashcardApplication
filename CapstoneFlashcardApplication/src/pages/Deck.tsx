@@ -154,7 +154,7 @@ const Deck = () => {
                     </div>
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
-                            <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
+                            <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
                                 {
                                     showConfirmationIndex == index ?
                                         (

@@ -14,7 +14,8 @@ const Hero = () => {
     .then(res => {
       if(res.data.Status === "Success") {
         setAuth(true)
-        setName(res.data.name)
+        setName(res.data.username)
+        console.log("Username ", res.data.username)
       }
       else {
         setAuth(false)
