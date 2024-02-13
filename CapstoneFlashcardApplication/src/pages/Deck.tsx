@@ -154,41 +154,24 @@ const Deck = () => {
                     </div>
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
-                            <li className='cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
+                            <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
                                 {
-                                    showConfirmationIndex == index ?
-                                        (
-                                            <ConfirmationDialog
-                                                message="Are you sure you want to delete this card?"
-                                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
-                                                onCancel={() => setShowConfirmationIndex(null)} />
-                                        )
-                                        :
-                                        (
-                                            showUpdateBox == index ?
-                                                (<>
-                                                    <input value={frontSideUpdate} placeholder={card.side1} className='m-2 rounded-lg text-center bg-gray-100 hover'
-                                                        onChange={e => setFrontSideUpdate(e.target.value)} />
-                                                    <input value={backSideUpdate} placeholder={card.side2} className='m-1 rounded-lg text-center bg-gray-100 hover'
-                                                        onChange={e => setBackSideUpdate(e.target.value)} />
-                                                    <input value={pronouncedUpdate} placeholder={card.pronunciation} className='m-2 rounded-lg text-center bg-gray-100 hover'
-                                                        onChange={e => setPronouncedUpdate(e.target.value)} />
-                                                    <div className="block">
-                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
-                                                            Update</button>
-                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-[#13163b] font-medium" onClick={() => openEditBox(null)}>
-                                                            Cancel</button></div>
-                                                </>
-                                                ) : (
-                                                    <>
-                                                        <button className="border rounded-lg mx-2 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => openEditBox(index)}>
-                                                            Edit</button>
-                                                        <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400 inline-block' onClick={() => openConfirmationDialog(index)} />
-                                                        <p className='mt-5 text-xl p-0 text-black'>{card.side1}</p>
-                                                        <p className='text-xl p-0 text-black'>{card.side2}</p>
-                                                        <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
-                                                    </>
-                                                ))}
+                                showConfirmationIndex == index ?
+                                ( 
+                                <ConfirmationDialog
+                                message="Are you sure you want to delete this card?"
+                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
+                                onCancel={() => setShowConfirmationIndex(null)}/>
+                                )
+                                :
+                                (
+                                <>
+                                <MdDelete className='absolute top-0 right-0 hidden group-hover:block w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
+                                <p className='text-xl p-0 text-black'>{card.side1}</p>
+                                <p className='text-xl p-0 text-black'>{card.side2}</p>
+                                <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                </>
+                                )}
                             </li>
                         ))}
                     </div>
