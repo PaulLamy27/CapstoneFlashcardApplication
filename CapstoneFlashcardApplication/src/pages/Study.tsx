@@ -34,7 +34,7 @@ const Study = () => {
     useEffect(() => {
         async function populateCardList() {
             try {
-                const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
+                const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}`);
                 const data = await response.data;
                 console.log(data);
                 setCardsList(data);
@@ -80,6 +80,28 @@ const Study = () => {
         console.log("typeof card: ", typeof (card));
         return card;
     }
+
+    // const getNextCard = () => {
+    //     // let result = Math.floor(Math.random() * cardsList.length);
+    //     setDeckSize(deckSize - 1);
+    //     console.log("getNextCard; cardsList.length: ", deckSize);
+    //     let card = cardsList[deckSize];
+
+    //     console.log("getNextCard ran and here is card: ", card);
+    //     console.log("typeof card: ", typeof (card));
+    //     return card;
+    // }
+
+    // const getNextCardTryAgain = () => {
+    //     // let result = Math.floor(Math.random() * deckSize);
+    //     setDeckSize(deckSize - 1);
+    //     console.log("getNextCard; deckSize: ", deckSize);
+    //     let card = cardsList[cardsList.length];
+
+    //     console.log("getNextCard ran and here is card: ", card);
+    //     console.log("typeof card: ", typeof (card));
+    //     return card;
+    // }
 
     const updateCard = () => {
         console.log("New Card!!")
@@ -144,10 +166,21 @@ const Study = () => {
         setWrongList([...wrongList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
-        )
+        );
+        updatePriority(currentCard.id);
         updateCard();
         console.log("wrongList: ", wrongList);
 
+    }
+
+    const updatePriority = async (cardId: Number) => {
+        console.log("we are inside of updatePriority!");
+        try {
+            const response = await axios.post(`http://localhost:5000/api/deck/prio/${cardId}`, {}, { withCredentials: true });
+            console.log(response);
+        } catch (error) {
+            console.log("updatePriority has the follow error: ", error);
+        }
     }
 
     const handleTryAgain = (wrongList: CardInfo[]) => {
@@ -186,7 +219,7 @@ const Study = () => {
                     </div>
                 )}
 
-                {isStudyComplete && deckSize === 0 && wrongList.length === 0  && (
+                {isStudyComplete && deckSize === 0 && wrongList.length === 0 && (
                     <>
                         <div className="mt-10 flex items-center justify-center">
                             <h1 className="text-5xl text-lime-500 font-bold">
