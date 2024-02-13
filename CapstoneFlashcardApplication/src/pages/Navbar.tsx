@@ -145,6 +145,16 @@ const Navbar = () => {
             </button>
             }
           </li>
+          <li>
+          {
+            auth ?
+            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+            <Link to="/profile">{name}</Link>
+            </button>
+            :
+            null            
+          }
+        </li>
         </ul>
       </div>
       <FaAngleUp
