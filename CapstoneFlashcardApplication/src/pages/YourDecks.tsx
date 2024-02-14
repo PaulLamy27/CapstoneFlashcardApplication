@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom';
-import { MdDelete } from 'react-icons/md'
+import { MdDelete, MdPublic, MdPublicOff } from 'react-icons/md'
 import AddCard from '../components/AddCard';
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import axios from 'axios'
@@ -10,6 +10,7 @@ const YourDecks = () => {
     const [deckList, setDeckList] = useState([]);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
     const [showConfirmationIndex, setShowConfirmationIndex] = useState<number | null>(null);
+    const [isPublicList, setIsPublicList] = useState([]);
 
     const deleteDeck = ( title ) => {
         try {
@@ -35,14 +36,32 @@ const YourDecks = () => {
         setShowConfirmationIndex(index);
     };
 
+    const updateDeck = (index, title, isPublic) => {
+        try {
+            axios.post(`http://localhost:5000/api/deck/${title}?isPublic=${isPublic}`)
+                .then((res) => {
+                    const response = res.data;
+                    console.log("success: ", response);
+                    console.log("Deck updated");
+                    let clone = [...isPublicList]
+                    clone[index] = isPublic
+                    setIsPublicList(clone)
+                })
+                .catch((error) => {
+                    console.log('The following error occurred when trying to update a card', error);
+                });
+        } catch (error) {
+            console.log("Error occurred during deck update: ", error);
+        }
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
                 setDeckList(titles);
-                console.log(titles);
-                console.log(deckList);
+                setIsPublicList(res.data.map(deck => deck.isPublic));
             })
             .catch((error) => {
                 console.log("The following error occured in axios.get: ", error);
@@ -72,6 +91,9 @@ const YourDecks = () => {
                         (
                             // link to is the URL that leads to that page
                             <>
+                            {isPublicList[index] == 1 ? 
+                            (<><MdPublic className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 0)}/></>):
+                            (<><MdPublicOff className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 1)}/></>)}
                             <MdDelete className='absolute top-0 right-0 hidden group-hover:block w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
                             <Link className="p-20" to={`/your-decks/${deckName}`} key={index}>
                                 <p>{deckName}</p>
