@@ -11,6 +11,9 @@ import App from './App.tsx'
 //import YourDecks from './pages/YourDecks.tsx';
 import './index.css'
 //import Root from './pages/Root';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://capstone-flashcard-api.vercel.app/' || "localhost:5000/";
 
 // React will interact with the DOM to render the App component into our HTML 
 ReactDOM.createRoot(document.getElementById('root')!).render(

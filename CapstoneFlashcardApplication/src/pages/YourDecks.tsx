@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, Route, Routes, useFetcher } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
@@ -8,7 +8,7 @@ import axios from 'axios'
 const YourDecks = () => {
 
     const [deckList, setDeckList] = useState([]);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
     const [showConfirmationIndex, setShowConfirmationIndex] = useState<number | null>(null);
     const [isPublicList, setIsPublicList] = useState([]);
@@ -80,15 +80,12 @@ const YourDecks = () => {
     }
 
     const fetchData = async () => {
-        setLoading(true);
         try {
             const res = await axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true });
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setDeckList(titles);
-            setLoading(false);
         } catch (error) {
             console.error("Error fetching deck list: ", error);
-            setLoading(false);
         }
     };
 
@@ -101,10 +98,6 @@ const YourDecks = () => {
     useEffect(() => {
 
     }, [deckList]);
-
-    const toggleAddCardComponent = () => {
-        setShowAddCardComponent(!showAddCardComponent);
-    }
 
     return (
         <>

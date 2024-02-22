@@ -10,7 +10,7 @@ const Hero = () => {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get('http://localhost:5000')
+    axios.get('/')
     .then(res => {
       if(res.data.Status === "Success") {
         setAuth(true)

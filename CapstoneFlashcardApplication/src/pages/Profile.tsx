@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, Link, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Link, Route, Routes } from 'react-router-dom';
 import YourDecks from './YourDecks';
 import axios from "axios";
 
@@ -20,6 +20,8 @@ const Profile = () => {
             }
             else {
                 setAuth(false)
+                console.log("auth: ", auth);
+                console.log("message: ", message);
                 setMessage(res.data.Error)
             }
         })

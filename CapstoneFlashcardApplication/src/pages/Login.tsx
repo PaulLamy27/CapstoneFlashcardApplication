@@ -11,17 +11,17 @@ const Login = () => {
   axios.defaults.withCredentials = true
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/login', values)
-    .then(res => {
-      if(res.data.Status === "Success") {
-        navigate('/')
-        location.reload();
-      }
-      else {
-        alert(res.data.Error);
-      }
-    })
-    .then(err => console.log(err));
+    axios.post('login', values)
+      .then(res => {
+        if (res.data.Status === "Success") {
+          navigate('/')
+          location.reload();
+        }
+        else {
+          alert(res.data.Error);
+        }
+      })
+      .then(err => console.log(err));
   }
 
   return (
@@ -33,11 +33,11 @@ const Login = () => {
           </h2>
           <div className="flex flex-col py-2">
             <label htmlFor="username">Username</label>
-            <input className="border p-2 text-black" type="username" placeholder="Enter Username" name="username" onChange={e => setValues({...values, username: e.target.value})}/>
+            <input className="border p-2 text-black" type="username" placeholder="Enter Username" name="username" onChange={e => setValues({ ...values, username: e.target.value })} />
           </div>
           <div className="flex flex-col py-2">
             <label htmlFor="password">Password</label>
-            <input className="border p-2 text-black" type="password" placeholder="Enter Password" name="password" onChange={e => setValues({...values, password: e.target.value})}/>
+            <input className="border p-2 text-black" type="password" placeholder="Enter Password" name="password" onChange={e => setValues({ ...values, password: e.target.value })} />
           </div>
           <button type="submit" className="border w-full my-5 py-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium">
             Sign in
@@ -47,7 +47,7 @@ const Login = () => {
               <input className="mr-1" type="checkbox" />
               Remember me
             </p>
-            <p> 
+            <p>
               <Link to="/registration">Create an account</Link>
             </p>
           </div>
