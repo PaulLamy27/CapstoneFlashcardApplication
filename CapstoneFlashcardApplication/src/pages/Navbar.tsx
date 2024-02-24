@@ -13,20 +13,20 @@ const Navbar = () => {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get('http://localhost:5000')
-    .then(res => {
-      if(res.data.Status === "Success") {
-        setAuth(true)
-        setName(res.data.username)
-        console.log("Username:", res.data.username);
-      }
-      else {
-        setAuth(false)
-        console.log(message);
-        setMessage(res.data.Error)
-      }
-    })
-    .catch(err => console.log(err));
+    axios.get('')
+      .then(res => {
+        if (res.data.Status === "Success") {
+          setAuth(true)
+          setName(res.data.username)
+          console.log("Username:", res.data.username);
+        }
+        else {
+          setAuth(false)
+          console.log(message);
+          setMessage(res.data.Error)
+        }
+      })
+      .catch(err => console.log(err));
   }, [])
 
   const handleNav = () => {
@@ -69,37 +69,37 @@ const Navbar = () => {
         <li className="p-4">
           {
             auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
+              <Link to="/your-decks">Decks</Link>
+              :
+              <Link to="/login">Decks</Link>
           }
         </li>
         <li className="p-4">
           {
             auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
+              <Link to="/study">Study</Link>
+              :
+              <Link to="/login">Study</Link>
           }
         </li>
         <li>
           {
             auth ?
-            null
-            :
-            <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
-            <Link to="/login">Login</Link>
-          </button>
+              null
+              :
+              <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
+                <Link to="/login">Login</Link>
+              </button>
           }
         </li>
         <li>
           {
             auth ?
-            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
-            <Link to="/profile">{name}</Link>
-            </button>
-            :
-            null            
+              <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+                <Link to="/profile">{name}</Link>
+              </button>
+              :
+              null
           }
         </li>
       </ul>
@@ -121,41 +121,41 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
-          {
-            auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
-          }
+            {
+              auth ?
+                <Link to="/your-decks">Decks</Link>
+                :
+                <Link to="/login">Decks</Link>
+            }
           </li>
           <li className="p-4 border-b border-gray-600">
-          {
-            auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
-          }
+            {
+              auth ?
+                <Link to="/study">Study</Link>
+                :
+                <Link to="/login">Study</Link>
+            }
           </li>
           <li>
             {
               auth ?
-              null
-              :
-              <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
-              <Link to="/login">Login</Link>
-            </button>
+                null
+                :
+                <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+                  <Link to="/login">Login</Link>
+                </button>
             }
           </li>
           <li>
-          {
-            auth ?
-            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
-            <Link to="/profile">{name}</Link>
-            </button>
-            :
-            null            
-          }
-        </li>
+            {
+              auth ?
+                <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+                  <Link to="/profile">{name}</Link>
+                </button>
+                :
+                null
+            }
+          </li>
         </ul>
       </div>
       <FaAngleUp

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { MdDelete } from 'react-icons/md'
 import ConfirmationDialog from '../components/ConfirmationDialog';
+import Translate from '../components/Translate';
 
 const Deck = () => {
 
@@ -138,6 +139,7 @@ const Deck = () => {
             <div className="flex items-center justify-center w-800 text-black">
                 <div className="flex flex-col justify-center p-10 m-10">
                     <div className='font-sans text-white font-semibold text-3xl'>{deckName}</div>
+                    <Translate />
                     <div className="w-full mx-auto">
                         <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center bg-gray-700 hover'
                             onChange={e => setFrontSide(e.target.value)} />

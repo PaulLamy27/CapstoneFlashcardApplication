@@ -3,7 +3,8 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
-import axios from 'axios'
+import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 
 const YourDecks = () => {
 
@@ -81,7 +82,7 @@ const YourDecks = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true });
+            const res = await axiosInstance.get(`api/deck/user/`, { withCredentials: true });
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setDeckList(titles);
         } catch (error) {

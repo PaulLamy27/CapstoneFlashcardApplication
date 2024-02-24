@@ -13,6 +13,7 @@ import { useParams } from 'react-router';
 import axios from "axios";
 
 import './Study.css'
+import axiosInstance from "../axiosInstance";
 //import YourDecks from "./YourDecks";
 
 const Study = () => {
@@ -34,7 +35,7 @@ const Study = () => {
     useEffect(() => {
         async function populateCardList() {
             try {
-                const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}`);
+                const response = await axiosInstance.get(`api/deck/studyDeck/${deckName}`);
                 const data = await response.data;
                 console.log(data);
                 setCardsList(data);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ const ChooseDeck = () => {
     const [deckList, setDeckList] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/deck/user/', {withCredentials: true})
+        axiosInstance.get('api/deck/user/', { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
@@ -28,7 +28,7 @@ const ChooseDeck = () => {
                 {deckList.map((deckName, index) => (
                     // link to is the URL that leads to that page
                     <Link to={`/study/${deckName}`} key={index}>
-                    <ul className='flex cursor-pointer justify-center items-center text-center max-w-[300px] h-40 mb-20 bg-slate-50 text-black font-semibold text-xl transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
+                        <ul className='flex cursor-pointer justify-center items-center text-center max-w-[300px] h-40 mb-20 bg-slate-50 text-black font-semibold text-xl transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
                             <p className='p-20'>{deckName}</p>
                         </ul>
                     </Link>
