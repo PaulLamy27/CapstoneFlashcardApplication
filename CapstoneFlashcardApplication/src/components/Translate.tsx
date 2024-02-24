@@ -23,6 +23,7 @@ const Translate = () => {
                 target: "es",
             },
         };
+        console.log(options);
     }
 
     const fetchData = async () => {
