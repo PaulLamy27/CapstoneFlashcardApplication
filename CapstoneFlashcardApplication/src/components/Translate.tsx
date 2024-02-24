@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 
 
@@ -36,6 +36,7 @@ const Translate = () => {
         };
 
         try {
+            console.log(options);
             const response = await axios.request(options);
             console.log(response.data);
             return response.data;
@@ -46,6 +47,7 @@ const Translate = () => {
     };
 
     useEffect(() => {
+        console.log(loading);
         const fetchDataAndSetState = async () => {
             try {
                 if (!data) {
