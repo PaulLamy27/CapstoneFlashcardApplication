@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
 import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -13,7 +14,8 @@ const Navbar = () => {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get('')
+    axiosInstance.get('/')
+    // axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.Status === "Success") {
           setAuth(true)
@@ -22,7 +24,7 @@ const Navbar = () => {
         }
         else {
           setAuth(false)
-          console.log(message);
+          console.log("error with navbar: ", message);
           setMessage(res.data.Error)
         }
       })

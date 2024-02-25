@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import Translate from '../components/Translate';
 
 const Hero = () => {
@@ -9,9 +10,11 @@ const Hero = () => {
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  axios.defaults.withCredentials = true;
+  axiosInstance.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get('/')
+    axiosInstance.get('/')
+    // axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.Status === "Success") {
           setAuth(true)
@@ -27,7 +30,7 @@ const Hero = () => {
   }, [])
 
   const handleDelete = () => {
-    axios.get('http://localhost:5000/logout')
+    axiosInstance.get('http://localhost:5000/logout')
       .then(res => {
         console.log("res: ", res);
         location.reload();

@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { MdDelete } from 'react-icons/md'
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import Translate from '../components/Translate';
+import axiosInstance from '../axiosInstance';
 
 const Deck = () => {
 
@@ -88,8 +89,8 @@ const Deck = () => {
     };
 
     const updateCard = (id: number, side1, side2) => {
-        let newSide1 = frontSideUpdate == ''? side1 : frontSideUpdate
-        let newSide2 = backSideUpdate == ''? side2 : backSideUpdate
+        let newSide1 = frontSideUpdate == '' ? side1 : frontSideUpdate
+        let newSide2 = backSideUpdate == '' ? side2 : backSideUpdate
         try {
             axios.post(`http://localhost:5000/api/deck/card/${id}`, {
                 side1: newSide1,
@@ -120,7 +121,7 @@ const Deck = () => {
 
     const populateCardList = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
+            const response = await axiosInstance.get(`api/deck/deckTitle/${deckName}`);
             const data = await response.data;
             setCardList(data);
         } catch (error) {
