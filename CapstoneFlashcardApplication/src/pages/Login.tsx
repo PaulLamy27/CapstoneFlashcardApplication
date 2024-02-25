@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axiosInstance from "../axiosInstance";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -8,10 +8,10 @@ const Login = () => {
     password: ''
   })
   const navigate = useNavigate()
-  axios.defaults.withCredentials = true
+  axiosInstance.defaults.withCredentials = true
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post('login', values)
+    axiosInstance.post('login', values)
       .then(res => {
         if (res.data.Status === "Success") {
           navigate('/')
