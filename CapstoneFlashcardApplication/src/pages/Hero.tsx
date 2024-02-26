@@ -13,8 +13,8 @@ const Hero = () => {
   axiosInstance.defaults.withCredentials = true;
   // axios.defaults.withCredentials = true;
   useEffect(() => {
-    axiosInstance.get('/')
-    // axios.get('http://localhost:5000/')
+    axiosInstance.get('')
+      // axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.Status === "Success") {
           setAuth(true)
@@ -30,7 +30,7 @@ const Hero = () => {
   }, [])
 
   const handleDelete = () => {
-    axiosInstance.get('http://localhost:5000/logout')
+    axiosInstance.get('logout')
       .then(res => {
         console.log("res: ", res);
         location.reload();

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
-import axios from "axios";
+//import axios from "axios";
 
 const Login = () => {
   const [values, setValues] = useState({
     username: '',
     password: ''
   })
-  const navigate = useNavigate()
-  axios.defaults.withCredentials = true
+  const navigate = useNavigate();
   axiosInstance.defaults.withCredentials = true
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
