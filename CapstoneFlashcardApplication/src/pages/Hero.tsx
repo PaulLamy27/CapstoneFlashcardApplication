@@ -10,7 +10,7 @@ const Hero = () => {
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  axiosInstance.defaults.withCredentials = true;
+  // axiosInstance.defaults.withCredentials = true;
   // axios.defaults.withCredentials = true;
   useEffect(() => {
     axiosInstance.get('/')

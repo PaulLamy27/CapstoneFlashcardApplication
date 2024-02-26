@@ -12,7 +12,7 @@ const Navbar = () => {
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  axiosInstance.defaults.withCredentials = true;
+  // axiosInstance.defaults.withCredentials = true;
   useEffect(() => {
     // get '/' => route at 'api/' => verifyUser 
     axiosInstance.get('/')
