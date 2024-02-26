@@ -84,6 +84,7 @@ const YourDecks = () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true });
             const titles = res.data.map((deck: { title: string }) => deck.title);
+            setIsPublicList(res.data.map(deck => deck.isPublic));
             setDeckList(titles);
             setLoading(false);
         } catch (error) {
