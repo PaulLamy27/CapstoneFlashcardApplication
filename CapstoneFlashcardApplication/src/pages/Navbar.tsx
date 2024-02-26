@@ -102,6 +102,13 @@ const Navbar = () => {
             null            
           }
         </li>
+        <li className="p-4">
+          {
+            auth ?
+            <Link to="/user">Search user</Link>
+            : null
+          }
+        </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}

@@ -8,26 +8,14 @@ import Study from "./pages/Study";
 import Deck from "./pages/Deck";
 import YourDecks from "./pages/YourDecks";
 import Login from "./pages/Login";
-//import Layout from "./pages/Layout";
 import Registration from "./pages/Registration";
 import Navbar from "./pages/Navbar";
 import ChooseDeck from "./pages/ChooseDeck";
 import Profile from "./pages/Profile";
-
-
+import User from './pages/User';
 
 function App() {
   return (
-
-    // createBrowserRouter(
-    //   createRoutesFromElements(
-    //     <Route path="/" element={<Root />}> 
-    //       <Route path="deck" element={<Deck />}/>
-    //       <Route path="your-decks" element={<YourDecks />}/>
-    //     </Route>
-    //   )
-    // )
-
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -35,12 +23,11 @@ function App() {
         <Route path="/root" element={<Navigate to='/'/>} />
         <Route path="/home" element={<Navigate to='/'/>} />
         <Route path="/your-decks/*" element={<YourDecks />} />
-        {/* <Route path="/deck" element={<Deck />} /> */}
         <Route path="/study" element={<ChooseDeck />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/registration" element={<Registration />}/>
         <Route path="/profile" element={<Profile />}/>
-
+        <Route path="/user" element={<User />}/>
         <Route path="/your-decks/:deckName" element={<Deck />} />
         <Route path="/study/:deckName" element={<Study />} />
         <Route path="/profile/:username" element={<Profile />}/>
