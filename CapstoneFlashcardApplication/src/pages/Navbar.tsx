@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
-import axios from "axios";
+//import axios from "axios";
 import axiosInstance from "../axiosInstance";
 
 const Navbar = () => {
@@ -12,9 +12,10 @@ const Navbar = () => {
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  axios.defaults.withCredentials = true;
+  axiosInstance.defaults.withCredentials = true;
   useEffect(() => {
-    axiosInstance.get('')
+    // get '/' => route at 'api/' => verifyUser 
+    axiosInstance.get('/')
     // axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.Status === "Success") {

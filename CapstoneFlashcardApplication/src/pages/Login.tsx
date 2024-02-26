@@ -12,7 +12,7 @@ const Login = () => {
   axiosInstance.defaults.withCredentials = true
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axiosInstance.post('login', values)
+    axiosInstance.post('/login', values)
       .then(res => {
         const token = res.data.token;
         console.log("token has been gotted: ", token);
