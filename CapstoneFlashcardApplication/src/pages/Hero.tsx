@@ -10,7 +10,7 @@ const Hero = () => {
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  // axiosInstance.defaults.withCredentials = true;
+  axiosInstance.defaults.withCredentials = true;
   // axios.defaults.withCredentials = true;
   useEffect(() => {
     axiosInstance.get('/')
@@ -24,6 +24,7 @@ const Hero = () => {
         else {
           setAuth(false)
           setMessage(res.data.Error)
+          console.log("Username NOT set")
         }
       })
       .catch(err => console.log(err));
