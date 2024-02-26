@@ -14,22 +14,31 @@ const Navbar = () => {
 
   axiosInstance.defaults.withCredentials = true;
   useEffect(() => {
-    // get '/' => route at 'api/' => verifyUser 
-    axiosInstance.get('/')
-    // axios.get('http://localhost:5000/')
-      .then(res => {
-        if (res.data.Status === "Success") {
-          setAuth(true)
-          setName(res.data.username)
-          console.log("Username:", res.data.username);
-        }
-        else {
-          setAuth(false)
-          console.log("error with navbar: ", message);
-          setMessage(res.data.Error)
-        }
-      })
-      .catch(err => console.log(err));
+    const userToken = sessionStorage.getItem('user_token');
+
+
+    if (userToken) {
+      // Set the token as a common header for all requests
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+      // get '/' => route at 'api/' => verifyUser 
+      axiosInstance.get('/')
+        // axios.get('http://localhost:5000/')
+        .then(res => {
+          if (res.data.Status === "Success") {
+            setAuth(true)
+            setName(res.data.username)
+            console.log("Username:", res.data.username);
+          }
+          else {
+            setAuth(false)
+            console.log("error with navbar: ", message);
+            setMessage(res.data.Error)
+          }
+        })
+        .catch(err => console.log(err));
+    }
+
   }, [])
 
   const handleNav = () => {
