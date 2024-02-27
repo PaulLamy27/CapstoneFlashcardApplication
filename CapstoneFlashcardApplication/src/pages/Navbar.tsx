@@ -92,6 +92,14 @@ const Navbar = () => {
           </button>
           }
         </li>
+        <li className="p-4">
+          {
+            auth ?
+            <Link to="/user">Search user</Link>
+            : 
+            <Link to="/login">Search user</Link>
+          }
+        </li>
         <li>
           {
             auth ?
@@ -100,13 +108,6 @@ const Navbar = () => {
             </button>
             :
             null            
-          }
-        </li>
-        <li className="p-4">
-          {
-            auth ?
-            <Link to="/user">Search user</Link>
-            : null
           }
         </li>
       </ul>
@@ -153,6 +154,14 @@ const Navbar = () => {
             </button>
             }
           </li>
+          <li className="p-4 border-b border-gray-600">
+          {
+            auth ?
+            <Link to="/user">Search user</Link>
+            : 
+            <Link to="/login">Search user</Link>
+          }
+        </li>
           <li>
           {
             auth ?

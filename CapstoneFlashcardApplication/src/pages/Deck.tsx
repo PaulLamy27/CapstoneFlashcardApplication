@@ -2,7 +2,7 @@ import { CardInfo } from '../components/CardInfo';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { MdDelete } from 'react-icons/md'
+import { MdDelete, MdEdit } from 'react-icons/md'
 import ConfirmationDialog from '../components/ConfirmationDialog';
 
 const Deck = () => {
@@ -159,14 +159,15 @@ const Deck = () => {
                                     showConfirmationIndex == index ?
                                         (
                                             <ConfirmationDialog
-                                                message="Are you sure you want to delete this card?"
-                                                onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
-                                                onCancel={() => setShowConfirmationIndex(null)} />
+                                            message="Are you sure you want to delete this card?"
+                                            onConfirm={() => deleteCard(card.side1, card.side2, card.pronunciation)}
+                                            onCancel={() => setShowConfirmationIndex(null)} />
                                         )
                                         :
                                         (
                                             showUpdateBox == index ?
-                                                (<>
+                                            (
+                                                <>
                                                     <input value={frontSideUpdate} placeholder={card.side1} className='m-2 rounded-lg text-center bg-gray-100 hover'
                                                         onChange={e => setFrontSideUpdate(e.target.value)} />
                                                     <input value={backSideUpdate} placeholder={card.side2} className='m-1 rounded-lg text-center bg-gray-100 hover'
@@ -174,21 +175,27 @@ const Deck = () => {
                                                     <input value={pronouncedUpdate} placeholder={card.pronunciation} className='m-2 rounded-lg text-center bg-gray-100 hover'
                                                         onChange={e => setPronouncedUpdate(e.target.value)} />
                                                     <div className="block">
-                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
-                                                            Update</button>
-                                                        <button className="inline-block border rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-[#13163b] font-medium" onClick={() => openEditBox(null)}>
-                                                            Cancel</button></div>
+                                                        <button className="inline-block rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
+                                                            Update
+                                                        </button>
+                                                        <button className="inline-block rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-[#13163b] font-medium" onClick={() => openEditBox(null)}>
+                                                            Cancel
+                                                        </button>
+                                                    </div>
                                                 </>
-                                                ) : (
+                                            ) 
+                                            : 
+                                            (
                                                     <>
-                                                        <button className="border rounded-lg mx-2 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => openEditBox(index)}>
-                                                            Edit</button>
-                                                        <MdDelete className='w-8 h-8 cursor-pointer text-red-500 hover:text-red-400 inline-block' onClick={() => openConfirmationDialog(index)} />
+                                                        <MdEdit className='absolute hidden group-hover:block top-0 right-7 w-8 h-8 cursor-pointer text-gray-500 hover:text-gray-400' onClick={() => openEditBox(index)} />
+                                                        <MdDelete className='absolute hidden group-hover:block top-0 right-0 w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
                                                         <p className='mt-5 text-xl p-0 text-black'>{card.side1}</p>
                                                         <p className='text-xl p-0 text-black'>{card.side2}</p>
                                                         <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
                                                     </>
-                                                ))}
+                                            )
+                                        )
+                                }
                             </li>
                         ))}
                     </div>
