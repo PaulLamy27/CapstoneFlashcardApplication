@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link, Route, Routes, useFetcher } from 'react-router-dom';
-import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
+import { Link, Route, Routes } from 'react-router-dom';
+import { MdDelete, MdCancel, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdClose} from 'react-icons/md'
+import { FacebookShareButton, WhatsappShareButton, WhatsappIcon, FacebookIcon } from 'react-share';
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import axios from 'axios'
@@ -11,6 +12,8 @@ const YourDecks = () => {
     const [loading, setLoading] = useState(false);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
     const [showConfirmationIndex, setShowConfirmationIndex] = useState<number | null>(null);
+    const [showShareBox, setShowShareBox] = useState<number | null>(null);
+    const [showLinkCopied, setShowLinkCopied] = useState(false)
     const [isPublicList, setIsPublicList] = useState([]);
     const [deckName, setDeckName] = useState('');
 
@@ -79,6 +82,11 @@ const YourDecks = () => {
         }
     }
 
+    const openShareBox = (index: number) => {
+        setShowLinkCopied(false)
+        setShowShareBox(index);
+    };
+
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -100,7 +108,6 @@ const YourDecks = () => {
     }, []);
 
     useEffect(() => {
-
     }, [deckList]);
 
     const toggleAddCardComponent = () => {
@@ -124,17 +131,37 @@ const YourDecks = () => {
                                     )
                                     :
                                     (
-                                        // link to is the URL that leads to that page
-                                        <>
-                                            {isPublicList[index] == 1 ?
-                                                (<><MdPublic className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 0)} /></>) :
-                                                (<><MdPublicOff className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 1)} /></>)}
-                                            <MdDelete className='absolute top-0 right-0 hidden group-hover:block w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
-                                            <Link className="p-20" to={`/your-decks/${deckName}`} key={index}>
-                                                <p>{deckName}</p>
-                                            </Link>
-                                        </>
-                                    )}
+                                        showShareBox == index ?
+                                            (<>
+                                            <div className='w-40 h-8'>
+                                            <MdClose className='absolute top-1 right-1 group-hover:block w-7 h-7 cursor-pointer hover:text-gray-400' onClick={() => openShareBox(null)} />
+                                            <FacebookShareButton url={`${window.location.origin}/study/${deckName}`}><FacebookIcon size={30} className='m-1'/></FacebookShareButton>
+                                            <WhatsappShareButton url={`${window.location.origin}/study/${deckName}`}><WhatsappIcon size={30} className='m-1'/></WhatsappShareButton>
+                                            <MdContentCopy className='inline align-top w-7 h-7 cursor-pointer hover:text-gray-400 m-1' onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/study/${deckName}`); setShowLinkCopied(true)}}/>
+                                            
+                                            { showLinkCopied ? <div className='block'><p className='text-sm'>Link copied!</p></div>: null}
+                                            </div>
+                                            </>)
+                                           :
+                                            (<>
+                                                {
+                                                    isPublicList[index] == 1 ?
+                                                        (
+                                                            <>
+                                                                <MdShare className='absolute top-0 right-16 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => openShareBox(index)} />
+                                                                <MdPublic className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 0)} />
+                                                            </>
+                                                        ) :
+                                                        (<MdPublicOff className='absolute top-0 right-8 hidden group-hover:block w-8 h-8 cursor-pointer hover:text-gray-400' onClick={() => updateDeck(index, deckName, 1)} />)
+                                                }
+
+                                                <MdDelete className='absolute top-0 right-0 hidden group-hover:block w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
+                                                <Link className="p-20" to={`/your-decks/${deckName}`} key={index}>
+                                                    <p>{deckName}</p>
+                                                </Link>
+                                            </>)
+                                    )
+                            }
                         </ul>
                     ))}
 
