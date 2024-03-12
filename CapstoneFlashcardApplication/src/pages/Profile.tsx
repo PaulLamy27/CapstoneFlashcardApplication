@@ -1,33 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, Link, Route, Routes } from 'react-router-dom';
+import { useNavigate, Link, Route, Routes, useParams } from 'react-router-dom';
 import YourDecks from './YourDecks';
 import axios from "axios";
 
 const Profile = () => {
-    const [auth, setAuth] = useState(false);
-    const [message, setMessage] = useState('')
-    const [name, setName] = useState('')
     const [deckList, setDeckList] = useState([]);
-
-    axios.defaults.withCredentials = true;
-    useEffect(() => {
-        axios.get('http://localhost:5000')
-        .then(res => {
-            if(res.data.Status === "Success") {
-                setAuth(true)
-                setName(res.data.username)
-                console.log("Username ", res.data.username)
-            }
-            else {
-                setAuth(false)
-                setMessage(res.data.Error)
-            }
-        })
-        .catch(err => console.log(err));
-    }, [])
+    const { username } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/deck/user/publicdecks`, { withCredentials: true })
+        axios.get(`http://localhost:5000/api/deck/user/publicdecks/${username}`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
@@ -38,7 +19,7 @@ const Profile = () => {
             .catch((error) => {
                 console.log("The following error occured in axios.get: ", error);
             });
-    }, []);
+    }, [username]);
 
 
     return (
@@ -47,7 +28,7 @@ const Profile = () => {
             <div className='max-w-[800px] mt-[75px] w-full h-screen mx-auto flex flex-col justify-center'>
                 <div className='flex flex-row'>
                     <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello,</h1>
-                    <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-[#00df9a]'>{name}</h1>
+                    <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-[#00df9a]'>{username}</h1>
                 </div>
                 <div>
                     <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6'>Public Decks:</h1>

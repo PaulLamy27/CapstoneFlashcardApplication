@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const User = () => {
 
@@ -37,9 +38,11 @@ const User = () => {
                     <div className="grid grid-cols-3 p-5">
                         {userList.map(user => <>
                             <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5'>
-                                < p className='text-xl font-semibold'>{user.firstname} {user.lastname}</p>
-                                Username: {user.username} <br />
-                                Email: {user.email} <br />
+                                <Link to={`/profile/${user.username}`}>
+                                    < p className='text-xl font-semibold'>{user.firstname} {user.lastname}</p>
+                                    Username: {user.username} <br />
+                                    Email: {user.email} <br />
+                                </Link>
                             </li>
                         </>)}
                     </div>

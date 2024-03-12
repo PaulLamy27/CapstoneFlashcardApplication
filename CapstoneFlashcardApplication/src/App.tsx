@@ -13,6 +13,7 @@ import Navbar from "./pages/Navbar";
 import ChooseDeck from "./pages/ChooseDeck";
 import Profile from "./pages/Profile";
 import User from './pages/User';
+import PublicDecks from "./pages/PublicDecks";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/registration" element={<Registration />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/user" element={<User />}/>
+        <Route path="/PublicDecks" element={<PublicDecks />}/>
         <Route path="/your-decks/:deckName" element={<Deck />} />
         <Route path="/study/:deckName" element={<Study />} />
         <Route path="/profile/:username" element={<Profile />}/>

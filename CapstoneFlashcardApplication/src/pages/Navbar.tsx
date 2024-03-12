@@ -82,6 +82,17 @@ const Navbar = () => {
             <Link to="/login">Study</Link>
           }
         </li>
+        <li className="p-4">
+          {
+            auth ?
+            <Link to="/user">Search user</Link>
+            : 
+            <Link to="/login">Search user</Link>
+          }
+        </li>
+        <li className="p-4">
+          <Link to="/PublicDecks">Search Public Decks</Link>
+        </li>
         <li>
           {
             auth ?
@@ -92,19 +103,11 @@ const Navbar = () => {
           </button>
           }
         </li>
-        <li className="p-4">
-          {
-            auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
-          }
-        </li>
         <li>
           {
             auth ?
             <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
-            <Link to="/profile">{name}</Link>
+            <Link to={`/profile/${name}`}><p>{name}</p></Link>
             </button>
             :
             null            
@@ -144,7 +147,18 @@ const Navbar = () => {
             <Link to="/login">Study</Link>
           }
           </li>
-          <li>
+          <li className="p-4 border-b border-gray-600">
+          {
+            auth ?
+            <Link to="/user">Search user</Link>
+            : 
+            <Link to="/login">Search user</Link>
+          }
+        </li>
+        <li className="p-4 border-b border-gray-600">
+          <Link to="/PublicDecks">Search Public Decks</Link>
+        </li>
+        <li>
             {
               auth ?
               null
@@ -154,19 +168,11 @@ const Navbar = () => {
             </button>
             }
           </li>
-          <li className="p-4 border-b border-gray-600">
-          {
-            auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
-          }
-        </li>
           <li>
           {
             auth ?
             <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
-            <Link to="/profile">{name}</Link>
+            <Link to={`/profile/${name}`}>{name}</Link>
             </button>
             :
             null            
