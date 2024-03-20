@@ -25,21 +25,21 @@ const Login = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen w-full text-white">
+    <div className="flex items-center justify-center h-screen w-full text-skin-base">
       <div className="flex flex-col justify-center">
-        <form onSubmit={handleSubmit} className="border border-gray-600 max-w-[400px] w-full mx-auto sm:mx-10 p-4">
-          <h2 className="text-4xl font-bold text-center py-6 text-[#00df9a]">
+        <form onSubmit={handleSubmit} className="border border-skin-dark max-w-[400px] w-full mx-auto sm:mx-10 p-4">
+          <h2 className="text-4xl font-bold text-center py-6 text-skin-header">
             LOGIN
           </h2>
           <div className="flex flex-col py-2">
             <label htmlFor="username">Username</label>
-            <input className="border p-2 text-black" type="username" placeholder="Enter Username" name="username" onChange={e => setValues({...values, username: e.target.value})}/>
+            <input className="border p-2 text-skin-inverted" type="username" placeholder="Enter Username" name="username" onChange={e => setValues({...values, username: e.target.value})}/>
           </div>
           <div className="flex flex-col py-2">
             <label htmlFor="password">Password</label>
-            <input className="border p-2 text-black" type="password" placeholder="Enter Password" name="password" onChange={e => setValues({...values, password: e.target.value})}/>
+            <input className="border p-2  text-skin-inverted" type="password" placeholder="Enter Password" name="password" onChange={e => setValues({...values, password: e.target.value})}/>
           </div>
-          <button type="submit" className="border w-full my-5 py-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium">
+          <button type="submit" className="border w-full my-5 py-2 bg-skin-button hover:bg-skin-buttonselect text-skin-dark font-medium">
             Sign in
           </button>
           <div className="flex justify-between">

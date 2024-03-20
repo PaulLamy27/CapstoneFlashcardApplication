@@ -14,27 +14,45 @@ import ChooseDeck from "./pages/ChooseDeck";
 import Profile from "./pages/Profile";
 import User from './pages/User';
 import PublicDecks from "./pages/PublicDecks";
+import { useState } from "react";
 
 function App() {
+
+  const [theme, setTheme] = useState("");
+  const handleThemeChange = (selectedTheme) => {
+    setTheme(selectedTheme.target.value)
+  }
+
+  const refCallback = (node) => {
+    if (node) {
+      console.log(theme)
+      document.querySelector("body > div").className = theme;
+    }
+  }
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Root />} />
-        <Route path="/root" element={<Navigate to='/'/>} />
-        <Route path="/home" element={<Navigate to='/'/>} />
-        <Route path="/your-decks/*" element={<YourDecks />} />
-        <Route path="/study" element={<ChooseDeck />}/>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/registration" element={<Registration />}/>
-        <Route path="/profile" element={<Profile />}/>
-        <Route path="/user" element={<User />}/>
-        <Route path="/PublicDecks" element={<PublicDecks />}/>
-        <Route path="/your-decks/:deckName" element={<Deck />} />
-        <Route path="/study/:deckName" element={<Study />} />
-        <Route path="/profile/:username" element={<Profile />}/>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <div ref={refCallback} className="main bg-skin-bg">
+        {<BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Root />} />
+            <Route path="/root" element={<Navigate to='/' />} />
+            <Route path="/home" element={<Navigate to='/' />} />
+            <Route path="/your-decks/*" element={<YourDecks />} />
+            <Route path="/study" element={<ChooseDeck />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/PublicDecks" element={<PublicDecks />} />
+            <Route path="/your-decks/:deckName" element={<Deck />} />
+            <Route path="/study/:deckName" element={<Study />} />
+            <Route path="/profile/:username" element={<Profile handleThemeChange={handleThemeChange} />} />
+          </Routes>
+        </BrowserRouter>}
+      </div>
+    </>
+
   );
 }
 

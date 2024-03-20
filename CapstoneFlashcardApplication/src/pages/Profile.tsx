@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, Link, Route, Routes, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Link, Route, Routes, useParams } from 'react-router-dom';
 import YourDecks from './YourDecks';
 import axios from "axios";
 
-const Profile = () => {
+const Profile = ({handleThemeChange}) => {
     const [deckList, setDeckList] = useState([]);
     const { username } = useParams();
 
@@ -19,16 +19,23 @@ const Profile = () => {
             .catch((error) => {
                 console.log("The following error occured in axios.get: ", error);
             });
+            
     }, [username]);
 
 
     return (
     <>
-        <div className='text-white'>
+    <div>
+        <select id="themes" onChange={handleThemeChange}>
+            <option value="" selected>Default</option>
+            <option value="light">Light</option>
+        </select>
+    </div>
+        <div className='text-skin-base'>
             <div className='max-w-[800px] mt-[75px] w-full h-screen mx-auto flex flex-col justify-center'>
                 <div className='flex flex-row'>
                     <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello,</h1>
-                    <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-[#00df9a]'>{username}</h1>
+                    <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-skin-header'>{username}</h1>
                 </div>
                 <div>
                     <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6'>Public Decks:</h1>
@@ -36,7 +43,7 @@ const Profile = () => {
                         {deckList.map((deckName, index) => (
                             // link to is the URL that leads to that page
                             <Link to={`/study/${deckName}`} key={index}>
-                                <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80'>
+                                <ul className='flex items-center w-8/12 h-32 mb-20 bg-skin-inverted text-skin-inverted font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-skin-select'>
                                     <p className='ml-5'>{deckName}</p>
                                 </ul>
                             </Link>
