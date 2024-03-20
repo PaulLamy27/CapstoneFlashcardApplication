@@ -57,8 +57,14 @@ const Navbar = () => {
     };
   }, []);
 
+  const refCallback = (node) => {
+    if (node) {
+      document.querySelectorAll("ul > li >  a").forEach(i => i.className = "hover:bg-skin-button p-1");
+    }
+  }
+
   return (
-    <div className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
+    <div  ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
       <Link to="/" className="text-3xl font-bold text-skin-header m-4">
         CARDMENTOR.
       </Link>

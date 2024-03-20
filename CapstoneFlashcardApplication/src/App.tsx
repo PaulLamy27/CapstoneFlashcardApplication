@@ -27,6 +27,7 @@ function App() {
     if (node) {
       console.log(theme)
       document.querySelector("body > div").className = theme;
+      document.querySelector("body").className = theme + " bg-skin-bg";
     }
   }
 
@@ -47,7 +48,7 @@ function App() {
             <Route path="/PublicDecks" element={<PublicDecks />} />
             <Route path="/your-decks/:deckName" element={<Deck />} />
             <Route path="/study/:deckName" element={<Study />} />
-            <Route path="/profile/:username" element={<Profile handleThemeChange={handleThemeChange} />} />
+            <Route path="/profile/:username" element={<Profile handleThemeChange={handleThemeChange} currentTheme={theme}/>} />
           </Routes>
         </BrowserRouter>}
       </div>
