@@ -25,8 +25,10 @@ const Study = () => {
     const [currentCard, setCurrentCard] = useState<CardInfo>({
         id: 0,
         side1: "",
-        side2: ""
+        side2: "",
+        priority: 0
     });
+    const [cardListIndex, setCardListIndex] = useState<number>(0);
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [isStudyComplete, setIsStudyComplete] = useState(false);
@@ -34,11 +36,13 @@ const Study = () => {
     useEffect(() => {
         async function populateCardList() {
             try {
+                console.log(" populateCardList(): ");
                 const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}`);
                 const data = await response.data;
                 console.log(data);
                 setCardsList(data);
                 console.log("cardsList: ", cardsList);
+                console.log(deckName);
                 // setCardListId(cardList.length++);
                 // setLoading(false);
             } catch (error) {
@@ -54,19 +58,34 @@ const Study = () => {
 
     useEffect(() => {
         console.log("Updated cardsList: ", cardsList);
-        //let prevDeckSize = cardsList.length;
-        setDeckSize(() => {
+        let prevDeckSize = cardsList.length;
+        setDeckSize((prevDeckSize) => {
             const newDeckSize = cardsList.length;
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
         });
-        if (deckSize > 0) { setCurrentCard(getRandomCard); }
+        if (deckSize > 0) { setCurrentCard(getNextCard); }
     }, [cardsList]);
 
     const getRandomCard = () => {
         let result = Math.floor(Math.random() * cardsList.length);
         console.log("getRandomCard; result: ", result);
         let card = cardsList[result];
+        console.log("getRandomCard ran and here is card: ", card);
+        console.log("typeof card: ", typeof (card));
+        return card;
+    }
+
+    const getNextCard = () => {
+        let card;
+        if (cardListIndex === 0) {
+            card = cardsList[cardListIndex];
+        } else {
+            setCardListIndex(cardListIndex + 1)
+            card = cardsList[cardListIndex];
+        }
+        // let result = Math.floor(Math.random() * cardsList.length);
+        // console.log("getRandomCard; result: ", result);
         console.log("getRandomCard ran and here is card: ", card);
         console.log("typeof card: ", typeof (card));
         return card;
