@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom';
-import { MdDelete, MdCancel, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdClose} from 'react-icons/md'
+import { MdDelete, MdCancel, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdClose } from 'react-icons/md'
 import { FacebookShareButton, WhatsappShareButton, WhatsappIcon, FacebookIcon } from 'react-share';
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
@@ -133,16 +133,16 @@ const YourDecks = () => {
                                     (
                                         showShareBox == index ?
                                             (<>
-                                            <div className='w-40 h-8'>
-                                            <MdClose className='absolute top-1 right-1 group-hover:block w-7 h-7 cursor-pointer hover:text-skin-mid' onClick={() => openShareBox(null)} />
-                                            <FacebookShareButton url={`${window.location.origin}/study/${deckName}`}><FacebookIcon size={30} className='m-1'/></FacebookShareButton>
-                                            <WhatsappShareButton url={`${window.location.origin}/study/${deckName}`}><WhatsappIcon size={30} className='m-1'/></WhatsappShareButton>
-                                            <MdContentCopy className='inline align-top w-7 h-7 cursor-pointer hover:text-skin-mid m-1' onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/study/${deckName}`); setShowLinkCopied(true)}}/>
-                                            
-                                            { showLinkCopied ? <div className='block'><p className='text-sm'>Link copied!</p></div>: null}
-                                            </div>
+                                                <div className='w-40 h-8'>
+                                                    <MdClose className='absolute top-1 right-1 group-hover:block w-7 h-7 cursor-pointer hover:text-skin-mid' onClick={() => openShareBox(null)} />
+                                                    <FacebookShareButton url={`${window.location.origin}/study/${deckName}`}><FacebookIcon size={30} className='m-1' /></FacebookShareButton>
+                                                    <WhatsappShareButton url={`${window.location.origin}/study/${deckName}`}><WhatsappIcon size={30} className='m-1' /></WhatsappShareButton>
+                                                    <MdContentCopy className='inline align-top w-7 h-7 cursor-pointer hover:text-skin-mid m-1' onClick={() => { navigator.clipboard.writeText(`${window.location.origin}/study/${deckName}`); setShowLinkCopied(true) }} />
+
+                                                    {showLinkCopied ? <div className='block'><p className='text-sm'>Link copied!</p></div> : null}
+                                                </div>
                                             </>)
-                                           :
+                                            :
                                             (<>
                                                 {
                                                     isPublicList[index] == 1 ?
@@ -164,29 +164,26 @@ const YourDecks = () => {
                             }
                         </ul>
                     ))}
-
-                    <div className=''>
-                        {showAddCardComponent &&
-                            <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-                                <div className='max-w-[400px] w-full h-[450px] mx-auto flex items-center justify-center bg-skin-button px-10'>
-                                    <MdCancel className='absolute top-4 right-4 w-12 h-12 cursor-pointer' onClick={() => setShowAddCardComponent(false)} />
-                                    <div className='flex flex-col items-center justify-center'>
-                                        <h1 className='mb-10 font-semibold sm:text-4xl text-xl'>Make A New Deck</h1>
-                                        <input id='' className='mb-10 w-full border border-black' type='text' value={deckName} placeholder='New Deck Name' onChange={handleInputChange} />
-                                        <button className='w-[80px] h-[30px] bg-skin-button rounded-md font-medium' onClick={handleSubmit}>SUBMIT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
                 </div >
+
+                <div className={`fixed top-1/2 left-1/2 transition ease-in-out duration-500 -translate-x-1/2 ${showAddCardComponent ? '!opacity-100 !-translate-y-1/2' : 'opacity-0 translate-y-1/2'}`}>
+                    {showAddCardComponent &&
+                        <div className='text-skin-dark max-w-[400px] w-full h-[450px] mx-auto flex items-center justify-center bg-skin-button px-10'>
+                            <MdCancel className='absolute top-4 right-4 w-12 h-12 cursor-pointer' onClick={() => setShowAddCardComponent(false)} />
+                            <div className='flex flex-col items-center justify-center'>
+                                <h1 className='mb-10 font-semibold sm:text-4xl text-xl'>Make A New Deck</h1>
+                                <input id='' className='mb-10 w-full border border-black' type='text' value={deckName} placeholder='New Deck Name' onChange={handleInputChange} />
+                                <button className='w-[80px] h-[30px] bg-skin-button rounded-md font-medium' onClick={handleSubmit}>SUBMIT</button>
+                            </div>
+                        </div>
+                    }
+                </div>
 
                 <div className='fixed bottom-4 left-4' onClick={() => setShowAddCardComponent(true)}>
                     <div className='flex items-center justify-center w-12 h-12 text-skin-header bg-transparent rounded-full cursor-pointer'>
-                        <h1 className='text-7xl'>
+                        <a className='text-7xl' href="#add-card" id="add-card-button">
                             +
-                        </h1>
+                        </a>
                     </div>
                 </div>
 

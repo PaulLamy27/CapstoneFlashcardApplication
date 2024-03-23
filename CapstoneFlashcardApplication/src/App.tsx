@@ -26,14 +26,13 @@ function App() {
   const refCallback = (node) => {
     if (node) {
       console.log(theme)
-      document.querySelector("body > div").className = theme;
       document.querySelector("body").className = theme + " bg-skin-bg";
     }
   }
 
   return (
     <>
-      <div ref={refCallback} className="main bg-skin-bg">
+            <div ref={refCallback} className="main bg-skin-bg">
         {<BrowserRouter>
           <Navbar />
           <Routes>
