@@ -14,6 +14,7 @@ const PublicDecks = () => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
                 setDeckList(titles);
+                setFilteredDeckList(titles);
                 console.log(titles);
                 console.log(deckList);
             })
@@ -21,12 +22,6 @@ const PublicDecks = () => {
                 console.log("The following error occured in axios.get: ", error);
             });
     }, []);
-
-    const search = (items: String[]) => {
-        return items.filter((item: String) => {
-            return item.toLowerCase().includes(q.toLowerCase())
-        });
-    }
 
     const handleSearch = () => {
         const filteredDecks = deckList.filter(deckName => deckName.toLowerCase().includes(q.toLowerCase()));
