@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: rgb(19, 22, 59)
+@layer base {
+  :root {
+    --color-text-base: #FFFFFF;
+    --color-text-mid: #b0b0b0;
+    --color-text-dark: #13163b;
+    --color-text-inverted: #000000;
+    --color-bg: rgb(19, 22, 59);
+    --color-bg-inverted:rgb(248, 250, 252);
+    --color-bg-select: rgb(226, 226, 226);
+    --color-button-base: #00df9a;
+    --color-button-select: #4DE3B5;
+    --color-border:  #ffffff;
+    --color-border-dark:  rgb(75, 85, 99);
+  }
+
+  .light {
+    --color-text-base: #232323;
+    --color-text-mid: #424242;
+    --color-text-dark: #d8d8d8;
+    --color-text-inverted: #7a8a93;
+    --color-bg: rgb(249, 249, 249);
+    --color-bg-inverted:rgb(255, 255, 255);
+    --color-bg-select: rgb(179, 217, 243);
+    --color-button-base: #009cdf;
+    --color-button-select: #0f7aa8;
+    --color-border:  #b0b0b0;
+    --color-border-dark:  #b0b0b0;
+  }
 }

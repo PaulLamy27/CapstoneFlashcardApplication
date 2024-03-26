@@ -135,26 +135,26 @@ const Deck = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center w-800 text-black">
+            <div className="flex items-center justify-center w-800 text-skin-inverted">
                 <div className="flex flex-col justify-center p-10 m-10">
-                    <div className='font-sans text-white font-semibold text-3xl'>{deckName}</div>
+                    <div className='font-sans text-skin-base font-semibold text-3xl'>{deckName}</div>
                     <div className="w-full mx-auto">
-                        <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center bg-gray-700 hover'
+                        <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center bg-skin-inverted'
                             onChange={e => setFrontSide(e.target.value)} />
-                        <input value={backSide} placeholder='Back of Card' className='ml-4 rounded-lg text-center bg-gray-700'
+                        <input value={backSide} placeholder='Back of Card' className='ml-4 rounded-lg text-center bg-skin-inverted'
                             onChange={e => setbackSide(e.target.value)} />
-                        <input value={pronounced} placeholder='Pronunciation (Optional)' className='ml-4 rounded-lg text-center bg-gray-700'
+                        <input value={pronounced} placeholder='Pronunciation (Optional)' className='ml-4 rounded-lg text-center bg-skin-inverted'
                             onChange={e => setPronounced(e.target.value)} />
-                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateList()}>
+                        <button className="border rounded-lg m-5 p-2 bg-skin-button hover:bg-skin-botton text-skin-dark font-medium" onClick={() => updateList()}>
                             CLICK TO ADD CARD</button>
                     </div>
                     <div className="w-full mx-auto">
-                        <input value={q} placeholder='Search' className='ml-4 rounded-lg text-center bg-gray-700 hover'
+                        <input value={q} placeholder='Search' className='ml-4 rounded-lg text-center bg-skin-inverted hover'
                             onChange={e => setQ(e.target.value)} />
                     </div>
                     <div className="grid grid-cols-3 p-5">
                         {search(cardList).map((card, index) => (
-                            <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-gray-300 hover:bg-opacity-80 block text-center p-5 m-5' key={index}>
+                            <div className=' relative group cursor-pointer font-martel-sans font-rubik bg-skin-inverted hover:bg-skin-select block text-center p-5 m-5 border border-skin-base' key={index}>
                                 {
                                     showConfirmationIndex == index ?
                                         (
@@ -168,17 +168,17 @@ const Deck = () => {
                                             showUpdateBox == index ?
                                             (
                                                 <>
-                                                    <input value={frontSideUpdate} placeholder={card.side1} className='m-2 rounded-lg text-center bg-gray-100 hover'
+                                                    <input value={frontSideUpdate} placeholder={card.side1} className='m-2 rounded-lg text-center bg-skin-inverted'
                                                         onChange={e => setFrontSideUpdate(e.target.value)} />
-                                                    <input value={backSideUpdate} placeholder={card.side2} className='m-1 rounded-lg text-center bg-gray-100 hover'
+                                                    <input value={backSideUpdate} placeholder={card.side2} className='m-1 rounded-lg text-center bg-skin-inverted'
                                                         onChange={e => setBackSideUpdate(e.target.value)} />
-                                                    <input value={pronouncedUpdate} placeholder={card.pronunciation} className='m-2 rounded-lg text-center bg-gray-100 hover'
+                                                    <input value={pronouncedUpdate} placeholder={card.pronunciation} className='m-2 rounded-lg text-center bg-skin-inverted'
                                                         onChange={e => setPronouncedUpdate(e.target.value)} />
                                                     <div className="block">
-                                                        <button className="inline-block rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
+                                                        <button className="inline-block rounded-lg m-5 p-2 bg-skin-button hover:bg-skin-bottonselect text-skin-dark font-medium" onClick={() => updateCard(card.id, card.side1, card.side2)}>
                                                             Update
                                                         </button>
-                                                        <button className="inline-block rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-[#13163b] font-medium" onClick={() => openEditBox(null)}>
+                                                        <button className="inline-block rounded-lg m-5 p-2 bg-red-400 hover:bg-red-300 text-skin-dark font-medium" onClick={() => openEditBox(null)}>
                                                             Cancel
                                                         </button>
                                                     </div>
@@ -189,14 +189,14 @@ const Deck = () => {
                                                     <>
                                                         <MdEdit className='absolute hidden group-hover:block top-0 right-7 w-8 h-8 cursor-pointer text-gray-500 hover:text-gray-400' onClick={() => openEditBox(index)} />
                                                         <MdDelete className='absolute hidden group-hover:block top-0 right-0 w-8 h-8 cursor-pointer text-red-500 hover:text-red-400' onClick={() => openConfirmationDialog(index)} />
-                                                        <p className='mt-5 text-xl p-0 text-black'>{card.side1}</p>
-                                                        <p className='text-xl p-0 text-black'>{card.side2}</p>
-                                                        <p className='text-m p-0 text-gray-500 margin-0 '>{card.pronunciation}</p>
+                                                        <p className='mt-5 text-xl p-0'>{card.side1}</p>
+                                                        <p className='text-xl p-0'>{card.side2}</p>
+                                                        <p className='text-m p-0 text-skin-mid margin-0 '>{card.pronunciation}</p>
                                                     </>
                                             )
                                         )
                                 }
-                            </li>
+                            </div>
                         ))}
                     </div>
                 </div>

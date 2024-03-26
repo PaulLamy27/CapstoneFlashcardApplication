@@ -57,9 +57,15 @@ const Navbar = () => {
     };
   }, []);
 
+  const refCallback = (node) => {
+    if (node) {
+      document.querySelectorAll("ul > li >  a").forEach(i => i.className = "hover:bg-skin-button p-1");
+    }
+  }
+
   return (
-    <div className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-white">
-      <Link to="/" className="text-3xl font-bold text-[#00df9a] m-4">
+    <div  ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
+      <Link to="/" className="text-3xl font-bold text-skin-header m-4">
         CARDMENTOR.
       </Link>
       <ul className="hidden md:flex">
@@ -98,7 +104,7 @@ const Navbar = () => {
             auth ?
             null
             :
-            <button className="text-[#13163b] bg-[#00df9a] w-[60px] rounded-md font-medium my-4">
+            <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
             <Link to="/login">Login</Link>
           </button>
           }
@@ -106,7 +112,7 @@ const Navbar = () => {
         <li>
           {
             auth ?
-            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
             <Link to={`/profile/${name}`}><p>{name}</p></Link>
             </button>
             :
@@ -120,18 +126,18 @@ const Navbar = () => {
       <div
         className={
           nav
-            ? "fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-600 bg-[#13163b] ease-in-out duration-500"
+            ? "fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-600 bg-skin-bg ease-in-out duration-500"
             : "fixed left-[-100%]"
         }
       >
         <ul className="uppercase p-4">
-          <Link to="/" className="text-3xl font-bold text-[#00df9a] m-4">
+          <Link to="/" className="text-3xl font-bold text-skin-header m-4">
             CARDMENTOR.
           </Link>
-          <li className="p-4 border-b border-gray-600">
+          <li className="p-4 border-b border-skin-dark">
             <Link to="/">Home</Link>
           </li>
-          <li className="p-4 border-b border-gray-600">
+          <li className="p-4 border-b border-skin-dark">
           {
             auth ?
             <Link to="/your-decks">Decks</Link>
@@ -139,7 +145,7 @@ const Navbar = () => {
             <Link to="/login">Decks</Link>
           }
           </li>
-          <li className="p-4 border-b border-gray-600">
+          <li className="p-4 border-b border-skin-dark">
           {
             auth ?
             <Link to="/study">Study</Link>
@@ -147,7 +153,7 @@ const Navbar = () => {
             <Link to="/login">Study</Link>
           }
           </li>
-          <li className="p-4 border-b border-gray-600">
+          <li className="p-4 border-b border-skin-dark">
           {
             auth ?
             <Link to="/user">Search user</Link>
@@ -155,7 +161,7 @@ const Navbar = () => {
             <Link to="/login">Search user</Link>
           }
         </li>
-        <li className="p-4 border-b border-gray-600">
+        <li className="p-4 border-b border-skin-dark">
           <Link to="/PublicDecks">Search Public Decks</Link>
         </li>
         <li>
@@ -163,7 +169,7 @@ const Navbar = () => {
               auth ?
               null
               :
-              <button className="text-[#13163b] bg-[#00df9a] w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+              <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
               <Link to="/login">Login</Link>
             </button>
             }
@@ -171,7 +177,7 @@ const Navbar = () => {
           <li>
           {
             auth ?
-            <button className="text-[#13163b] bg-[#00df9a] w-[80px] rounded-md font-medium my-4">
+            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
             <Link to={`/profile/${name}`}>{name}</Link>
             </button>
             :
@@ -183,7 +189,7 @@ const Navbar = () => {
       <FaAngleUp
         size={40}
         className={
-          showScrollToTop ? "fixed bottom-4 right-4 text-[#00df9a]" : "hidden"
+          showScrollToTop ? "fixed bottom-4 right-4 text-skin-header" : "hidden"
         }
         onClick={scrollToTop}
       />

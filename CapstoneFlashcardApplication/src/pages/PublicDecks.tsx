@@ -38,12 +38,12 @@ const PublicDecks = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center w-800 text-black">
+            <div className="flex items-center justify-center w-800 text-skin-inverted">
                 <div className="flex flex-col justify-center p-10 m-10">
                     <div className="w-800 mx-auto">
-                        <input value={q} placeholder='Deck Name' className='ml-4 rounded-lg text-center bg-gray-700 hover'
+                        <input value={q} placeholder='Deck Name' className='ml-4 rounded-lg text-center bg-skin-inverted hover'
                         onChange={e => setQ(e.target.value)} />
-                        <button className="border rounded-lg m-5 p-2 bg-[#00df9a] hover:bg-[#4DE3B5] text-[#13163b] font-medium" onClick={() => handleSearch()}>
+                        <button className="border rounded-lg m-5 p-2 bg-skin-button hover:bg-skin-buttonselect text-skin-dark font-medium" onClick={() => handleSearch()}>
                             SEARCH
                         </button>
                     </div>
@@ -51,7 +51,7 @@ const PublicDecks = () => {
                         {filteredDeckList.map((deckName, index) => (
                             // link to is the URL that leads to that page
                             <Link to={`/study/${deckName}`} key={index}>
-                                <ul className='flex items-center w-8/12 h-32 mb-20 bg-slate-50 text-black font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-slate-200 hover:opacity-80' key={index}>
+                                <ul className='flex items-center w-8/12 h-32 mb-20 bg-skin-inverted text-skin-inverted font-semibold text-xl cursor-pointer transition-opacity duration-300 ease-in-out hover:bg-skin-select border-skin-base' key={index}>
                                     <p className='ml-5'>{deckName}</p>
                                 </ul>
                             </Link>

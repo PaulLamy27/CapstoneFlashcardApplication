@@ -9,13 +9,11 @@ import Footer from "./Footer"
 const Root = () => {
     return (
         <>
-            <div>
                 {/* <Navbar /> */}
                 <Hero />
                 <Dashboard />
                 <Compatibility />
                 <Footer />
-            </div>
         </>
     )
 }
