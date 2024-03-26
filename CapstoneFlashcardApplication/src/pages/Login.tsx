@@ -19,6 +19,8 @@ const Login = () => {
 
         sessionStorage.setItem('user_token', token);
         sessionStorage.setItem('userId', res.data.name);
+        localStorage.setItem('user_token', token);
+        localStorage.setItem('userId', res.data.name);
 
         navigate('/')
         // location.reload();
