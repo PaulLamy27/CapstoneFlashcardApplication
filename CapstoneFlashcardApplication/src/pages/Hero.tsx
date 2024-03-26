@@ -36,12 +36,14 @@ const Hero = () => {
   }, [])
 
   const handleDelete = () => {
-    axiosInstance.get('/logout')
-      .then(res => {
-        console.log("res: ", res);
-        location.reload();
-      }).catch(err => console.log(err));
+    // axiosInstance.get('/logout')
+    //   .then(res => {
+    //     console.log("res: ", res);
+    //     location.reload();
+    //   }).catch(err => console.log(err));
+    console.log("handleDelete");
   }
+  
   return (
     <>
       <div className='text-white'>
