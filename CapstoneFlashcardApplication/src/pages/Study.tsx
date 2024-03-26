@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { MdLowPriority } from "react-icons/md";
 import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import DisplayResults from "../components/DisplayResults";
@@ -18,6 +20,10 @@ import './Study.css'
 const Study = () => {
 
     const { deckName } = useParams();
+
+    const [isRandomOrPriority, setIsRandomOrPriority] = useState(true);
+    const [isStudyRandom, setIsStudyRandom] = useState(false);
+    const [isStudyPriority, setIsStudyPriority] = useState(false);
 
     const [cardsList, setCardsList] = useState<CardInfo[]>([]);
     const [deckSize, setDeckSize] = useState(cardsList.length);
@@ -167,7 +173,6 @@ const Study = () => {
         updatePriority(currentCard.id);
         updateCard();
         console.log("wrongList: ", wrongList);
-
     }
 
     const updatePriority = async (cardId: Number) => {
@@ -197,6 +202,21 @@ const Study = () => {
         setWrongList([]);
     }
 
+    const handleStudyRandom = () => {
+        setIsRandomOrPriority(false);
+        setIsStudyRandom(true);
+        console.log("CardList handleStudyRandom: ", cardsList);
+    }
+
+    const handleStudyPriority = () => {
+        setIsRandomOrPriority(false);
+        setIsStudyPriority(true);
+        console.log("CardList handleStudyPriority: ", cardsList);
+        const sortedCards = [...cardsList].sort((a, b) => b.priority - a.priority);
+        console.log("sortedCards: ", sortedCards);
+        setCardsList(sortedCards);
+    }
+
     // the state of currentCard is set to false on first render.
     // if this is the case, then the page is just now being rendered.
     if (currentCard === null) {
@@ -208,6 +228,38 @@ const Study = () => {
     return (
         <>
             <div className="App">
+
+                {isRandomOrPriority && (
+                    <div className="mx-auto mt-10">
+                        <div className="flex flex-wrap justify-center bg-transparent">
+                            <div className="text-4xl text-white font-semibold p-5">
+                                Choose How You Want To Study!
+                            </div>
+                        </div>
+                        <div className="flex justify-center items-center">
+                            <div className="grid gap-4 mt-11">
+                                <button onClick={handleStudyRandom} className="text-lg border-none w-48 h-16 block no-underline text-black shadow-md bg-teal-400 px-4 py-2 cursor-pointer transition-transform duration-75 transform hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                                    <div className="flex justify-center items-center">
+                                        {/* <GiPerspectiveDiceSixFacesRandom /> */}
+                                        <p className="text-xl font-medium">
+                                            Freeplay (Random)
+                                        </p>
+                                    </div>
+                                </button>
+                                <button onClick={handleStudyPriority} className="text-lg border-none w-48 h-16 block no-underline text-black shadow-md bg-teal-400 px-4 py-2 cursor-pointer transition-transform duration-75 transform hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                                    <div className="flex justify-center items-center">
+                                        {/* <div className="l-0">
+                                            <MdLowPriority />
+                                        </div> */}
+                                        <p className="text-xl font-medium">
+                                            Priority
+                                        </p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {!isStudyComplete && deckSize === 0 && (
                     <div>
@@ -231,7 +283,7 @@ const Study = () => {
                     </>
                 )}
 
-                {deckSize > 0 && (
+                {!isRandomOrPriority && deckSize > 0 && (
                     <>
                         <div className="cardRow">
                             <Card card={currentCard} />
