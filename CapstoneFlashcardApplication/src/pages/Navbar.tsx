@@ -9,35 +9,83 @@ const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [auth, setAuth] = useState(false);
-  const [message, setMessage] = useState('')
+  // const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
   axiosInstance.defaults.withCredentials = true;
+
   useEffect(() => {
     const userToken = sessionStorage.getItem('user_token');
+    console.log("userToken in navbar useffect: ", userToken);
+    const username = sessionStorage.getItem('username');
+    console.log("username: ", username);
+    try {
+      if (username) {
+        setAuth(true);
+        if (auth) {
+          console.log("auth", auth);
+        }
+        setName(username);
+        // Set the token as a common header for all requests
+        // axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+        // const arrayToken = userToken.split('.');
+        // console.log("arrayToken", arrayToken);
+        // const tokenPayload = JSON.parse(atob(arrayToken[1]));
+        // console.log("tokenPayload", tokenPayload);
+
+        // setAuth(true);
+        // sessionStorage.setItem("username", tokenPayload.username);
+        // const username = sessionStorage.getItem('username');
+        // setName(username);
+        // sessionStorage.setItem("id", tokenPayload.id);
+        // const id = sessionStorage.getItem('id');
+        // console.log("id ", id);
 
 
-    if (userToken) {
-      // Set the token as a common header for all requests
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
-
-      // get '/' => route at 'api/' => verifyUser 
-      axiosInstance.get('/')
-        // axios.get('http://localhost:5000/')
-        .then(res => {
-          if (res.data.Status === "Success") {
-            setAuth(true)
-            setName(res.data.username)
-            console.log("Username:", res.data.username);
-          }
-          else {
-            setAuth(false)
-            console.log("error with navbar: ", message);
-            setMessage(res.data.Error)
-          }
-        })
-        .catch(err => console.log(err));
+        // Make the request to '/'
+        // axiosInstance.get('/')
+        //   .then(res => {
+        //     if (res.data.Status === "Success") {
+        //       setAuth(true)
+        //       setName(res.data.username)
+        //       console.log("Username ", res.data.username)
+        //     } else {
+        //       setAuth(false)
+        //       setMessage(res.data.Error)
+        //       console.log("Username NOT set")
+        //     }
+        //   })
+        //   .catch(err => console.log(err));
+      }
+    } catch (error) {
+      console.log("error in useEffect: ", error);
+      setAuth(false);
+      // setMessage("Not Authenticated");
     }
+
+
+    // if (userToken) {
+    //   // Set the token as a common header for all requests
+    //   axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+    //   // get '/' => route at 'api/' => verifyUser 
+    //   axiosInstance.get('/')
+    //     // axios.get('http://localhost:5000/')
+    //     .then(res => {
+    //       if (res.data.Status === "Success") {
+    //         setAuth(true)
+    //         setName(res.data.username)
+    //         console.log("Username:", res.data.username);
+    //       }
+    //       else {
+    //         setAuth(false)
+    //         console.log("error with navbar: ", message);
+    //         setMessage(res.data.Error)
+    //       }
+    //     })
+    //     .catch(err => console.log(err));
+    // }
 
   }, [])
 

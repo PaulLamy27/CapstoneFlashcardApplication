@@ -14,24 +14,46 @@ const Hero = () => {
   useEffect(() => {
     const userToken = sessionStorage.getItem('user_token');
 
-    if (userToken) {
-      // Set the token as a common header for all requests
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+    console.log("userToken", userToken);
 
-      // Make the request to '/'
-      axiosInstance.get('/')
-        .then(res => {
-          if (res.data.Status === "Success") {
-            setAuth(true)
-            setName(res.data.username)
-            console.log("Username ", res.data.username)
-          } else {
-            setAuth(false)
-            setMessage(res.data.Error)
-            console.log("Username NOT set")
-          }
-        })
-        .catch(err => console.log(err));
+    try {
+      if (userToken) {
+        // Set the token as a common header for all requests
+        // axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+        const arrayToken = userToken.split('.');
+        console.log("arrayToken", arrayToken);
+        const tokenPayload = JSON.parse(atob(arrayToken[1]));
+        console.log("tokenPayload", tokenPayload);
+
+        setAuth(true);
+        sessionStorage.setItem("username", tokenPayload.username);
+        const username = sessionStorage.getItem('username');
+        setName(username);
+        sessionStorage.setItem("id", tokenPayload.id);
+        const id = sessionStorage.getItem('id');
+        console.log("id ", id);
+        
+
+        // Make the request to '/'
+        // axiosInstance.get('/')
+        //   .then(res => {
+        //     if (res.data.Status === "Success") {
+        //       setAuth(true)
+        //       setName(res.data.username)
+        //       console.log("Username ", res.data.username)
+        //     } else {
+        //       setAuth(false)
+        //       setMessage(res.data.Error)
+        //       console.log("Username NOT set")
+        //     }
+        //   })
+        //   .catch(err => console.log(err));
+      }
+    } catch (error) {
+      console.log("error in useEffect: ", error);
+      setAuth(false);
+      setMessage("Not Authenticated");
     }
   }, [])
 
@@ -43,7 +65,7 @@ const Hero = () => {
     //   }).catch(err => console.log(err));
     console.log("handleDelete");
   }
-  
+
   return (
     <>
       <div className='text-white'>
@@ -57,7 +79,6 @@ const Hero = () => {
               </div>
               <p className='md:text-2xl text-xl font-bold text-gray-500'>Create decks and add cards to study for that next big test or to simply learn</p>
               <h3>You are authorized: {name}</h3>
-              <Translate />
               <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#13163b]' onClick={handleDelete}>Logout</button>
             </div>
             :
@@ -69,7 +90,6 @@ const Hero = () => {
               </div>
               <p className='md:text-2xl text-xl font-bold text-gray-500'>Create decks and add cards to study for that next big test or to simply learn</p>
               <h3>{message}</h3>
-              <Translate />
               <Link to="/login" className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-[#13163b]'>Login</Link>
             </div>
         }
