@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
+import logo from '../assets/logo.png'
 import axios from "axios";
 
 const Navbar = () => {
@@ -14,19 +15,19 @@ const Navbar = () => {
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios.get('http://localhost:5000')
-    .then(res => {
-      if(res.data.Status === "Success") {
-        setAuth(true)
-        setName(res.data.username)
-        console.log("Username:", res.data.username);
-      }
-      else {
-        setAuth(false)
-        console.log(message);
-        setMessage(res.data.Error)
-      }
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        if (res.data.Status === "Success") {
+          setAuth(true)
+          setName(res.data.username)
+          console.log("Username:", res.data.username);
+        }
+        else {
+          setAuth(false)
+          console.log(message);
+          setMessage(res.data.Error)
+        }
+      })
+      .catch(err => console.log(err));
   }, [])
 
   const handleNav = () => {
@@ -64,9 +65,16 @@ const Navbar = () => {
   }
 
   return (
-    <div  ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
-      <Link to="/" className="text-3xl font-bold text-skin-header m-4">
-        CARDMENTOR.
+    <div ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
+      <Link to="/">
+        <div className="flex">
+          <svg width="300" height="300" className="flex relative ml-[-235px]">
+            <image href={logo} height="100%" width="100%" />
+          </svg>
+          <p className="text-3xl font-bold  text-skin-header m-4 ml-[-40px] mb-[240px]">
+            CARDMENTOR.
+          </p>
+        </div>
       </Link>
       <ul className="hidden md:flex">
         <li className="p-4">
@@ -75,25 +83,25 @@ const Navbar = () => {
         <li className="p-4">
           {
             auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
+              <Link to="/your-decks">Decks</Link>
+              :
+              <Link to="/login">Decks</Link>
           }
         </li>
         <li className="p-4">
           {
             auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
+              <Link to="/study">Study</Link>
+              :
+              <Link to="/login">Study</Link>
           }
         </li>
         <li className="p-4">
           {
             auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
+              <Link to="/user">Search user</Link>
+              :
+              <Link to="/login">Search user</Link>
           }
         </li>
         <li className="p-4">
@@ -102,21 +110,21 @@ const Navbar = () => {
         <li>
           {
             auth ?
-            null
-            :
-            <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
-            <Link to="/login">Login</Link>
-          </button>
+              null
+              :
+              <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
+                <Link to="/login">Login</Link>
+              </button>
           }
         </li>
         <li>
           {
             auth ?
-            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-            <Link to={`/profile/${name}`}><p>{name}</p></Link>
-            </button>
-            :
-            null            
+              <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
+                <Link to={`/profile/${name}`}><p>{name}</p></Link>
+              </button>
+              :
+              null
           }
         </li>
       </ul>
@@ -138,52 +146,52 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
-          }
-          </li>
-          <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
-          }
-          </li>
-          <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
-          }
-        </li>
-        <li className="p-4 border-b border-skin-dark">
-          <Link to="/PublicDecks">Search Public Decks</Link>
-        </li>
-        <li>
             {
               auth ?
-              null
-              :
-              <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
-              <Link to="/login">Login</Link>
-            </button>
+                <Link to="/your-decks">Decks</Link>
+                :
+                <Link to="/login">Decks</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            {
+              auth ?
+                <Link to="/study">Study</Link>
+                :
+                <Link to="/login">Study</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            {
+              auth ?
+                <Link to="/user">Search user</Link>
+                :
+                <Link to="/login">Search user</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            <Link to="/PublicDecks">Search Public Decks</Link>
+          </li>
+          <li>
+            {
+              auth ?
+                null
+                :
+                <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+                  <Link to="/login">Login</Link>
+                </button>
             }
           </li>
           <li>
-          {
-            auth ?
-            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-            <Link to={`/profile/${name}`}>{name}</Link>
-            </button>
-            :
-            null            
-          }
-        </li>
+            {
+              auth ?
+                <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
+                  <Link to={`/profile/${name}`}>{name}</Link>
+                </button>
+                :
+                null
+            }
+          </li>
         </ul>
       </div>
       <FaAngleUp

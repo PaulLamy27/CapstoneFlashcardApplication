@@ -18,9 +18,11 @@ import { useState } from "react";
 
 function App() {
 
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "");
+
   const handleThemeChange = (selectedTheme) => {
-    setTheme(selectedTheme.target.value)
+    localStorage.setItem('theme', selectedTheme.target.value);
+    setTheme(selectedTheme.target.value);
   }
 
   const refCallback = (node) => {
