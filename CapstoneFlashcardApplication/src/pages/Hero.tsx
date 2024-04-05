@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // import axios from 'axios';
 import axiosInstance from '../axiosInstance';
-import Translate from '../components/Translate';
 
 const Hero = () => {
   const [auth, setAuth] = useState(false);
