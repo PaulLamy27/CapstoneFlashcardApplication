@@ -121,7 +121,9 @@ const Deck = () => {
 
     const populateCardList = async () => {
         try {
-            const response = await axiosInstance.get(`api/deck/deckTitle/${deckName}`);
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.get(`api/deck/deckTitle/${deckName}/${userId}`);
             const data = await response.data;
             setCardList(data);
         } catch (error) {

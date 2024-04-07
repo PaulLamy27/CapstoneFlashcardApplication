@@ -7,7 +7,9 @@ const ChooseDeck = () => {
     const [deckList, setDeckList] = useState([]);
 
     useEffect(() => {
-        axiosInstance.get('api/deck/user/', { withCredentials: true })
+        const userId = sessionStorage.getItem('id');
+        console.log("userId", userId);
+        axiosInstance.get(`/api/deck/user/${userId}`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);

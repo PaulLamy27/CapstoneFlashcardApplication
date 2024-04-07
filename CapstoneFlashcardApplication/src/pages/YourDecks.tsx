@@ -3,7 +3,6 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
-import axios from 'axios';
 import axiosInstance from '../axiosInstance';
 
 const YourDecks = () => {
@@ -23,7 +22,7 @@ const YourDecks = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
 
         if (deckName !== '') {
-            axios.post(`http://localhost:5000/api/deck/new/${deckName}`, {}, { withCredentials: true })
+            axiosInstance.post(`/api/deck/new/${deckName}`, {}, { withCredentials: true })
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
@@ -39,7 +38,7 @@ const YourDecks = () => {
 
     const deleteDeck = (title) => {
         try {
-            axios.delete(`http://localhost:5000/api/deck/${encodeURIComponent(title)}`, {
+            axiosInstance.delete(`/api/deck/${encodeURIComponent(title)}`, {
             })
                 .then((res) => {
                     const response = res.data;
@@ -63,7 +62,7 @@ const YourDecks = () => {
 
     const updateDeck = (index, title, isPublic) => {
         try {
-            axios.post(`http://localhost:5000/api/deck/${title}?isPublic=${isPublic}`)
+            axiosInstance.post(`/api/deck/${title}?isPublic=${isPublic}`)
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
@@ -82,7 +81,9 @@ const YourDecks = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axiosInstance.get(`api/deck/user/`, { withCredentials: true });
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const res = await axiosInstance.get(`/api/deck/user/${userId}`, {withCredentials: true});
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setDeckList(titles);
         } catch (error) {
