@@ -206,13 +206,8 @@ const Study = () => {
                     </>
                 )}
 
-                {deckSize > 0 && currentCard.side1 !== '' && currentCard.side2 !== '' && (
+                {deckSize > 0 &&  (
                     <>
-                        {/* {currentCard.side1 !== '' && currentCard.side2 !== '' && (
-                            <div className="cardRow">
-                                <Card card={currentCard} />
-                            </div>
-                        )} */}
                         <div className="cardRow">
                             <Card card={currentCard} />
                         </div>
