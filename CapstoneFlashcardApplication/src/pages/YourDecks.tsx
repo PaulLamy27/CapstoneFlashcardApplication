@@ -84,8 +84,8 @@ const YourDecks = () => {
         try {
             const userId = sessionStorage.getItem('id');
             console.log("userId", userId);
-            // const res = await axiosInstance.get(`/api/deck/user/${userId}`);
-            const res = await axios.get(`http://localhost:5000/api/deck/user/${userId}`);
+            const res = await axiosInstance.get(`/api/deck/user/${userId}`);
+            // const res = await axios.get(`http://localhost:5000/api/deck/user/${userId}`);
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setDeckList(titles);
         } catch (error) {
