@@ -43,6 +43,7 @@ const Study = () => {
                 console.log(data);
                 setCardsList(data);
                 console.log("cardsList: ", cardsList);
+                return data; // Resolve the promise with data
                 // setCardListId(cardList.length++);
                 // setLoading(false);
             } catch (error) {
@@ -64,7 +65,7 @@ const Study = () => {
             }
         };
 
-        loadData();
+        loadData(); 
     }, []);
 
     useEffect(() => {
