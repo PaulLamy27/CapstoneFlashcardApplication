@@ -4,6 +4,7 @@ import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import axiosInstance from '../axiosInstance';
+import axios from 'axios';
 
 const YourDecks = () => {
 
@@ -83,7 +84,8 @@ const YourDecks = () => {
         try {
             const userId = sessionStorage.getItem('id');
             console.log("userId", userId);
-            const res = await axiosInstance.get(`/api/deck/user/${userId}`, {withCredentials: true});
+            // const res = await axiosInstance.get(`/api/deck/user/${userId}`);
+            const res = await axios.get(`http://localhost:5000/api/deck/user/${userId}`);
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setDeckList(titles);
         } catch (error) {
