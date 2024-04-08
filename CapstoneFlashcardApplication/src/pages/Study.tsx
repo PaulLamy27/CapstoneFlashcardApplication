@@ -123,33 +123,11 @@ const Study = () => {
     }
 
     const handleCorrectCards = (currentCard: CardInfo) => {
-        // console.log("correctLists Before slice: ", correctLists);
-        // const nextlist = correctLists.slice();
-        // console.log("correctLists After slice: ", correctLists);
-
-        // console.log("Inside of handleCorrectCards");
-        // console.log("deckSize before decerement: ", deckSize);
-
-        // console.log("cardsList before splice: ", cardsList);
-
-        // should this be a function?
         setDeckSize(deckSize - 1);
-        // console.log("deckSize after decerement: ", deckSize);
-
-        // function that removes the passed in card from the cardList, thus changing the state
-        //let currentCardIndex = cardsList.indexOf(currentCard);
-        // console.log(currentCardIndex);
-
-        // console.log("correctList BEFORE: ", correctList);
         setCorrectList([...correctList, currentCard]);
-        // console.log("correctList AFTER: ", correctList);
-
-        // setCardsList(cardsList.splice(currentCardIndex, 1));
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
         )
-
-        // console.log("cardsList after splice: ", cardsList);
 
         updateCard();
         // Collect correct data
@@ -158,14 +136,7 @@ const Study = () => {
     }
 
     const handleWrongCards = (currentCard: CardInfo) => {
-        // const nextlist = correctList.slice();
-        // nextlist.push(currentCard.side1);
-        // console.log({ nextlist });
-        // setWrongList(nextlist);
-        // Collect wrong data
-
         setDeckSize(deckSize - 1);
-        //let currentCardIndex = cardsList.indexOf(currentCard);
         setWrongList([...wrongList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
@@ -173,7 +144,6 @@ const Study = () => {
         updatePriority(currentCard.id);
         updateCard();
         console.log("wrongList: ", wrongList);
-
     }
 
     const updatePriority = async (cardId: Number) => {
@@ -187,10 +157,6 @@ const Study = () => {
     }
 
     const handleTryAgain = (wrongList: CardInfo[]) => {
-
-        // setCardsList(wrongList);
-        // setCurrentCard(wrongList[0]);
-        // console.log(cardsList);
         setDeckSize(wrongList.length);
         if (wrongList.length === 0) {
             setIsStudyComplete(true);
@@ -205,7 +171,7 @@ const Study = () => {
 
     // the state of currentCard is set to false on first render.
     // if this is the case, then the page is just now being rendered.
-    if (currentCard === null) {
+    if (currentCard.side1 === "" && currentCard.side2 === "") {
         // const firstCardOnRender = getRandomCard(cardsData)
         // setCurrentCard(firstCardOnRender)
         return <div>Loading...</div>;
