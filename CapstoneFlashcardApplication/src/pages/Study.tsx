@@ -35,7 +35,9 @@ const Study = () => {
     useEffect(() => {
         async function populateCardList() {
             try {
-                const response = await axiosInstance.get(`api/deck/studyDeck/${deckName}`);
+                const userId = sessionStorage.getItem('id');
+                console.log("userId", userId);
+                const response = await axiosInstance.get(`api/deck/studyDeck/${deckName}/${userId}`);
                 const data = await response.data;
                 console.log(data);
                 setCardsList(data);
