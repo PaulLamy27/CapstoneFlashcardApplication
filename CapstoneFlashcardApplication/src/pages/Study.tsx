@@ -32,26 +32,27 @@ const Study = () => {
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [isStudyComplete, setIsStudyComplete] = useState(false);
 
-    useEffect(() => {
-        async function populateCardList() {
-            try {
-                const userId = sessionStorage.getItem('id');
-                console.log("userId", userId);
-                const response = await axiosInstance.get(`/api/deck/studyDeck/${deckName}/${userId}`);
-                // const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}/${userId}`);
-                const data = await response.data;
-                console.log(data);
-                setCardsList(data);
-                console.log("cardsList: ", cardsList);
-                // setCardListId(cardList.length++);
-                // setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                console.error("Since there was an error, here is the value of deckName: ", deckName);
-                setCardsList([]);
-                // setLoading(false);
-            }
+    async function populateCardList() {
+        try {
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.get(`/api/deck/studyDeck/${deckName}/${userId}`);
+            // const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}/${userId}`);
+            const data = await response.data;
+            console.log(data);
+            setCardsList(data);
+            console.log("cardsList: ", cardsList);
+            // setCardListId(cardList.length++);
+            // setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            console.error("Since there was an error, here is the value of deckName: ", deckName);
+            setCardsList([]);
+            // setLoading(false);
         }
+    }
+
+    useEffect(() => {
 
         populateCardList();
     }, []);
@@ -64,7 +65,11 @@ const Study = () => {
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
         });
-        if (deckSize > 0) { setCurrentCard(getRandomCard); }
+        if (deckSize > 0) {
+            setCurrentCard(getRandomCard);
+        } else {
+            populateCardList();
+        }
     }, [cardsList]);
 
     const getRandomCard = () => {
