@@ -43,29 +43,17 @@ const Study = () => {
                 console.log(data);
                 setCardsList(data);
                 console.log("cardsList: ", cardsList);
-                return data; // Resolve the promise with data
                 // setCardListId(cardList.length++);
                 // setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 console.error("Since there was an error, here is the value of deckName: ", deckName);
                 setCardsList([]);
-                throw error;
                 // setLoading(false);
             }
         }
 
-        const loadData = async () => {
-            try {
-                await populateCardList();
-                // Once cardsList is populated, set current card
-                setCurrentCard(getRandomCard());
-            } catch (error) {
-                console.error('Error populating card list:', error);
-            }
-        };
-
-        loadData(); 
+        populateCardList();
     }, []);
 
     useEffect(() => {
