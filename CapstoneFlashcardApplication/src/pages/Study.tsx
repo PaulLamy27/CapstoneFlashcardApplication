@@ -169,17 +169,19 @@ const Study = () => {
         setWrongList([]);
     }
 
-    // the state of currentCard is set to false on first render.
-    // if this is the case, then the page is just now being rendered.
-    if (currentCard.side1 === "" && currentCard.side2 === "") {
-        // const firstCardOnRender = getRandomCard(cardsData)
-        // setCurrentCard(firstCardOnRender)
-        return <div>Loading...</div>;
-    }
+    // // the state of currentCard is set to false on first render.
+    // // if this is the case, then the page is just now being rendered.
+    // if (currentCard.side1 === "" && currentCard.side2 === "") {
+    //     // const firstCardOnRender = getRandomCard(cardsData)
+    //     // setCurrentCard(firstCardOnRender)
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <>
             <div className="App">
+
+                {cardsList.length === 0 && <div>Loading...</div>}
 
                 {!isStudyComplete && deckSize === 0 && (
                     <div>
