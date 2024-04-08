@@ -4,7 +4,6 @@ import { MdDelete, MdCancel, MdPublic, MdPublicOff } from 'react-icons/md'
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import axiosInstance from '../axiosInstance';
-import axios from 'axios';
 
 const YourDecks = () => {
 
