@@ -37,7 +37,8 @@ const Study = () => {
             try {
                 const userId = sessionStorage.getItem('id');
                 console.log("userId", userId);
-                const response = await axiosInstance.get(`/api/deck/studyDeck/${deckName}/${userId}`);
+                // const response = await axiosInstance.get(`/api/deck/studyDeck/${deckName}/${userId}`);
+                const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}/${userId}`);
                 const data = await response.data;
                 console.log(data);
                 setCardsList(data);
@@ -205,7 +206,7 @@ const Study = () => {
                     </>
                 )}
 
-                {deckSize > 0 && currentCard.side1 !== "" && currentCard.side2 !== "" &&  (
+                {deckSize > 0 &&  (
                     <>
                         <div className="cardRow">
                             <Card card={currentCard} />
