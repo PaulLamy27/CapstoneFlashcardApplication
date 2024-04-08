@@ -49,11 +49,22 @@ const Study = () => {
                 console.error('Error fetching data:', error);
                 console.error("Since there was an error, here is the value of deckName: ", deckName);
                 setCardsList([]);
+                throw error;
                 // setLoading(false);
             }
         }
 
-        populateCardList();
+        const loadData = async () => {
+            try {
+                await populateCardList();
+                // Once cardsList is populated, set current card
+                setCurrentCard(getRandomCard());
+            } catch (error) {
+                console.error('Error populating card list:', error);
+            }
+        };
+
+        loadData();
     }, []);
 
     useEffect(() => {
@@ -206,11 +217,13 @@ const Study = () => {
                     </>
                 )}
 
-                {deckSize > 0 &&  (
+                {deckSize > 0 && (
                     <>
-                        <div className="cardRow">
-                            <Card card={currentCard} />
-                        </div>
+                        {currentCard.side1 !== '' && currentCard.side2 !== '' && (
+                            <div className="cardRow">
+                                <Card card={currentCard} />
+                            </div>
+                        )}
                         <div className="buttonRow">
                             < Correct onClick={() => handleCorrectCards(currentCard)} />
                             < Wrong onClick={() => handleWrongCards(currentCard)} />
