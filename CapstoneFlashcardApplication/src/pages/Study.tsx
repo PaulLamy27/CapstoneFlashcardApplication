@@ -208,11 +208,14 @@ const Study = () => {
 
                 {deckSize > 0 && (
                     <>
-                        {currentCard.side1 !== '' && currentCard.side2 !== '' && (
+                        {/* {currentCard.side1 !== '' && currentCard.side2 !== '' && (
                             <div className="cardRow">
                                 <Card card={currentCard} />
                             </div>
-                        )}
+                        )} */}
+                        <div className="cardRow">
+                            <Card card={currentCard} />
+                        </div>
                         <div className="buttonRow">
                             < Correct onClick={() => handleCorrectCards(currentCard)} />
                             < Wrong onClick={() => handleWrongCards(currentCard)} />
