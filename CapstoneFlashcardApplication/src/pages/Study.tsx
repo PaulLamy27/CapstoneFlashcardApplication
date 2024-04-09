@@ -68,8 +68,6 @@ const Study = () => {
             setCurrentCard(getRandomCard);
         } else if (deckSize === 0 && !isStudyComplete) {
             setIsResults(true);
-        } else {
-            populateCardList();
         }
     }, [cardsList]);
 
