@@ -2,31 +2,91 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
-import axios from "axios";
+//import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [auth, setAuth] = useState(false);
-  const [message, setMessage] = useState('')
+  // const [message, setMessage] = useState('')
   const [name, setName] = useState('')
 
-  axios.defaults.withCredentials = true;
+  axiosInstance.defaults.withCredentials = true;
+
   useEffect(() => {
-    axios.get('http://localhost:5000')
-    .then(res => {
-      if(res.data.Status === "Success") {
-        setAuth(true)
-        setName(res.data.username)
-        console.log("Username:", res.data.username);
+    const userToken = sessionStorage.getItem('user_token');
+    console.log("userToken in navbar useffect: ", userToken);
+    const username = sessionStorage.getItem('username');
+    console.log("username: ", username);
+    try {
+      if (username) {
+        setAuth(true);
+        if (auth) {
+          console.log("auth", auth);
+        }
+        setName(username);
+        // Set the token as a common header for all requests
+        // axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+        // const arrayToken = userToken.split('.');
+        // console.log("arrayToken", arrayToken);
+        // const tokenPayload = JSON.parse(atob(arrayToken[1]));
+        // console.log("tokenPayload", tokenPayload);
+
+        // setAuth(true);
+        // sessionStorage.setItem("username", tokenPayload.username);
+        // const username = sessionStorage.getItem('username');
+        // setName(username);
+        // sessionStorage.setItem("id", tokenPayload.id);
+        // const id = sessionStorage.getItem('id');
+        // console.log("id ", id);
+
+
+        // Make the request to '/'
+        // axiosInstance.get('/')
+        //   .then(res => {
+        //     if (res.data.Status === "Success") {
+        //       setAuth(true)
+        //       setName(res.data.username)
+        //       console.log("Username ", res.data.username)
+        //     } else {
+        //       setAuth(false)
+        //       setMessage(res.data.Error)
+        //       console.log("Username NOT set")
+        //     }
+        //   })
+        //   .catch(err => console.log(err));
       }
-      else {
-        setAuth(false)
-        console.log(message);
-        setMessage(res.data.Error)
-      }
-    })
-    .catch(err => console.log(err));
+    } catch (error) {
+      console.log("error in useEffect: ", error);
+      setAuth(false);
+      // setMessage("Not Authenticated");
+    }
+
+
+    // if (userToken) {
+    //   // Set the token as a common header for all requests
+    //   axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+    //   // get '/' => route at 'api/' => verifyUser 
+    //   axiosInstance.get('/')
+    //     // axios.get('http://localhost:5000/')
+    //     .then(res => {
+    //       if (res.data.Status === "Success") {
+    //         setAuth(true)
+    //         setName(res.data.username)
+    //         console.log("Username:", res.data.username);
+    //       }
+    //       else {
+    //         setAuth(false)
+    //         console.log("error with navbar: ", message);
+    //         setMessage(res.data.Error)
+    //       }
+    //     })
+    //     .catch(err => console.log(err));
+    // }
+
   }, [])
 
   const handleNav = () => {
@@ -64,7 +124,7 @@ const Navbar = () => {
   }
 
   return (
-    <div  ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
+    <div ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
       <Link to="/" className="text-3xl font-bold text-skin-header m-4">
         CARDMENTOR.
       </Link>
@@ -75,25 +135,25 @@ const Navbar = () => {
         <li className="p-4">
           {
             auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
+              <Link to="/your-decks">Decks</Link>
+              :
+              <Link to="/login">Decks</Link>
           }
         </li>
         <li className="p-4">
           {
             auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
+              <Link to="/study">Study</Link>
+              :
+              <Link to="/login">Study</Link>
           }
         </li>
         <li className="p-4">
           {
             auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
+              <Link to="/user">Search user</Link>
+              :
+              <Link to="/login">Search user</Link>
           }
         </li>
         <li className="p-4">
@@ -102,21 +162,21 @@ const Navbar = () => {
         <li>
           {
             auth ?
-            null
-            :
-            <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
-            <Link to="/login">Login</Link>
-          </button>
+              null
+              :
+              <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
+                <Link to="/login">Login</Link>
+              </button>
           }
         </li>
         <li>
           {
             auth ?
-            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-            <Link to={`/profile/${name}`}><p>{name}</p></Link>
-            </button>
-            :
-            null            
+              <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
+                <Link to={`/profile/${name}`}><p>{name}</p></Link>
+              </button>
+              :
+              null
           }
         </li>
       </ul>
@@ -138,52 +198,52 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/your-decks">Decks</Link>
-            :
-            <Link to="/login">Decks</Link>
-          }
-          </li>
-          <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/study">Study</Link>
-            :
-            <Link to="/login">Study</Link>
-          }
-          </li>
-          <li className="p-4 border-b border-skin-dark">
-          {
-            auth ?
-            <Link to="/user">Search user</Link>
-            : 
-            <Link to="/login">Search user</Link>
-          }
-        </li>
-        <li className="p-4 border-b border-skin-dark">
-          <Link to="/PublicDecks">Search Public Decks</Link>
-        </li>
-        <li>
             {
               auth ?
-              null
-              :
-              <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
-              <Link to="/login">Login</Link>
-            </button>
+                <Link to="/your-decks">Decks</Link>
+                :
+                <Link to="/login">Decks</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            {
+              auth ?
+                <Link to="/study">Study</Link>
+                :
+                <Link to="/login">Study</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            {
+              auth ?
+                <Link to="/user">Search user</Link>
+                :
+                <Link to="/login">Search user</Link>
+            }
+          </li>
+          <li className="p-4 border-b border-skin-dark">
+            <Link to="/PublicDecks">Search Public Decks</Link>
+          </li>
+          <li>
+            {
+              auth ?
+                null
+                :
+                <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
+                  <Link to="/login">Login</Link>
+                </button>
             }
           </li>
           <li>
-          {
-            auth ?
-            <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-            <Link to={`/profile/${name}`}>{name}</Link>
-            </button>
-            :
-            null            
-          }
-        </li>
+            {
+              auth ?
+                <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
+                  <Link to={`/profile/${name}`}>{name}</Link>
+                </button>
+                :
+                null
+            }
+          </li>
         </ul>
       </div>
       <FaAngleUp

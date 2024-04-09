@@ -4,12 +4,12 @@ import { MdDelete, MdCancel, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdCl
 import { FacebookShareButton, WhatsappShareButton, WhatsappIcon, FacebookIcon } from 'react-share';
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
-import axios from 'axios'
+import axiosInstance from '../axiosInstance';
 
 const YourDecks = () => {
 
     const [deckList, setDeckList] = useState([]);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [showAddCardComponent, setShowAddCardComponent] = useState(false);
     const [showConfirmationIndex, setShowConfirmationIndex] = useState<number | null>(null);
     const [showShareBox, setShowShareBox] = useState<number | null>(null);
@@ -25,7 +25,7 @@ const YourDecks = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
 
         if (deckName !== '') {
-            axios.post(`http://localhost:5000/api/deck/new/${deckName}`, {}, { withCredentials: true })
+            axiosInstance.post(`/api/deck/new/${deckName}`, {}, { withCredentials: true })
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
@@ -41,7 +41,7 @@ const YourDecks = () => {
 
     const deleteDeck = (title) => {
         try {
-            axios.delete(`http://localhost:5000/api/deck/${encodeURIComponent(title)}`, {
+            axiosInstance.delete(`/api/deck/${encodeURIComponent(title)}`, {
             })
                 .then((res) => {
                     const response = res.data;
@@ -65,7 +65,7 @@ const YourDecks = () => {
 
     const updateDeck = (index, title, isPublic) => {
         try {
-            axios.post(`http://localhost:5000/api/deck/${title}?isPublic=${isPublic}`)
+            axiosInstance.post(`/api/deck/${title}?isPublic=${isPublic}`)
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
@@ -88,16 +88,16 @@ const YourDecks = () => {
     };
 
     const fetchData = async () => {
-        setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:5000/api/deck/user/`, { withCredentials: true });
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const res = await axiosInstance.get(`/api/deck/user/${userId}`);
+            // const res = await axios.get(`http://localhost:5000/api/deck/user/${userId}`);
             const titles = res.data.map((deck: { title: string }) => deck.title);
             setIsPublicList(res.data.map(deck => deck.isPublic));
             setDeckList(titles);
-            setLoading(false);
         } catch (error) {
             console.error("Error fetching deck list: ", error);
-            setLoading(false);
         }
     };
 
@@ -109,10 +109,6 @@ const YourDecks = () => {
 
     useEffect(() => {
     }, [deckList]);
-
-    const toggleAddCardComponent = () => {
-        setShowAddCardComponent(!showAddCardComponent);
-    }
 
     return (
         <>

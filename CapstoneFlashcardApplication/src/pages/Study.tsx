@@ -12,9 +12,8 @@ import TryAgain from "../components/TryAgain";
 
 import { useParams } from 'react-router';
 
-import axios from "axios";
-
 import './Study.css'
+import axiosInstance from "../axiosInstance";
 //import YourDecks from "./YourDecks";
 
 const Study = () => {
@@ -27,7 +26,6 @@ const Study = () => {
 
     const [cardsList, setCardsList] = useState<CardInfo[]>([]);
     const [deckSize, setDeckSize] = useState(cardsList.length);
-
     const [currentCard, setCurrentCard] = useState<CardInfo>({
         id: 0,
         side1: "",
@@ -35,30 +33,32 @@ const Study = () => {
         priority: 0
     });
     const [cardListIndex, setCardListIndex] = useState<number>(0);
+    const [isResults, setIsResults] = useState(false);
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [isStudyComplete, setIsStudyComplete] = useState(false);
 
-    useEffect(() => {
-        async function populateCardList() {
-            try {
-                console.log(" populateCardList(): ");
-                const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}`);
-                const data = await response.data;
-                console.log(data);
-                setCardsList(data);
-                console.log("cardsList: ", cardsList);
-                console.log(deckName);
-                // setCardListId(cardList.length++);
-                // setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                console.error("Since there was an error, here is the value of deckName: ", deckName);
-                setCardsList([]);
-                // setLoading(false);
-            }
+    async function populateCardList() {
+        try {
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.get(`/api/deck/studyDeck/${deckName}/${userId}`);
+            // const response = await axios.get(`http://localhost:5000/api/deck/studyDeck/${deckName}/${userId}`);
+            const data = await response.data;
+            console.log(data);
+            setCardsList(data);
+            console.log("cardsList: ", cardsList);
+            // setCardListId(cardList.length++);
+            // setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            console.error("Since there was an error, here is the value of deckName: ", deckName);
+            setCardsList([]);
+            // setLoading(false);
         }
+    }
 
+    useEffect(() => {
         populateCardList();
     }, []);
 
@@ -70,7 +70,14 @@ const Study = () => {
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
         });
-        if (deckSize > 0) { setCurrentCard(getNextCard); }
+        // legacy
+        //if (deckSize > 0) { setCurrentCard(getNextCard); }
+        if (deckSize > 0 && !isStudyComplete) {
+            setCurrentCard(getRandomCard);
+        } else if (deckSize === 0 && !isStudyComplete) {
+            populateCardList();
+            console.log(setIsResults);
+        }
     }, [cardsList]);
 
     const getRandomCard = () => {
@@ -82,20 +89,20 @@ const Study = () => {
         return card;
     }
 
-    const getNextCard = () => {
-        let card;
-        if (cardListIndex === 0) {
-            card = cardsList[cardListIndex];
-        } else {
-            setCardListIndex(cardListIndex + 1)
-            card = cardsList[cardListIndex];
-        }
-        // let result = Math.floor(Math.random() * cardsList.length);
-        // console.log("getRandomCard; result: ", result);
-        console.log("getRandomCard ran and here is card: ", card);
-        console.log("typeof card: ", typeof (card));
-        return card;
-    }
+    // const getNextCard = () => {
+    //     let card;
+    //     if (cardListIndex === 0) {
+    //         card = cardsList[cardListIndex];
+    //     } else {
+    //         setCardListIndex(cardListIndex + 1)
+    //         card = cardsList[cardListIndex];
+    //     }
+    //     // let result = Math.floor(Math.random() * cardsList.length);
+    //     // console.log("getRandomCard; result: ", result);
+    //     console.log("getRandomCard ran and here is card: ", card);
+    //     console.log("typeof card: ", typeof (card));
+    //     return card;
+    // }
 
     const getRandomCardTryAgain = () => {
         let result = Math.floor(Math.random() * wrongList.length);
@@ -145,7 +152,9 @@ const Study = () => {
     const updatePriority = async (cardId: Number) => {
         console.log("we are inside of updatePriority!");
         try {
-            const response = await axios.post(`http://localhost:5000/api/deck/prio/${cardId}`, {}, { withCredentials: true });
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.post(`/api/deck/prio/${cardId}/${userId}`);
             console.log(response);
         } catch (error) {
             console.log("updatePriority has the follow error: ", error);

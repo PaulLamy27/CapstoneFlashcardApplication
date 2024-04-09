@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { MdDelete, MdEdit } from 'react-icons/md'
 import ConfirmationDialog from '../components/ConfirmationDialog';
+import Translate from '../components/Translate';
+import axiosInstance from '../axiosInstance';
 
 const Deck = () => {
 
@@ -87,8 +89,8 @@ const Deck = () => {
     };
 
     const updateCard = (id: number, side1, side2) => {
-        let newSide1 = frontSideUpdate == ''? side1 : frontSideUpdate
-        let newSide2 = backSideUpdate == ''? side2 : backSideUpdate
+        let newSide1 = frontSideUpdate == '' ? side1 : frontSideUpdate
+        let newSide2 = backSideUpdate == '' ? side2 : backSideUpdate
         try {
             axios.post(`http://localhost:5000/api/deck/card/${id}`, {
                 side1: newSide1,
@@ -119,7 +121,9 @@ const Deck = () => {
 
     const populateCardList = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/deck/deckTitle/${deckName}`);
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.get(`/api/deck/deckTitle/${deckName}`);
             const data = await response.data;
             setCardList(data);
         } catch (error) {
@@ -137,7 +141,8 @@ const Deck = () => {
         <>
             <div className="flex items-center justify-center w-800 text-skin-inverted">
                 <div className="flex flex-col justify-center p-10 m-10">
-                    <div className='font-sans text-skin-base font-semibold text-3xl'>{deckName}</div>
+                    <div className='font-sans text-white font-semibold text-3xl'>{deckName}</div>
+                    <Translate />
                     <div className="w-full mx-auto">
                         <input value={frontSide} placeholder='Front of Card' className='ml-4 rounded-lg text-center bg-skin-inverted'
                             onChange={e => setFrontSide(e.target.value)} />

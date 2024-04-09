@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, Route, Routes, useParams, useNavigate } from 'react-router-dom';
 import YourDecks from './YourDecks';
 import axios from "axios";
+import axiosInstance from '../axiosInstance';
 import { IoMdClose } from "react-icons/io";
 
 const ProfileSettingsModal = ({ isOpen, onClose }) => {
@@ -15,22 +16,21 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
     const [username, setUsername] = useState('');
     const [newUsername, setNewUsername] = useState('');
     const navigate = useNavigate();
+    // const [message, setMessage] = useState('')
+    const [name, setName] = useState('')
+    const [deckList, setDeckList] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000')
-            .then(res => {
-                if (res.data.Status === "Success") {
-                    setAuth(true)
-                    setUserId(res.data.id)
-                    setUsername(res.data.username)
-                    console.log("User id ", res.data.id)
-                }
-                else {
-                    setAuth(false)
-                    setMessage(res.data.Error)
-                }
-            })
-            .catch(err => console.log(err));
+        const username = sessionStorage.getItem('username');
+        console.log("username", username);
+        if (username) {
+            setAuth(true);
+            setName(username);
+        } else {
+            setAuth(false);
+            console.log(auth);
+            console.log("not authorized");
+        }
     }, [])
 
     const handleChangePassword = async (e) => {
@@ -165,20 +165,20 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
     const [username, setUsername] = useState('')
     const { username: profileUsername } = useParams();
 
-    useEffect(() => {
-        axios.get('http://localhost:5000')
-            .then(res => {
-                if (res.data.Status === "Success") {
-                    setAuth(true)
-                    setUsername(res.data.username)
-                    console.log("User id ", res.data.id)
-                }
-                else {
-                    setAuth(false)
-                }
-            })
-            .catch(err => console.log(err));
-    }, [])
+    // useEffect(() => {
+    //     axios.get('http://localhost:5000')
+    //         .then(res => {
+    //             if (res.data.Status === "Success") {
+    //                 setAuth(true)
+    //                 setUsername(res.data.username)
+    //                 console.log("User id ", res.data.id)
+    //             }
+    //             else {
+    //                 setAuth(false)
+    //             }
+    //         })
+    //         .catch(err => console.log(err));
+    // }, [])
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -188,7 +188,11 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
     }
 
     useEffect(() => {
+        // const username = sessionStorage.getItem('username');
         axios.get(`http://localhost:5000/api/deck/user/publicdecks/${profileUsername}`, { withCredentials: true })
+        const userId = sessionStorage.getItem('id');
+        console.log("userId", userId);
+        axiosInstance.get(`/api/deck/user/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);

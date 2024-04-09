@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axiosInstance from "../axiosInstance";
+//import axios from "axios";
 
 const Login = () => {
   const [values, setValues] = useState({
     username: '',
     password: ''
   })
-  const navigate = useNavigate()
-  axios.defaults.withCredentials = true
+  const navigate = useNavigate();
+  axiosInstance.defaults.withCredentials = true
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/login', values)
-    .then(res => {
-      if(res.data.Status === "Success") {
+    axiosInstance.post('/login', values)
+      .then(res => {
+        const token = res.data.token;
+        console.log("token has been gotted: ", token);
+
+        sessionStorage.setItem('user_token', token);
+        // sessionStorage.setItem('userId', res.data.name);
+        localStorage.setItem('user_token', token);
+        // localStorage.setItem('userId', res.data.name);
+
         navigate('/')
-        location.reload();
-      }
-      else {
-        alert(res.data.Error);
-      }
-    })
-    .then(err => console.log(err));
+        // location.reload();
+
+        // if (res.data.Status === "Success") {
+        //   navigate('/')
+        //   location.reload();
+        // }
+        // else {
+        //   alert(res.data.Error);
+        // }
+      })
+      .catch(err => console.log(err));
   }
 
   return (
@@ -47,7 +59,7 @@ const Login = () => {
               <input className="mr-1" type="checkbox" />
               Remember me
             </p>
-            <p> 
+            <p>
               <Link to="/registration">Create an account</Link>
             </p>
           </div>
