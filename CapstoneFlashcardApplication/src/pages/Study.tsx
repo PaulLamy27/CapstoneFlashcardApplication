@@ -155,7 +155,9 @@ const Study = () => {
     const updatePriority = async (cardId: Number) => {
         console.log("we are inside of updatePriority!");
         try {
-            const response = await axios.post(`http://localhost:5000/api/deck/prio/${cardId}`, {}, { withCredentials: true });
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            const response = await axiosInstance.post(`/api/deck/prio/${cardId}/${userId}`);
             console.log(response);
         } catch (error) {
             console.log("updatePriority has the follow error: ", error);
