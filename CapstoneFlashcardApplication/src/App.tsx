@@ -18,9 +18,11 @@ import { useState } from "react";
 
 function App() {
 
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "");
+
   const handleThemeChange = (selectedTheme) => {
-    setTheme(selectedTheme.target.value)
+    localStorage.setItem('theme', selectedTheme.target.value);
+    setTheme(selectedTheme.target.value);
   }
 
   const refCallback = (node) => {
@@ -47,7 +49,7 @@ function App() {
             <Route path="/PublicDecks" element={<PublicDecks />} />
             <Route path="/your-decks/:deckName" element={<Deck />} />
             <Route path="/study/:deckName" element={<Study />} />
-            <Route path="/profile/:username" element={<Profile handleThemeChange={handleThemeChange} currentTheme={theme}/>} />
+            <Route path="/profile/:username/*" element={<Profile handleThemeChange={handleThemeChange} currentTheme={theme}/>} />
           </Routes>
         </BrowserRouter>}
       </div>

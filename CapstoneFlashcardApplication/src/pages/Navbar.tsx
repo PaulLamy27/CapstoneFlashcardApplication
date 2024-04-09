@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaAngleUp } from "react-icons/fa";
-//import axios from "axios";
+import logo from '../assets/logo.png'
 import axiosInstance from "../axiosInstance";
 
 const Navbar = () => {
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [auth, setAuth] = useState(false);
   // const [message, setMessage] = useState('')
   const [name, setName] = useState('')
+  const location = useLocation();
 
   axiosInstance.defaults.withCredentials = true;
 
@@ -89,6 +90,11 @@ const Navbar = () => {
 
   }, [])
 
+  useEffect(() => {
+    // Close the navbar when the location changes
+    setNav(false);
+  }, [location]);
+
   const handleNav = () => {
     setNav(!nav);
   };
@@ -124,9 +130,16 @@ const Navbar = () => {
   }
 
   return (
-    <div ref={refCallback} className="flex justify-between item-center h-24 max-w-[1240px] mx-auto px-4 text-skin-base">
-      <Link to="/" className="text-3xl font-bold text-skin-header m-4">
-        CARDMENTOR.
+    <div ref={refCallback} className="flex justify-between item-center h-24 max-w-full mx-auto px-4 text-skin-base">
+      <Link to="/">
+        <div className="flex">
+          <svg width="75" height="75">
+            <image href={logo} height="100%" width="100%" />
+          </svg>
+          <p className="text-3xl font-bold  text-skin-header">
+            CARDMENTOR.
+          </p>
+        </div>
       </Link>
       <ul className="hidden md:flex">
         <li className="p-4">
@@ -157,43 +170,35 @@ const Navbar = () => {
           }
         </li>
         <li className="p-4">
-          <Link to="/PublicDecks">Search Public Decks</Link>
-        </li>
-        <li>
           {
             auth ?
-              null
+              <Link to="/PublicDecks">Search Public Decks</Link>
               :
-              <button className="text-skin-dark bg-skin-button w-[60px] rounded-md font-medium my-4">
-                <Link to="/login">Login</Link>
-              </button>
+              <Link to="/login">Search user</Link>
           }
         </li>
-        <li>
-          {
-            auth ?
-              <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-                <Link to={`/profile/${name}`}><p>{name}</p></Link>
-              </button>
-              :
-              null
-          }
-        </li>
+        {
+          auth ?
+            <li className="p-4">
+              <Link to={`/profile/${name}`}>{name}</Link>
+            </li>
+            :
+            <li className="p-4">
+              <Link to="/login">Login</Link>
+            </li>
+        }
       </ul>
-      <div onClick={handleNav} className="block md:hidden">
+      <div onClick={handleNav} className="block md:hidden mt-3">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
       <div
         className={
           nav
-            ? "fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-600 bg-skin-bg ease-in-out duration-500"
+            ? "fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-600 bg-skin-bg ease-in-out duration-500 z-50"
             : "fixed left-[-100%]"
         }
       >
-        <ul className="uppercase p-4">
-          <Link to="/" className="text-3xl font-bold text-skin-header m-4">
-            CARDMENTOR.
-          </Link>
+        <ul className="uppercase">
           <li className="p-4 border-b border-skin-dark">
             <Link to="/">Home</Link>
           </li>
@@ -222,28 +227,23 @@ const Navbar = () => {
             }
           </li>
           <li className="p-4 border-b border-skin-dark">
-            <Link to="/PublicDecks">Search Public Decks</Link>
-          </li>
-          <li>
             {
               auth ?
-                null
+                <Link to="/PublicDecks">Search Public Decks</Link>
                 :
-                <button className="text-skin-dark bg-skin-button w-[75px] rounded-md font-medium my-6 mx-1 uppercase">
-                  <Link to="/login">Login</Link>
-                </button>
+                <Link to="/login">Search user</Link>
             }
           </li>
-          <li>
-            {
-              auth ?
-                <button className="text-skin-dark bg-skin-button w-[80px] rounded-md font-medium my-4">
-                  <Link to={`/profile/${name}`}>{name}</Link>
-                </button>
-                :
-                null
-            }
-          </li>
+          {
+            auth ?
+              <li className="p-4">
+                <Link to={`/profile/${name}`}>{name}</Link>
+              </li>
+              :
+              <li className="p-4">
+                <Link to="/login">Login</Link>
+              </li>
+          }
         </ul>
       </div>
       <FaAngleUp
