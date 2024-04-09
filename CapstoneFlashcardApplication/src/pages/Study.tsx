@@ -22,7 +22,6 @@ const Study = () => {
 
     const [cardsList, setCardsList] = useState<CardInfo[]>([]);
     const [deckSize, setDeckSize] = useState(cardsList.length);
-
     const [currentCard, setCurrentCard] = useState<CardInfo>({
         id: 0,
         side1: "",
@@ -53,7 +52,6 @@ const Study = () => {
     }
 
     useEffect(() => {
-
         populateCardList();
     }, []);
 
@@ -65,7 +63,7 @@ const Study = () => {
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
         });
-        if (deckSize > 0) {
+        if (deckSize > 0 && !isStudyComplete) {
             setCurrentCard(getRandomCard);
         } else {
             populateCardList();
