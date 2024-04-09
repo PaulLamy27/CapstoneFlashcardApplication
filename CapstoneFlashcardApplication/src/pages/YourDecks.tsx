@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom';
-import { MdDelete, MdCancel, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdClose } from 'react-icons/md'
+import { IoMdClose } from "react-icons/io";
+import { MdDelete, MdPublic, MdPublicOff, MdShare, MdContentCopy, MdClose } from 'react-icons/md'
 import { FacebookShareButton, WhatsappShareButton, WhatsappIcon, FacebookIcon } from 'react-share';
 
 import ConfirmationDialog from '../components/ConfirmationDialog';
@@ -169,7 +170,7 @@ const YourDecks = () => {
                 <div className={`fixed top-1/2 left-1/2 transition ease-in-out duration-500 -translate-x-1/2 ${showAddCardComponent ? '!opacity-100 !-translate-y-1/2' : 'opacity-0 translate-y-1/2'}`}>
                     {showAddCardComponent &&
                         <div className='max-w-[400px] w-full h-[450px] mx-auto flex items-center justify-center bg-skin-button px-10'>
-                            <MdCancel className='absolute top-4 right-4 w-12 h-12 cursor-pointer' onClick={() => setShowAddCardComponent(false)} />
+                            <IoMdClose className='absolute top-4 right-4 w-12 h-12 cursor-pointer' onClick={() => setShowAddCardComponent(false)} />
                             <div className='flex flex-col items-center justify-center'>
                                 <h1 className='mb-10 font-semibold sm:text-4xl text-xl text-skin-dark'>Make A New Deck</h1>
                                 <input id='' className='mb-10 w-full border border-black' type='text' value={deckName} placeholder='New Deck Name' onChange={handleInputChange} />

@@ -5,9 +5,9 @@ import axios from "axios";
 import { IoMdClose } from "react-icons/io";
 
 const ProfileSettingsModal = ({ isOpen, onClose }) => {
-    const [currentPassword, setCurrentpassword] = useState('');
-    const [newPassword, setNewpassword] = useState('');
-    const [confirmNewPassword, setConfirmNewpassword] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [auth, setAuth] = useState(false);
     const [message, setMessage] = useState('');
@@ -50,6 +50,11 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
 
             console.log(response.data);
             setErrorMessage('Password changed successfully.');
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmNewPassword('');
+            setErrorMessage('');
+            onClose();
         } catch (error) {
             // Handle error response
             console.error('Error changing password:', error);
@@ -64,7 +69,6 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                 password: password
             });
 
-            // Upon successful login with the new username, the backend should set a new token cookie
             console.log('Username updated successfully.');
             console.log(response.data);
             return true;
@@ -88,6 +92,8 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                 newUsername,
             });
             console.log(response.data);
+            setNewUsername('');
+            setCurrentPassword('');
             onClose(); // Close the modal after successful update
         } catch (error) {
             // Handle error response
@@ -109,7 +115,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
     return isOpen && (
         <div className="fixed inset-0 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen">
-                <div className="relative bg-skin-bg border border-gray-600 rounded-lg w-96">
+                <div className="relative bg-skin-button border border-gray-600 rounded-lg w-96">
                     <div className="p-8">
                         <button
                             className="absolute top-4 right-4 text-gray-500"
@@ -117,37 +123,37 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                         >
                             <IoMdClose size={30}></IoMdClose>
                         </button>
-                        <h2 className="text-4xl font-bold text-center py-6 text-skin-header">
+                        <h2 className="text-4xl font-bold text-center py-6 text-skin-dark">
                             SETTINGS
                         </h2>
                         <form onSubmit={handleChangeUsername}>
                             <div className="flex flex-col py-2">
                                 <label htmlFor="username">Change Username:</label>
-                                <input className="border p-2 text-skin-inverted" type="username" placeholder="Enter New Username" name="newUsername" id="currentPassword" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+                                <input className="border p-2 text-skin-inverted" type="username" placeholder="Enter New Username" name="newUsername" id="newUsername" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
                             </div>
                             <div className="flex flex-col py-2">
                                 <label htmlFor="password">Current Password:</label>
-                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter Current Password" name="currentPassword" id="currentPassword" value={currentPassword} onChange={(e) => setCurrentpassword(e.target.value)} />
+                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter Current Password" name="currentPassword" id="currentPassword" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
                             </div>
-                            <button type="submit" className="border w-full my-5 py-2 bg-skin-button hover:bg-skin-bottonselect text-skin-dark font-medium">
+                            <button type="submit" className="w-full py-2 text-skin-dark font-medium">
                                 Submit
                             </button>
                         </form>
                         <form onSubmit={handleChangePassword}>
                             <div className="flex flex-col py-2">
                                 <label htmlFor="password">Current Password:</label>
-                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter Current Password" name="currentPassword" id="currentPassword" value={currentPassword} onChange={(e) => setCurrentpassword(e.target.value)} />
+                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter Current Password" name="currentPassword" id="currentPassword" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
                             </div>
                             <div className="flex flex-col py-2">
                                 <label htmlFor="password">New Password:</label>
-                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter New Password" name="newPassword" id="newPassword" value={newPassword} onChange={(e) => setNewpassword(e.target.value)} />
+                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Enter New Password" name="newPassword" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                             </div>
-                            <div className="flex flex-col py-2">
+                            <div className="flex flex-col text-skin-inverted py-2">
                                 <label htmlFor="password">Confirm New Password:</label>
-                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Confirm New Password" name="confirmNewPassword" id="confirmNewPassword" value={confirmNewPassword} onChange={(e) => setConfirmNewpassword(e.target.value)} />
+                                <input className="border p-2 text-skin-inverted" type="password" placeholder="Confirm New Password" name="confirmNewPassword" id="confirmNewPassword" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} />
                             </div>
                             {errorMessage && <p className="text-red-500 text-sm mb-4">{errorMessage}</p>}
-                            <button type="submit" className="border w-full my-5 py-2 bg-skin-button hover:bg-skin-bottonselect text-skin-dark font-medium">
+                            <button type="submit" className="w-full py-2 text-skin-dark font-medium">
                                 Change Password
                             </button>
                         </form>
@@ -206,16 +212,16 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
     return (
         <>
             <div className='text-skin-base max-w-[800px] w-full h-screen mx-auto'>
-                <div className='text-skin-inverted py-2 w-10 right-0 top-0'>
-                    <select id="themes" onChange={handleThemeChange} value={currentTheme}>
-                        <option value="" selected>Default</option>
-                        <option value="light">Light</option>
-                    </select>
-                </div>
-                <div className='flex flex-col justify-center'>
-                    <div className='flex flex-row'>
-                        <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello,</h1>
+                <div className='flex flex-col lg:justify-center sm:text-center'>
+                    <div className='flex flex-col lg:flex-row'>
+                        <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello</h1>
                         <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-skin-header'>{profileUsername}</h1>
+                        <div className='text-skin-inverted mx-auto h-8 font-medium mt-10'>
+                            <select id="themes" onChange={handleThemeChange} value={currentTheme}>
+                                <option value="" selected>Default</option>
+                                <option value="light">Light</option>
+                            </select>
+                        </div>
                         {auth && username === profileUsername && (
                             <button className='text-skin-dark bg-skin-button hover:bg-skin-bottonselect mx-auto my-8 h-8 w-[130px] rounded-md font-medium' onClick={handleOpenModal}>Profile Settings</button>
                         )}

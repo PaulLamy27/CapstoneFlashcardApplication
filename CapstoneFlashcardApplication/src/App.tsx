@@ -49,7 +49,7 @@ function App() {
             <Route path="/PublicDecks" element={<PublicDecks />} />
             <Route path="/your-decks/:deckName" element={<Deck />} />
             <Route path="/study/:deckName" element={<Study />} />
-            <Route path="/profile/:username" element={<Profile handleThemeChange={handleThemeChange} currentTheme={theme}/>} />
+            <Route path="/profile/:username/*" element={<Profile handleThemeChange={handleThemeChange} currentTheme={theme}/>} />
           </Routes>
         </BrowserRouter>}
       </div>

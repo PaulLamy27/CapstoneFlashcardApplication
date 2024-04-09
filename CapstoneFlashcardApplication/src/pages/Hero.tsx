@@ -43,7 +43,6 @@ const Hero = () => {
             <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for anything.</p>
           </div>
           <p className='md:text-2xl text-xl font-bold text-skin-mid'>Create decks and add cards to study for that next big test or to simply learn</p>
-          <h3>You are authorized: {name}</h3>
           <button className='bg-skin-button w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-skin-dark' onClick={handleDelete}>Logout</button>
         </div>
         :
@@ -54,7 +53,6 @@ const Hero = () => {
             <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for anything.</p>
           </div>
           <p className='md:text-2xl text-xl font-bold text-skin-mid'>Create decks and add cards to study for that next big test or to simply learn</p>
-          <h3>{message}</h3>
           <Link to="/login" className='bg-skin-button w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-skin-dark'>Login</Link>
         </div>
       }
