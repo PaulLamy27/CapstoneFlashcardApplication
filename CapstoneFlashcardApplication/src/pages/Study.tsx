@@ -65,7 +65,7 @@ const Study = () => {
         });
         if (deckSize > 0 && !isStudyComplete) {
             setCurrentCard(getRandomCard);
-        } else {
+        } else if (deckSize === 0 && !isStudyComplete) {
             populateCardList();
         }
     }, [cardsList]);
