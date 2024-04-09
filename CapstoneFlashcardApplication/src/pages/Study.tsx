@@ -27,6 +27,7 @@ const Study = () => {
         side1: "",
         side2: ""
     });
+    const [isResults, setIsResults] = useState(false);
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [isStudyComplete, setIsStudyComplete] = useState(false);
@@ -66,7 +67,7 @@ const Study = () => {
         if (deckSize > 0 && !isStudyComplete) {
             setCurrentCard(getRandomCard);
         } else if (deckSize === 0 && !isStudyComplete) {
-            populateCardList();
+            setIsResults(true);
         }
     }, [cardsList]);
 
@@ -187,7 +188,7 @@ const Study = () => {
 
                 {/* {currentCard.side1 === '' && currentCard.side2 === '' && <div>Loading...</div>} */}
 
-                {!isStudyComplete && deckSize === 0 && (
+                {!isStudyComplete && isResults && deckSize === 0 && (
                     <div>
                         <DisplayResults right={correctList} wrong={wrongList} />
                         <TryAgain onClick={() => handleTryAgain(wrongList)} />
