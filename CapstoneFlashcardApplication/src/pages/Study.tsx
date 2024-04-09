@@ -10,8 +10,6 @@ import TryAgain from "../components/TryAgain";
 
 import { useParams } from 'react-router';
 
-import axios from "axios";
-
 import './Study.css'
 import axiosInstance from "../axiosInstance";
 //import YourDecks from "./YourDecks";
