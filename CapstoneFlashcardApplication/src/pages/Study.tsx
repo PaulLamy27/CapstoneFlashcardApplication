@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-import { MdLowPriority } from "react-icons/md";
+// import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+// import { MdLowPriority } from "react-icons/md";
 import Card from '../components/Card'
 import { CardInfo } from '../components/CardInfo'
 import DisplayResults from "../components/DisplayResults";
@@ -32,7 +32,6 @@ const Study = () => {
         side2: "",
         priority: 0
     });
-    const [cardListIndex, setCardListIndex] = useState<number>(0);
     const [isResults, setIsResults] = useState(false);
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
@@ -64,8 +63,8 @@ const Study = () => {
 
     useEffect(() => {
         console.log("Updated cardsList: ", cardsList);
-        let prevDeckSize = cardsList.length;
-        setDeckSize((prevDeckSize) => {
+        // let prevDeckSize = cardsList.length;
+        setDeckSize(() => {
             const newDeckSize = cardsList.length;
             console.log("setDeckSize(cardsList.length); has just run: ", newDeckSize);
             return newDeckSize;
@@ -77,6 +76,7 @@ const Study = () => {
         } else if (deckSize === 0 && !isStudyComplete) {
             populateCardList();
             console.log(setIsResults);
+            console.log(isResults);
         }
     }, [cardsList]);
 
@@ -177,12 +177,14 @@ const Study = () => {
     const handleStudyRandom = () => {
         setIsRandomOrPriority(false);
         setIsStudyRandom(true);
+        console.log(isStudyRandom);
         console.log("CardList handleStudyRandom: ", cardsList);
     }
 
     const handleStudyPriority = () => {
         setIsRandomOrPriority(false);
         setIsStudyPriority(true);
+        console.log(isStudyPriority);
         console.log("CardList handleStudyPriority: ", cardsList);
         const sortedCards = [...cardsList].sort((a, b) => b.priority - a.priority);
         console.log("sortedCards: ", sortedCards);

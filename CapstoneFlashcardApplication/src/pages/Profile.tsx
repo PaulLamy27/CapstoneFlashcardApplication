@@ -11,21 +11,25 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [auth, setAuth] = useState(false);
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     const [userId, setUserId] = useState('');
     const [username, setUsername] = useState('');
     const [newUsername, setNewUsername] = useState('');
     const navigate = useNavigate();
     // const [message, setMessage] = useState('')
-    const [name, setName] = useState('')
-    const [deckList, setDeckList] = useState([]);
+    // const [name, setName] = useState('')
+    // const [deckList, setDeckList] = useState([]);
 
     useEffect(() => {
         const username = sessionStorage.getItem('username');
         console.log("username", username);
         if (username) {
             setAuth(true);
-            setName(username);
+            setUsername(username);
+            // setUserId()
+            // sessionStorage.setItem("id", tokenPayload.id);
+            const id = sessionStorage.getItem('id');
+            setUserId(id);
         } else {
             setAuth(false);
             console.log(auth);
@@ -194,10 +198,12 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
     }
 
     useEffect(() => {
-        // const username = sessionStorage.getItem('username');
-        axios.get(`http://localhost:5000/api/deck/user/publicdecks/${profileUsername}`, { withCredentials: true })
+        const username = sessionStorage.getItem('username');
+        axios.get(`http://localhost:5000/api/deck/user/publicdecks/${username}`, { withCredentials: true })
         const userId = sessionStorage.getItem('id');
         console.log("userId", userId);
+        {userId ? setAuth(true) : setAuth(false)};
+        {username ? setUsername(username) : setUsername('')};
         axiosInstance.get(`/api/deck/user/${userId}`)
             .then((res) => {
                 console.log(res.data);
