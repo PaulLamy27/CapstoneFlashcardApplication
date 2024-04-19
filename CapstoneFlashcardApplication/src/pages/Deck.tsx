@@ -1,5 +1,4 @@
 import { CardInfo } from '../components/CardInfo';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { MdDelete, MdEdit } from 'react-icons/md'
@@ -46,9 +45,9 @@ const Deck = () => {
         if (deckName !== '') {
             try {
                 if (pronounced) {
-                    await axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true });
+                    await axiosInstance.post(`/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&pronunciation=${pronounced}&priority=1`, {}, { withCredentials: true });
                 } else {
-                    await axios.post(`http://localhost:5000/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true });
+                    await axiosInstance.post(`/api/deck/${deckName}/card?side1=${frontSide}&side2=${backSide}&priority=1`, {}, { withCredentials: true });
                 }
 
                 console.log("success");
@@ -60,7 +59,7 @@ const Deck = () => {
 
     const deleteCard = (side1, side2, pronunciation) => {
         try {
-            axios.delete(`http://localhost:5000/api/deck/${encodeURIComponent(deckName)}/card`, {
+            axiosInstance.delete(`/api/deck/${encodeURIComponent(deckName)}/card`, {
                 params: {
                     side1: side1,
                     side2: side2,
@@ -92,7 +91,7 @@ const Deck = () => {
         let newSide1 = frontSideUpdate == '' ? side1 : frontSideUpdate
         let newSide2 = backSideUpdate == '' ? side2 : backSideUpdate
         try {
-            axios.post(`http://localhost:5000/api/deck/card/${id}`, {
+            axiosInstance.post(`/api/deck/card/${id}`, {
                 side1: newSide1,
                 side2: newSide2,
                 pronunciation: pronouncedUpdate
@@ -124,6 +123,7 @@ const Deck = () => {
             const userId = sessionStorage.getItem('id');
             console.log("userId", userId);
             const response = await axiosInstance.get(`/api/deck/deckTitle/${deckName}/${userId}`);
+            // const response = await axiosInstance.get(`/api/deck/deckTitle/${deckName}/${userId}`);
             const data = await response.data;
             setCardList(data);
         } catch (error) {
