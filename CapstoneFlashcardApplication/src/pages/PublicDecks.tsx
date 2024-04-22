@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom';
+import axiosInstance from '../axiosInstance';
 
 const PublicDecks = () => {
 
@@ -9,7 +9,7 @@ const PublicDecks = () => {
     const [q, setQ] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/deck/publicdecks`, { withCredentials: true })
+        axiosInstance.get(`/api/deck/publicdecks`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);

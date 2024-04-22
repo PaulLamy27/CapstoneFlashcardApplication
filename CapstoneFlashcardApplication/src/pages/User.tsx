@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom';
+import axiosInstance from '../axiosInstance';
 
 const User = () => {
 
@@ -9,9 +9,10 @@ const User = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [userList, setUserList] = useState([])
+
     const searchUser = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/user/search?firstname=${firstName}&lastname=${lastName}&username=${username}&email=${email}`);
+            const response = await axiosInstance.get(`/api/user/search?firstname=${firstName}&lastname=${lastName}&username=${username}&email=${email}`);
             const data = await response.data;
             setUserList(data);
         } catch (error) {
