@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { MdDelete, MdEdit } from 'react-icons/md'
 import ConfirmationDialog from '../components/ConfirmationDialog';
-import Translate from '../components/Translate';
+// import Translate from '../components/Translate';
 
 const Deck = () => {
 
@@ -21,16 +21,16 @@ const Deck = () => {
     const [pronouncedUpdate, setPronouncedUpdate] = useState('');
     const [showUpdateBox, setShowUpdateBox] = useState<number | null>(null);
 
-    const [inputText, setInputText] = useState('');
+    // const [inputText, setInputText] = useState('');
     const [isTranslateAvailable, setIsTranslateAvailable] = useState(false);
-    const [outputText, setOutputText] = useState('');
+    // const [outputText, setOutputText] = useState('');
     const [languageList, setLanguageList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [inputLanguage, setInputLanguage] = useState('English');
-    const [outputLanguage, setOutputLanguage] = useState('Armenian');
+    // const [inputLanguage, setInputLanguage] = useState('English');
+    // const [outputLanguage, setOutputLanguage] = useState('Armenian');
     const [inputLanguageCode, setInputLanguageCode] = useState('en');
     const [outputLanguageCode, setOutputLanguageCode] = useState('hy');
-    const [data, setData] = useState(null);
+    // const [data, setData] = useState(null);
 
     const [q, setQ] = useState("");
 
@@ -103,7 +103,7 @@ const Deck = () => {
         let newSide1 = frontSideUpdate == '' ? side1 : frontSideUpdate
         let newSide2 = backSideUpdate == '' ? side2 : backSideUpdate
         try {
-            axiosInstance.post(`http://localhost:5000/api/deck/card/${id}`, {
+            axiosInstance.post(`/api/deck/card/${id}`, {
                 side1: newSide1,
                 side2: newSide2,
                 pronunciation: pronouncedUpdate
@@ -177,6 +177,7 @@ const Deck = () => {
         if (languageList.length <= 0) {
             fetchData();
         } else {
+            console.log(loading);
             setLoading(false);
         }
 
