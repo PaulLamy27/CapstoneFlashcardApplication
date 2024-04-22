@@ -12,11 +12,11 @@ const User = () => {
 
     const searchUser = async () => {
         try {
-            let url = `/api/user/search`;
-            if (firstName) url += `?firstname=${firstName}`;
-            if (lastName) url += `&lastname=${lastName}`;
-            if (username) url += `&username=${username}`;
-            if (email) url += `&email=${email}`;
+            let url = `/api/user/search/${firstName}/${lastName}/${username}/${email}`;
+            // if (firstName) url += `/${firstName}`;
+            // if (lastName) url += `/${lastName}`;
+            // if (username) url += `/${username}`;
+            // if (email) url += `/${email}`;
 
             const response = await axiosInstance.get(url);
             const data = await response.data;
