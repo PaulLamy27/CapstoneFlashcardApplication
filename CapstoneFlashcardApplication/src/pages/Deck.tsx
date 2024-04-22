@@ -26,11 +26,11 @@ const Deck = () => {
     // const [outputText, setOutputText] = useState('');
     const [languageList, setLanguageList] = useState([]);
     const [loading, setLoading] = useState(true);
-    // const [inputLanguage, setInputLanguage] = useState('English');
-    // const [outputLanguage, setOutputLanguage] = useState('Armenian');
+    const [inputLanguage, setInputLanguage] = useState('English');
+    const [outputLanguage, setOutputLanguage] = useState('Armenian');
     const [inputLanguageCode, setInputLanguageCode] = useState('en');
     const [outputLanguageCode, setOutputLanguageCode] = useState('hy');
-    // const [data, setData] = useState(null);
+    const [data, setData] = useState(null);
 
     const [q, setQ] = useState("");
 
@@ -71,7 +71,7 @@ const Deck = () => {
 
     const deleteCard = (side1, side2, pronunciation) => {
         try {
-            axiosInstance.delete(`http://localhost:5000/api/deck/${encodeURIComponent(deckName)}/card`, {
+            axiosInstance.delete(`/api/deck/${encodeURIComponent(deckName)}/card`, {
                 params: {
                     side1: side1,
                     side2: side2,
@@ -177,7 +177,6 @@ const Deck = () => {
         if (languageList.length <= 0) {
             fetchData();
         } else {
-            console.log(loading);
             setLoading(false);
         }
 
