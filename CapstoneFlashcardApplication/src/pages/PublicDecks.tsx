@@ -9,7 +9,7 @@ const PublicDecks = () => {
     const [q, setQ] = useState("");
 
     useEffect(() => {
-        axiosInstance.get(`/api/deck/publicdecks`, { withCredentials: true })
+        axiosInstance.get(`/api/deck/publicdecks`)
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
