@@ -32,7 +32,6 @@ const Study = () => {
         side2: "",
         priority: 0
     });
-    const [isResults, setIsResults] = useState(false);
     const [correctList, setCorrectList] = useState(Array<CardInfo>(0).fill(null));
     const [wrongList, setWrongList] = useState(Array<CardInfo>(0).fill(null));
     const [isStudyComplete, setIsStudyComplete] = useState(false);
@@ -71,13 +70,14 @@ const Study = () => {
         });
         // legacy
         //if (deckSize > 0) { setCurrentCard(getNextCard); }
-        if (deckSize > 0 && !isStudyComplete) {
-            setCurrentCard(getRandomCard);
-        } else if (deckSize === 0 && !isStudyComplete) {
-            populateCardList();
-            console.log(setIsResults);
-            console.log(isResults);
-        }
+        // if (deckSize > 0 && !isStudyComplete) {
+        //     setCurrentCard(getRandomCard);
+        // } else if (deckSize === 0 && !isStudyComplete) {
+        //     populateCardList();
+        //     console.log(setIsResults);
+        //     console.log(isResults);
+        // }
+        setCurrentCard(getRandomCard);
     }, [cardsList]);
 
     const getRandomCard = () => {
@@ -131,6 +131,10 @@ const Study = () => {
 
     const handleCorrectCards = (currentCard: CardInfo) => {
         setDeckSize(deckSize - 1);
+        
+        // if(wrongList.length === 0){
+        //     setIsStudyComplete(true);
+        // }
         setCorrectList([...correctList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
@@ -140,6 +144,10 @@ const Study = () => {
 
     const handleWrongCards = (currentCard: CardInfo) => {
         setDeckSize(deckSize - 1);
+        
+        // if(wrongList.length === 0){
+        //     setIsStudyComplete(true);
+        // }
         setWrongList([...wrongList, currentCard]);
         setCardsList((cardsList) =>
             cardsList.filter((card) => card !== currentCard)
@@ -161,16 +169,21 @@ const Study = () => {
         }
     }
 
+    // what happens when the user goes thru all cards and trys again
     const handleTryAgain = (wrongList: CardInfo[]) => {
+        // new deck and deck size is all wrong cards
         setDeckSize(wrongList.length);
+        setCardsList(wrongList);
+
         if (wrongList.length === 0) {
             setIsStudyComplete(true);
         }
-        setCardsList(wrongList);
 
         console.log("handleTryAgain; cardsList: ", cardsList);
+        // update the card on the empty list
         updateCardTryAgain();
         console.log("wrongList: ", wrongList);
+        // empty wrong list
         setWrongList([]);
     }
 
@@ -201,6 +214,12 @@ const Study = () => {
         <>
             <div className="App">
 
+                {/* on load: 
+                    isRandomOrPriority: true
+
+                    after deck empty: 
+
+                */}
                 {isRandomOrPriority && (
                     <div className="mx-auto mt-10">
                         <div className="flex flex-wrap justify-center bg-transparent">
@@ -233,14 +252,16 @@ const Study = () => {
                     </div>
                 )}
 
-                {!isStudyComplete && deckSize === 0 && (
+
+                {deckSize === 0 && !isStudyComplete && (
                     <div>
                         <DisplayResults right={correctList} wrong={wrongList} />
                         <TryAgain onClick={() => handleTryAgain(wrongList)} />
                     </div>
                 )}
 
-                {isStudyComplete && deckSize === 0 && wrongList.length === 0 && (
+                {/* {isStudyComplete && deckSize === 0 && wrongList.length === 0 && ( */}
+                {isStudyComplete && deckSize === 0 && wrongList.length === 0 &&(
                     <>
                         <div className="mt-10 flex items-center justify-center">
                             <h1 className="text-5xl text-skin-header font-bold">
