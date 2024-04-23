@@ -26,7 +26,9 @@ const YourDecks = () => {
         console.log("sending a request to make a new deck with the name ", deckName);
 
         if (deckName !== '') {
-            axiosInstance.post(`/api/deck/new/${deckName}`)
+            const userId = sessionStorage.getItem('id');
+            console.log("userId", userId);
+            axiosInstance.post(`/api/deck/new/${deckName}/${userId}`)
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
