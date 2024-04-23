@@ -74,7 +74,7 @@ const Hero = () => {
               <p className='text-[#00df9a] font-bold p-2'>GROWING WITH FLASHCARDS</p>
               <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>Be your own mentor.</h1>
               <div className='flex justify-center items-center'>
-                <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for</p>
+                <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for anything.</p>
               </div>
               <p className='md:text-2xl text-xl font-bold text-gray-500'>Create decks and add cards to study for that next big test or to simply learn</p>
               <h3>You are authorized: {name}</h3>
@@ -85,7 +85,7 @@ const Hero = () => {
               <p className='text-[#00df9a] font-bold p-2'>GROWING WITH FLASHCARDS</p>
               <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>Be your own mentor.</h1>
               <div className='flex justify-center items-center'>
-                <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for</p>
+                <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4'>Use CardMentor for anything.</p>
               </div>
               <p className='md:text-2xl text-xl font-bold text-gray-500'>Create decks and add cards to study for that next big test or to simply learn</p>
               <h3>{message}</h3>
