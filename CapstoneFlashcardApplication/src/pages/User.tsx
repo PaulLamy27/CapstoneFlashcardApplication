@@ -9,13 +9,13 @@ const User = () => {
 
     const searchUser = async () => {
         try {
-            let url = `/api/user/search/${username}`;
+            // let url = `/api/user/search/${username}`;
             // if (firstName) url += `/${firstName}`;
             // if (lastName) url += `/${lastName}`;
             // if (username) url += `/${username}`;
             // if (email) url += `/${email}`;
 
-            const response = await axiosInstance.get(url);
+            const response = await axiosInstance.get(`/api/user/search/${username}`);
             const data = await response.data;
             setUserList(data);
         } catch (error) {
