@@ -24,7 +24,7 @@ const Registration = () => {
 
     const url = "/api/registration/create";
 
-    axiosInstance.post(url, registrationData, { withCredentials: true })
+    axiosInstance.post(url, registrationData)
       .then((res) => {
         console.log(res.data);
         navigate("/login")
