@@ -1,6 +1,7 @@
 import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import axiosInstance from "../axiosInstance";
 
 const Registration = () => { 
 
@@ -22,9 +23,9 @@ const Registration = () => {
       password: password,
     };
 
-    const url = "http://localhost:5000/api/registration/create";
+    const url = "/api/registration/create";
 
-    axios.post(url, registrationData, { withCredentials: true })
+    axiosInstance.post(url, registrationData, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
         navigate("/login")
