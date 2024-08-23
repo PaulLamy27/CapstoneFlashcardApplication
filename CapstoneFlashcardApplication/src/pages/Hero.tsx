@@ -57,12 +57,9 @@ const Hero = () => {
   }, [])
 
   const handleDelete = () => {
-    axiosInstance.get('/logout')
-      .then(res => {
-        console.log("res: ", res);
-        location.reload();
-      }).catch(err => console.log(err));
-    console.log("handleDelete");
+    console.log("logging out...");
+    sessionStorage.clear();
+    window.location.reload();  
   }
 
   return (
