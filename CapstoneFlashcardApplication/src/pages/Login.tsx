@@ -55,10 +55,6 @@ const Login = () => {
             Sign in
           </button>
           <div className="flex justify-between">
-            <p className="flex items-center">
-              <input className="mr-1" type="checkbox" />
-              Remember me
-            </p>
             <p>
               <Link to="/registration">Create an account</Link>
             </p>
