@@ -46,7 +46,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5000/api/user/change-password', {
+            const response = await axios.post('/api/user/change-password', {
                 userId,
                 currentPassword,
                 newPassword,
@@ -68,7 +68,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
 
     const updateUsername = async (newUsername, password) => {
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post('/login', {
                 username: newUsername,
                 password: password
             });
@@ -91,7 +91,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5000/api/user/change-username', {
+            const response = await axios.post('/api/user/change-username', {
                 userId,
                 newUsername,
             });
@@ -176,7 +176,7 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
     const { username: profileUsername } = useParams();
 
     // useEffect(() => {
-    //     axios.get('http://localhost:5000')
+    //     axios.get('')
     //         .then(res => {
     //             if (res.data.Status === "Success") {
     //                 setAuth(true)
@@ -199,12 +199,11 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
 
     useEffect(() => {
         const username = sessionStorage.getItem('username');
-        axios.get(`http://localhost:5000/api/deck/user/publicdecks/${username}`, { withCredentials: true })
         const userId = sessionStorage.getItem('id');
         console.log("userId", userId);
         {userId ? setAuth(true) : setAuth(false)};
         {username ? setUsername(username) : setUsername('')};
-        axiosInstance.get(`/api/deck/user/${userId}`)
+        axiosInstance.get(`/api/deck/publicdecks/${profileUsername}`)
             .then((res) => {
                 console.log(res.data);
                 const titles = res.data.map((deck: { title: String; }) => deck.title);
@@ -224,7 +223,9 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
             <div className='text-skin-base max-w-[800px] w-full h-screen mx-auto'>
                 <div className='flex flex-col lg:justify-center sm:text-center'>
                     <div className='flex flex-col lg:flex-row'>
-                        <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello</h1>
+                        { auth && username === profileUsername &&
+			<h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello</h1>
+			}
                         <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-skin-header'>{profileUsername}</h1>
                         <div className='text-skin-inverted mx-auto h-8 font-medium mt-10'>
                             <select id="themes" onChange={handleThemeChange} value={currentTheme}>
