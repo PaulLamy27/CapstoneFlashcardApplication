@@ -201,8 +201,8 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
         const username = sessionStorage.getItem('username');
         const userId = sessionStorage.getItem('id');
         console.log("userId", userId);
-        {userId ? setAuth(true) : setAuth(false)};
-        {username ? setUsername(username) : setUsername('')};
+        { userId ? setAuth(true) : setAuth(false) };
+        { username ? setUsername(username) : setUsername('') };
         axiosInstance.get(`/api/deck/publicdecks/${profileUsername}`)
             .then((res) => {
                 console.log(res.data);
@@ -223,19 +223,20 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
             <div className='text-skin-base max-w-[800px] w-full h-screen mx-auto'>
                 <div className='flex flex-col lg:justify-center sm:text-center'>
                     <div className='flex flex-col lg:flex-row'>
-                        { auth && username === profileUsername &&
-			<h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello</h1>
-			}
+                        {auth && username === profileUsername &&
+                            <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 pr-4'>Hello</h1>
+                        }
                         <h1 className='md:text-3xl sm:text-6xl text-4xl font-bold md:py-6 text-skin-header'>{profileUsername}</h1>
-                        <div className='text-skin-inverted mx-auto h-8 font-medium mt-10'>
-                            <select id="themes" onChange={handleThemeChange} value={currentTheme}>
-                                <option value="" selected>Default</option>
-                                <option value="light">Light</option>
-                            </select>
-                        </div>
-                        {auth && username === profileUsername && (
+                        {auth && username === profileUsername && <>
+                            <div className='text-skin-inverted mx-auto h-8 font-medium mt-10'>
+                                <select id="themes" onChange={handleThemeChange} value={currentTheme}>
+                                    <option value="" selected>Default</option>
+                                    <option value="light">Light</option>
+                                </select>
+                            </div>
                             <button className='text-skin-dark bg-skin-button hover:bg-skin-bottonselect mx-auto my-8 h-8 w-[130px] rounded-md font-medium' onClick={handleOpenModal}>Profile Settings</button>
-                        )}
+                            <ProfileSettingsModal isOpen={isModalOpen} onClose={handleCloseModal} />
+                        </>}
                         <ProfileSettingsModal isOpen={isModalOpen} onClose={handleCloseModal} />
                     </div>
                     <div>
@@ -252,7 +253,7 @@ const Profile = ({ handleThemeChange, currentTheme }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <Routes>
                 <Route path="/your-decks/*" element={<YourDecks />} />
             </Routes>

@@ -34,13 +34,12 @@ const User = () => {
                             SEARCH</button>
                     </div>
                     <div className="grid grid-cols-3 p-5">
-                        {userList.map((user,index) => (
-                            <li className=' relative group cursor-pointer font-martel-sans font-rubik bg-skin-inverted hover:bg-skin-select block text-center p-5 m-5' key={index}>
-                                <Link to={`/profile/${user.username}`}>
-                                    < p className='text-xl font-semibold'>{user.firstname} {user.lastname}</p>
-                                    {user.username} <br />
-                                </Link>
-                            </li>
+                        {userList.map((user, index) => (
+                            <Link to={`/profile/${user.username}`}>
+                                <li className='relative group cursor-pointer font-martel-sans font-rubik bg-skin-inverted hover:bg-skin-select block text-center p-7 m-5 w-32' key={index}>
+                                    {user.username} 
+                                </li>
+                            </Link>
                         ))}
                     </div>
                 </div>
