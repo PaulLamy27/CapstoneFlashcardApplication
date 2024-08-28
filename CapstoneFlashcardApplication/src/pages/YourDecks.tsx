@@ -68,7 +68,8 @@ const YourDecks = () => {
 
     const updateDeck = (index, title, isPublic) => {
         try {
-            axiosInstance.post(`/api/deck/${title}?isPublic=${isPublic}`)
+            const token = sessionStorage.getItem('userToken');
+            axiosInstance.post(`/api/deck/${title}?isPublic=${isPublic}`, null, {headers: {'Authorization': `Bearer ${token}`}})
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
