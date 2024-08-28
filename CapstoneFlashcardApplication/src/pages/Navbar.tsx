@@ -117,9 +117,9 @@ const Navbar = () => {
         <li className="p-4">
           {
             auth ?
-              <Link to="/user">Search user</Link>
+              <Link to="/user">Search User</Link>
               :
-              <Link to="/login">Search user</Link>
+              <Link to="/login">Search User</Link>
           }
         </li>
         <li className="p-4">
