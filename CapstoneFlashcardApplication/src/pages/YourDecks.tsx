@@ -68,7 +68,7 @@ const YourDecks = () => {
 
     const updateDeck = (index, title, isPublic) => {
         try {
-            axiosInstance.post(`/api/deck/${title}?isPublic=${isPublic}`)
+            axiosInstance.post(`/api/deck/${title}/${isPublic}`)
                 .then((res) => {
                     const response = res.data;
                     console.log("success: ", response);
